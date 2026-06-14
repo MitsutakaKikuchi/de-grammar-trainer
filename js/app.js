@@ -98,12 +98,9 @@
 
   /* ---------- 文法解説 ---------- */
 
-  function renderLektion(lektionId) {
-    homeBtn.classList.remove('hidden');
-    const lek = LEKTIONEN.find((l) => l.id === lektionId);
-    if (!lek) return renderHome();
-
-    const sections = lek.grammar.map((sec) => `
+  /** 解説セクション群の HTML を組み立てる（詳細ビュー・オーバーレイで共用） */
+  function buildGrammarSections(lek) {
+    return lek.grammar.map((sec) => `
       <div class="g-section">
         <h3 class="g-heading">${esc(sec.heading)}</h3>
         ${sec.body ? `<p class="g-body">${esc(sec.body)}</p>` : ''}
@@ -111,6 +108,51 @@
         ${sec.notes ? `<ul class="g-notes">${sec.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}
       </div>
     `).join('');
+  }
+
+  /**
+   * クイズ中に解説をオーバーレイ表示する。クイズのDOMは保持されるため、
+   * 閉じると解いていた問題の状態にそのまま戻れる。
+   */
+  function showGrammarOverlay(lek) {
+    const overlay = document.createElement('div');
+    overlay.className = 'overlay';
+    overlay.innerHTML = `
+      <div class="overlay-panel" style="--accent:${lek.accent}" role="dialog" aria-modal="true" aria-label="文法解説">
+        <div class="overlay-head">
+          <h2 class="overlay-title">Lektion ${lek.id} の解説</h2>
+          <button class="overlay-close" id="overlayClose" aria-label="閉じて問題に戻る">×</button>
+        </div>
+        <div class="overlay-body">${buildGrammarSections(lek)}</div>
+        <button class="btn btn-primary overlay-back" id="overlayBack">← 問題に戻る</button>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+    document.body.classList.add('no-scroll');
+
+    const close = () => {
+      overlay.classList.add('overlay--leaving');
+      document.body.classList.remove('no-scroll');
+      setTimeout(() => overlay.remove(), reduceMotion ? 0 : 200);
+    };
+    overlay.querySelector('#overlayClose').addEventListener('click', () => { vibrate(8); close(); });
+    overlay.querySelector('#overlayBack').addEventListener('click', () => { vibrate(8); close(); });
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+    // 入場アニメーション
+    if (!reduceMotion) {
+      void overlay.offsetWidth;
+      overlay.classList.add('overlay--in');
+    } else {
+      overlay.classList.add('overlay--in');
+    }
+  }
+
+  function renderLektion(lektionId) {
+    homeBtn.classList.remove('hidden');
+    const lek = LEKTIONEN.find((l) => l.id === lektionId);
+    if (!lek) return renderHome();
+
+    const sections = buildGrammarSections(lek);
 
     const count = QUESTIONS.filter((q) => q.lektion === lektionId).length;
 
@@ -123,7 +165,7 @@
           <p class="lektion-ja">${esc(lek.subtitleJa)}</p>
         </div>
         <div class="grammar">${sections}</div>
-        <button class="btn btn-primary btn-start" id="startBtn">クイズを始める（全${count}問）</button>
+        <button class="btn btn-primary btn-start" id="startBtn">クイズを始める（10問ずつ・全${count}問）</button>
       </section>
     `);
 
@@ -144,7 +186,9 @@
     const lek = LEKTIONEN.find((l) => l.id === session.lektionId);
     const q = Quiz.current(session);
     const p = Quiz.progress(session);
+    const r = Quiz.roundInfo(session);
     const pct = Math.round(((p.current - 1) / p.total) * 100);
+    const roundLabel = r.totalRounds > 1 ? `ラウンド ${r.round} / ${r.totalRounds}` : '';
 
     const choices = q.choices.map((c, i) => `
       <button class="choice" data-index="${i}">
@@ -155,6 +199,10 @@
 
     mountView(`
       <section class="quiz" style="--accent:${lek.accent}">
+        <div class="quiz-top">
+          ${roundLabel ? `<span class="quiz-round">${roundLabel}</span>` : '<span></span>'}
+          <button class="btn btn-ghost btn-grammar" id="grammarBtn" type="button">📖 解説を見る</button>
+        </div>
         <div class="quiz-bar">
           <div class="quiz-progress"><div class="quiz-progress-fill" style="width:${pct}%"></div></div>
           <span class="quiz-count">${p.current} / ${p.total}</span>
@@ -174,6 +222,11 @@
     const hintEl = document.getElementById('hint');
     const feedbackEl = document.getElementById('feedback');
     const nextBtn = document.getElementById('nextBtn');
+
+    document.getElementById('grammarBtn').addEventListener('click', () => {
+      vibrate(8);
+      showGrammarOverlay(lek);
+    });
 
     hintBtn.addEventListener('click', () => {
       hintEl.hidden = false;
@@ -237,6 +290,8 @@
     const rate = Math.round((correct / total) * 100);
     Storage.saveResult(session.lektionId, correct, total);
 
+    const r = Quiz.roundInfo(session);
+    const hasNext = Quiz.hasNextRound(session);
     const wrong = Quiz.wrongAnswers(session);
     const message =
       rate === 100 ? '完璧です！🎉' : rate >= 80 ? 'すばらしい！💪' : rate >= 50 ? 'その調子！📚' : 'もう一度復習しよう！';
@@ -254,7 +309,14 @@
             </div>
           `).join('')}
         </div>`
-      : '<p class="all-correct">全問正解！この調子で他のレッスンも挑戦しましょう。✨</p>';
+      : '<p class="all-correct">全問正解！この調子で続けましょう。✨</p>';
+
+    const roundLabel = r.totalRounds > 1 ? `ラウンド ${r.round} / ${r.totalRounds}　` : '';
+    // 続きがあれば「続きを解く」を主ボタンに、なければ「もう一度」を主ボタンにする
+    const nextHtml = hasNext
+      ? '<button class="btn btn-primary" id="nextRoundBtn">続きを解く →</button>'
+      : '';
+    const retryClass = hasNext ? 'btn btn-ghost' : 'btn btn-primary';
 
     mountView(`
       <section class="result" style="--accent:${lek.accent}">
@@ -264,16 +326,25 @@
           </div>
         </div>
         <p class="result-msg">${message}</p>
-        <p class="result-detail">Lektion ${lek.id} ／ ${correct} / ${total} 問正解</p>
+        <p class="result-detail">Lektion ${lek.id} ／ ${roundLabel}${correct} / ${total} 問正解</p>
+        ${hasNext ? '<p class="result-hint">残りの問題があります。「続きを解く」で次の10問に挑戦できます。</p>' : ''}
         ${reviewHtml}
         <div class="result-actions">
-          <button class="btn btn-primary" id="retryBtn">もう一度</button>
+          ${nextHtml}
+          <button class="${retryClass}" id="retryBtn">最初から</button>
           <button class="btn btn-ghost" id="backBtn">ホームへ</button>
         </div>
       </section>
     `);
 
     animateCount(document.querySelector('.score-num'), rate);
+    if (hasNext) {
+      document.getElementById('nextRoundBtn').addEventListener('click', () => {
+        vibrate(8);
+        Quiz.startNextRound(session);
+        renderQuestion();
+      });
+    }
     document.getElementById('retryBtn').addEventListener('click', () => {
       vibrate(8);
       startQuiz(session.lektionId);
