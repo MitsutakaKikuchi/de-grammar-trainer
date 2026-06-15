@@ -1138,6 +1138,15 @@ const QUESTIONS = [
     explanation: 'Ich finde den Film gut.（私はその映画を良いと思う。）finden（～だと思う）は4格＋形容詞の形を取る動詞。男性名詞 Film の定冠詞は1格 der → 4格 den に変化する。',
     tip: 'finden + 4格 + 形容詞で「（4格）を（形容詞）だと思う」という意味になる。Ich finde den Film gut. の形を文型として覚えておくと応用しやすい。',
   },
+  {
+    id: 'l3-41', lektion: 3, category: '格支配',
+    prompt: 'Der Schüler antwortet ___ Lehrer.（その生徒はその先生に答える・男性3格）',
+    choices: ['der', 'des', 'dem', 'den'],
+    answer: 2,
+    hint: 'antworten は3格支配。男性3格は dem。',
+    explanation: 'Der Schüler antwortet dem Lehrer.（その生徒はその先生に答える。）日本語では「～に答える」だが、antworten（答える）は3格支配の動詞。男性名詞の定冠詞3格は der → dem に変化する。',
+    tip: 'Der Lehrer fragt den Schüler.（4格）と Der Schüler antwortet dem Lehrer.（3格）を対比すると、fragen＝4格支配、antworten＝3格支配と覚えやすい。helfen, danken と同じ3格支配グループ。',
+  },
 
   /* ===================== Lektion 4 ===================== */
   {
