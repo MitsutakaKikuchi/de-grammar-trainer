@@ -376,10 +376,18 @@ tbody tr:nth-child(even) td { background: var(--surface-2); }
   border-radius: 999px;
   margin-bottom: 10px;
 }
+.quiz-translation {
+  margin: 0 0 8px;
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.5;
+}
 .quiz-prompt {
   margin: 0 0 20px;
-  font-size: 1.18rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-soft);
   line-height: 1.5;
 }
 

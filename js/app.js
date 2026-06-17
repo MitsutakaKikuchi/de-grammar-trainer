@@ -22,9 +22,21 @@
       .replace(/"/g, '&quot;');
   }
 
-  /** 問題文の括弧内から格・冠詞・代名詞等の文法サフィックスを除去（ヒントに移動するため） */
+  /** 問題文の括弧内から格・冠詞・代名詞等の文法サフィックスを除去 */
   function stripGrammarHint(prompt) {
     return prompt.replace(/・[^）]*(?:格|冠詞|代名詞|自動詞|他動詞|変化)[^）]*/g, '');
+  }
+
+  /** 問題文から日本語訳（括弧内）を抽出して返す */
+  function extractTranslation(prompt) {
+    const stripped = stripGrammarHint(prompt);
+    const m = stripped.match(/（([^）]*)）/);
+    return m ? m[1].trim() : '';
+  }
+
+  /** 問題文からドイツ語部分のみを返す（括弧部分を除去） */
+  function germanOnly(prompt) {
+    return prompt.replace(/（[^）]*）/g, '').trim();
   }
 
   /* ---------- 格変化ヒント表 ---------- */
@@ -308,7 +320,8 @@
           <span class="quiz-count">${p.current} / ${p.total}</span>
         </div>
         <span class="quiz-cat">${session.mode !== 'lektion' ? `Lektion ${lek.id}・` : ''}${esc(q.category)}</span>
-        <h2 class="quiz-prompt">${esc(stripGrammarHint(q.prompt))}</h2>
+        ${extractTranslation(q.prompt) ? `<p class="quiz-translation">${esc(extractTranslation(q.prompt))}</p>` : ''}
+        <h2 class="quiz-prompt">${esc(germanOnly(q.prompt))}</h2>
         <div class="choices" id="choices">${choices}</div>
         <button class="btn btn-ghost btn-hint" id="hintBtn">💡 ヒントを見る</button>
         <div class="hint" id="hint" hidden>${esc(q.hint)}${hintTableFor(q)}</div>
