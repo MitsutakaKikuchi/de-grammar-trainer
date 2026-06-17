@@ -27,13 +27,6 @@
     return prompt.replace(/・[^）]*(?:格|冠詞|代名詞|自動詞|他動詞|変化)[^）]*/g, '');
   }
 
-  /** 問題文から日本語訳（括弧内）を抽出して返す */
-  function extractTranslation(prompt) {
-    const stripped = stripGrammarHint(prompt);
-    const m = stripped.match(/（([^）]*)）/);
-    return m ? m[1].trim() : '';
-  }
-
   /** 問題文からドイツ語部分のみを返す（括弧部分を除去） */
   function germanOnly(prompt) {
     return prompt.replace(/（[^）]*）/g, '').trim();
@@ -320,7 +313,7 @@
           <span class="quiz-count">${p.current} / ${p.total}</span>
         </div>
         <span class="quiz-cat">${session.mode !== 'lektion' ? `Lektion ${lek.id}・` : ''}${esc(q.category)}</span>
-        ${extractTranslation(q.prompt) ? `<p class="quiz-translation">${esc(extractTranslation(q.prompt))}</p>` : ''}
+        ${q.translation ? `<p class="quiz-translation">${esc(q.translation)}</p>` : ''}
         <h2 class="quiz-prompt">${esc(germanOnly(q.prompt))}</h2>
         <div class="choices" id="choices">${choices}</div>
         <button class="btn btn-ghost btn-hint" id="hintBtn">💡 ヒントを見る</button>
