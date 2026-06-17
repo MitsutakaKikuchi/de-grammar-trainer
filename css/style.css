@@ -559,8 +559,8 @@ tbody tr:nth-child(even) td { background: var(--surface-2); }
   padding: 18px;
   border-radius: var(--radius);
 }
-.result-actions { display: flex; gap: 12px; margin-top: 24px; }
-.result-actions .btn { flex: 1; }
+.result-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.result-actions .btn { flex: 1; min-width: 140px; }
 
 /* ====================== 紙吹雪 ====================== */
 .confetti-layer {
@@ -643,6 +643,19 @@ body.no-scroll { overflow: hidden; }
 }
 .overlay-body { overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 14px 0 16px; }
 .overlay-back { width: 100%; margin: 4px 0 16px; }
+
+/* ====================== スマホ向けボタンレイアウト ====================== */
+@media (max-width: 480px) {
+  .result-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .result-actions .btn {
+    flex: none;
+    width: 100%;
+    min-width: 0;
+  }
+}
 
 /* ====================== モーション低減 ====================== */
 @media (prefers-reduced-motion: reduce) {
