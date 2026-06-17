@@ -22,6 +22,11 @@
       .replace(/"/g, '&quot;');
   }
 
+  /** 問題文の括弧内から格・冠詞・代名詞等の文法サフィックスを除去（ヒントに移動するため） */
+  function stripGrammarHint(prompt) {
+    return prompt.replace(/・[^）]*(?:格|冠詞|代名詞|自動詞|他動詞|変化)[^）]*/g, '');
+  }
+
   /* ---------- 格変化ヒント表 ---------- */
 
   const HINT_TABLE_DEF = `
@@ -303,7 +308,7 @@
           <span class="quiz-count">${p.current} / ${p.total}</span>
         </div>
         <span class="quiz-cat">${session.mode !== 'lektion' ? `Lektion ${lek.id}・` : ''}${esc(q.category)}</span>
-        <h2 class="quiz-prompt">${esc(q.prompt)}</h2>
+        <h2 class="quiz-prompt">${esc(stripGrammarHint(q.prompt))}</h2>
         <div class="choices" id="choices">${choices}</div>
         <button class="btn btn-ghost btn-hint" id="hintBtn">💡 ヒントを見る</button>
         <div class="hint" id="hint" hidden>${esc(q.hint)}${hintTableFor(q)}</div>
