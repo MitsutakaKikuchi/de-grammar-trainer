@@ -22,6 +22,48 @@
       .replace(/"/g, '&quot;');
   }
 
+  /* ---------- 格変化ヒント表 ---------- */
+
+  const HINT_TABLE_DEF = `
+<p class="hint-table-label">📋 定冠詞の格変化</p>
+<table class="hint-table">
+  <thead><tr><th></th><th>男性</th><th>女性</th><th>中性</th><th>複数</th></tr></thead>
+  <tbody>
+    <tr><th>1格</th><td>der</td><td>die</td><td>das</td><td>die</td></tr>
+    <tr><th>2格</th><td>des</td><td>der</td><td>des</td><td>der</td></tr>
+    <tr><th>3格</th><td>dem</td><td>der</td><td>dem</td><td>den</td></tr>
+    <tr><th>4格</th><td>den</td><td>die</td><td>das</td><td>die</td></tr>
+  </tbody>
+</table>`;
+
+  const HINT_TABLE_PRON = `
+<p class="hint-table-label">📋 人称代名詞の格変化</p>
+<table class="hint-table">
+  <thead><tr><th>1格</th><th>3格（に）</th><th>4格（を）</th></tr></thead>
+  <tbody>
+    <tr><td>ich</td><td>mir</td><td>mich</td></tr>
+    <tr><td>du</td><td>dir</td><td>dich</td></tr>
+    <tr><td>er</td><td>ihm</td><td>ihn</td></tr>
+    <tr><td>sie</td><td>ihr</td><td>sie</td></tr>
+    <tr><td>es</td><td>ihm</td><td>es</td></tr>
+    <tr><td>wir</td><td>uns</td><td>uns</td></tr>
+    <tr><td>ihr</td><td>euch</td><td>euch</td></tr>
+    <tr><td>sie/Sie</td><td>ihnen/Ihnen</td><td>sie/Sie</td></tr>
+  </tbody>
+</table>`;
+
+  const PRON_MARKERS = new Set(['mich', 'mir', 'ihn', 'ihm', 'dich', 'dir', 'uns', 'euch', 'ihnen', 'Ihnen', 'sich']);
+  const ART_MARKERS = new Set(['der', 'die', 'das', 'dem', 'den', 'des', 'ein', 'eine', 'einen', 'einem', 'einer', 'eines']);
+
+  /** 問題の選択肢から格変化表HTMLを返す。不要なら空文字。 */
+  function hintTableFor(q) {
+    const short = q.choices.filter((c) => !String(c).includes(' '));
+    if (short.length < 2) return '';
+    if (short.some((c) => PRON_MARKERS.has(c))) return HINT_TABLE_PRON;
+    if (short.some((c) => ART_MARKERS.has(c))) return HINT_TABLE_DEF;
+    return '';
+  }
+
   /** 解説データの table を HTML テーブル文字列に変換 */
   function buildTable(table) {
     if (!table) return '';
@@ -264,7 +306,7 @@
         <h2 class="quiz-prompt">${esc(q.prompt)}</h2>
         <div class="choices" id="choices">${choices}</div>
         <button class="btn btn-ghost btn-hint" id="hintBtn">💡 ヒントを見る</button>
-        <div class="hint" id="hint" hidden>${esc(q.hint)}</div>
+        <div class="hint" id="hint" hidden>${esc(q.hint)}${hintTableFor(q)}</div>
         <div class="feedback" id="feedback" aria-live="polite" hidden></div>
         <button class="btn btn-primary btn-next" id="nextBtn" hidden></button>
       </section>
