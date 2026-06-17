@@ -458,7 +458,7 @@ const LEKTIONEN = [
     title: '格支配 完全マスター（自動詞・他動詞）',
     subtitle: 'Ich gebe dem Kind das Buch.',
     subtitleJa: '私はその子にその本を与えます。',
-    themes: ['4格動詞', '3格動詞', '3格＋4格動詞', '自動詞・他動詞'],
+    themes: ['4格動詞', '3格動詞', '3格＋4格動詞', '自動詞・他動詞', '二重4格'],
     accent: '#14b8a6',
     grammar: [
       {
@@ -530,6 +530,23 @@ const LEKTIONEN = [
         notes: [
           '語順は通常「3格（人）→ 4格（物）」。ただし4格が代名詞だと「4格 → 3格」になる（Ich gebe es dem Kind.）。',
           '名詞と代名詞では「代名詞が先」。Ich gebe ihm das Buch. / Ich gebe es ihm.',
+        ],
+      },
+      {
+        heading: '⑥ 二重4格（4格＋4格）をとる動詞',
+        body: '通常の他動詞は4格目的語を1つとるが、一部の動詞は「人（4格）＋物/内容（4格）」という2つの4格目的語をとる。「人に」にあたる部分でも3格にならない点に注意。',
+        table: {
+          headers: ['動詞', '意味', '例（二重4格）'],
+          rows: [
+            ['kosten', '（費用・時間が）かかる', 'Das kostet mich viel Geld.'],
+            ['lehren', '教える', 'Er lehrt mich Deutsch.'],
+            ['nennen', '呼ぶ・名付ける', 'Ich nenne ihn einen Freund.'],
+            ['fragen', '尋ねる', 'Er fragt mich etwas.'],
+          ],
+        },
+        notes: [
+          '「人に（相当）」の部分が3格ではなく4格になる：mich / dich / ihn / sie / uns / euch / sie。',
+          '3格支配の helfen（Ich helfe ihm.）や geben（Ich gebe ihm das Buch.）と混同しないよう対比して覚える。',
         ],
       },
       {
