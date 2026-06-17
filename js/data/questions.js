@@ -1585,7 +1585,7 @@ const QUESTIONS = [
   },
   {
     id: 'l5-09', lektion: 5, category: '指示代名詞',
-    prompt: 'Kennen Sie den Mann dort? — Nein, ___ kenne ich nicht.（彼を）',
+    prompt: 'Kennen Sie diesen Mann? — Nein, ___ kenne ich nicht.（彼を）',
     choices: ['der', 'dem', 'den', 'dessen'],
     answer: 2,
     hint: 'kennen は4格。男性4格の指示代名詞は？',
@@ -1992,7 +1992,7 @@ const QUESTIONS = [
   },
   {
     id: 'l6-14', lektion: 6, category: '前置詞の格支配',
-    prompt: 'Ich komme ___ der Schule.（学校から / aus）',
+    prompt: 'Ich komme aus ___ Schule.（学校から）',
     choices: ['der', 'die', 'dem', 'den'],
     answer: 0,
     hint: 'aus は3格支配。Schule は女性名詞。',
@@ -2127,7 +2127,7 @@ const QUESTIONS = [
   },
   {
     id: 'l6-29', lektion: 6, category: '前置詞の格支配',
-    prompt: 'Das Geschenk ist ___ dich.（君のために・für は常に4格）',
+    prompt: 'Das Geschenk ist für ___.（君のために）',
     choices: ['du', 'dich', 'dir', 'dein'],
     answer: 1,
     hint: 'für は常に4格支配。du の4格は？',
