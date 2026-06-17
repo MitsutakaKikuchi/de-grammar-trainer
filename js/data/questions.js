@@ -776,7 +776,7 @@ const QUESTIONS = [
   {
     id: 'l3-01', lektion: 3, category: '定冠詞の格変化',
     prompt: 'Ich schreibe ___ Mann eine E-Mail.（その男性に）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 2,
     hint: 'schreiben は「(3格)に(4格)を書く」。「その男性に」＝3格。',
     explanation: '男性3格の定冠詞はdem。der=1格、des=2格、den=4格。schreibenは「3格(～に)＋4格(～を)」を取る動詞で、eine E-Mail（4格・女性）が「書くもの」、dem Mann（3格）が「書く相手」になる。',
@@ -785,7 +785,7 @@ const QUESTIONS = [
   {
     id: 'l3-02', lektion: 3, category: '定冠詞の格変化',
     prompt: 'Ich kenne ___ Mann sehr gut.（その男性を）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 3,
     hint: 'kennen は4格を取る。「その男性を」＝4格。',
     explanation: '男性4格の定冠詞はden → den Mann。kennen（知っている）は直接目的語（4格）を取る代表的な動詞。「～を知っている」の「～を」がそのまま4格に対応する。',
@@ -794,7 +794,7 @@ const QUESTIONS = [
   {
     id: 'l3-03', lektion: 3, category: '定冠詞の格変化（2格）',
     prompt: 'Der Bruder ___ Mannes spielt Klavier.（その男性の兄弟）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['die', 'des', 'dem', 'den'],
     answer: 1,
     hint: '「～の」＝2格。男性2格は名詞にも -es が付く。',
     explanation: '男性2格はdes（des Mannes）。「～の」という所有・所属を表す2格は、冠詞がdesに変わるだけでなく、男性・中性名詞自体にも-s/-esが付く（Mann→Mannes）のが特徴。',
@@ -812,7 +812,7 @@ const QUESTIONS = [
   {
     id: 'l3-05', lektion: 3, category: '不定冠詞の格変化',
     prompt: 'Sie schreibt der Tante ___ Brief.（手紙を・男性4格）',
-    choices: ['ein', 'einen', 'einem', 'eines'],
+    choices: ['ein', 'einen', 'eine', 'einem'],
     answer: 1,
     hint: 'Brief は男性名詞、「手紙を」＝4格。',
     explanation: '男性4格の不定冠詞はeinen → einen Brief。男性名詞の不定冠詞は1格ein→2格eines→3格einem→4格einenと変化し、定冠詞のder-des-dem-denと語尾のパターンが対応している。',
@@ -857,7 +857,7 @@ const QUESTIONS = [
   {
     id: 'l3-10', lektion: 3, category: '不定冠詞の格変化',
     prompt: 'Besuchen Sie ___ Freund?（友人を・男性4格）',
-    choices: ['ein', 'einen', 'einem', 'eines'],
+    choices: ['ein', 'einen', 'eine', 'einem'],
     answer: 1,
     hint: 'besuchen は4格。Freund は男性名詞。',
     explanation: '男性4格の不定冠詞はeinen → einen Freund。Besuchen Sie einen Freund?（あなたは友人を訪ねるのですか。）besuchen（訪ねる）はkennen, lieben, lobenなどと同じ4格支配の動詞。',
@@ -911,7 +911,7 @@ const QUESTIONS = [
   {
     id: 'l3-16', lektion: 3, category: '定冠詞の格変化（2格）',
     prompt: 'Das ist das Auto ___ Kindes.（その子供の・中性2格）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['die', 'des', 'dem', 'den'],
     answer: 1,
     hint: '中性2格も男性と同じ des、名詞にも -es が付く。',
     explanation: 'Das ist das Auto des Kindes.（これはその子供の車です。）中性名詞の2格も男性名詞と同じdesになり、名詞自体にも-esが付く（Kind→Kindes）。2格は男性・中性で同じ振る舞いをする。',
@@ -929,7 +929,7 @@ const QUESTIONS = [
   {
     id: 'l3-18', lektion: 3, category: '格支配',
     prompt: 'Er zeigt ___ Lehrer das Heft.（その先生に・男性3格）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 2,
     hint: 'zeigen は3格＋4格。「先生に」＝男性3格。',
     explanation: 'Er zeigt dem Lehrer das Heft.（彼は先生にノートを見せる。）zeigen（見せる）は「3格(～に)＋4格(～を)」を取る動詞。das Heft（中性4格）が見せるもの、dem Lehrer（男性3格）が見せる相手。',
@@ -938,7 +938,7 @@ const QUESTIONS = [
   {
     id: 'l3-19', lektion: 3, category: '格支配',
     prompt: 'Das Kind hilft ___ Vater.（父親を手伝う / helfen＝3格）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 2,
     hint: 'helfen は3格支配。男性3格の定冠詞は？',
     explanation: 'Das Kind hilft dem Vater.（その子は父親を手伝う。）helfen は3格支配の動詞。日本語では「父親を手伝う」と「を」で訳すが、ドイツ語では助ける相手が3格 dem Vater になる。',
@@ -956,7 +956,7 @@ const QUESTIONS = [
   {
     id: 'l3-21', lektion: 3, category: '格支配',
     prompt: 'Ich kaufe ___ Vater ein Geschenk.（父にプレゼントを買う・男性3格）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 2,
     hint: 'kaufen は「3格(～に)＋4格(～を)」でも使える。男性3格は？',
     explanation: 'Ich kaufe dem Vater ein Geschenk.（私は父にプレゼントを買う。）kaufen は4格だけでなく、「（誰）のために買う」という相手を3格で表すこともできる。dem Vater（男性3格）が「買ってあげる相手」、ein Geschenk（中性4格）が「買うもの」。',
@@ -965,7 +965,7 @@ const QUESTIONS = [
   {
     id: 'l3-22', lektion: 3, category: '定冠詞の格変化（2格）',
     prompt: 'Das ist die Farbe ___ Autos.（その車の色・中性2格）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['die', 'des', 'dem', 'den'],
     answer: 1,
     hint: '中性2格も男性と同じ des、名詞にも -s が付く。',
     explanation: 'Das ist die Farbe des Autos.（これはその車の色です。）中性名詞 Auto の2格は des Autos。中性名詞の2格も男性と同じく des になり、名詞自体にも -s が付く（Auto→Autos）。',
@@ -983,7 +983,7 @@ const QUESTIONS = [
   {
     id: 'l3-24', lektion: 3, category: '定冠詞の格変化',
     prompt: 'Der Lehrer fragt ___ Schüler.（その生徒に質問する・男性4格）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 3,
     hint: 'fragen は4格支配。男性4格は？',
     explanation: 'Der Lehrer fragt den Schüler.（その先生はその生徒に質問する。）fragen（質問する）は4格支配の動詞。男性名詞の定冠詞4格は der → den に変化する。',
@@ -1055,7 +1055,7 @@ const QUESTIONS = [
   {
     id: 'l3-32', lektion: 3, category: '定冠詞の格変化',
     prompt: 'Siehst du ___ Mann dort?（あそこのその男性が見える・男性4格）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 3,
     hint: 'sehen は4格支配。男性4格は den。',
     explanation: 'Siehst du den Mann dort?（あそこのその男性が見える？）sehen（見える・見る）は4格支配の動詞。男性名詞の定冠詞4格は der → den に変化する。',
@@ -1064,7 +1064,7 @@ const QUESTIONS = [
   {
     id: 'l3-33', lektion: 3, category: '定冠詞の格変化（2格）',
     prompt: 'Das ist das Auto ___ Lehrers.（その教師の車・男性2格）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['die', 'des', 'dem', 'den'],
     answer: 1,
     hint: '男性2格は des、名詞にも -s が付く。',
     explanation: 'Das ist das Auto des Lehrers.（これはその教師の車です。）男性名詞の2格は des になり、名詞自体にも -s が付く（Lehrer→Lehrers）。中性2格も同じく des。',
@@ -1073,7 +1073,7 @@ const QUESTIONS = [
   {
     id: 'l3-34', lektion: 3, category: '定冠詞の格変化（2格）',
     prompt: 'Das ist das Auto ___ Lehrerin.（その女性教師の車・女性2格）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 0,
     hint: '女性2格は der、名詞には -s が付かない。',
     explanation: 'Das ist das Auto der Lehrerin.（これはその女性教師の車です。）女性名詞の2格は der になるが、名詞自体には -s は付かない（Lehrerin はそのまま）。',
@@ -1100,7 +1100,7 @@ const QUESTIONS = [
   {
     id: 'l3-37', lektion: 3, category: '定冠詞の格変化',
     prompt: 'Wer ist das? — Das ist ___ Lehrer.（その先生です・男性1格）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 0,
     hint: '「～です」の補語は1格。',
     explanation: 'Das ist der Lehrer.（これはその先生です。）sein（ist）の補語は1格を取る。男性名詞の定冠詞1格は der のまま。',
@@ -1109,7 +1109,7 @@ const QUESTIONS = [
   {
     id: 'l3-38', lektion: 3, category: '定冠詞の格変化',
     prompt: 'Ich trinke ___ Tee.（そのお茶を飲む・男性4格）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 3,
     hint: 'trinken は4格支配。男性4格は den。',
     explanation: 'Ich trinke den Tee.（私はそのお茶を飲む。）trinken（飲む）は4格支配の動詞。男性名詞 Tee の定冠詞は1格 der → 4格 den に変化する。',
@@ -1132,7 +1132,7 @@ const QUESTIONS = [
   {
     id: 'l3-40', lektion: 3, category: '定冠詞の格変化',
     prompt: 'Ich finde ___ Film gut.（その映画を良いと思う・男性4格）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 3,
     hint: 'finden は4格支配。男性4格は den。',
     explanation: 'Ich finde den Film gut.（私はその映画を良いと思う。）finden（～だと思う）は4格＋形容詞の形を取る動詞。男性名詞 Film の定冠詞は1格 der → 4格 den に変化する。',
@@ -1141,7 +1141,7 @@ const QUESTIONS = [
   {
     id: 'l3-41', lektion: 3, category: '格支配',
     prompt: 'Der Schüler antwortet ___ Lehrer.（その生徒はその先生に答える・男性3格）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 2,
     hint: 'antworten は3格支配。男性3格は dem。',
     explanation: 'Der Schüler antwortet dem Lehrer.（その生徒はその先生に答える。）日本語では「～に答える」だが、antworten（答える）は3格支配の動詞。男性名詞の定冠詞3格は der → dem に変化する。',
@@ -1242,7 +1242,7 @@ const QUESTIONS = [
   {
     id: 'l4-11', lektion: 4, category: '弱変化名詞',
     prompt: 'Der Lehrer fragt ___ Schüler. の続き: D__ Schüler antwortet ___ Lehrer.（生徒は先生に答える）',
-    choices: ['dem', 'den', 'des', 'der'],
+    choices: ['dem', 'den', 'die', 'der'],
     answer: 0,
     hint: 'antworten は3格。男性3格の定冠詞は？',
     explanation: 'antwortet dem Lehrer（男性3格dem）。1文目Der Lehrer fragt den Schüler.（先生が生徒に質問する＝fragenは4格）、2文目Der Schüler antwortet dem Lehrer.（生徒が先生に答える＝antwortenは3格）と、動詞によって格が変わることを対比して確認する問題。',
@@ -1278,7 +1278,7 @@ const QUESTIONS = [
   {
     id: 'l4-15', lektion: 4, category: '弱変化名詞',
     prompt: 'Ich besuche ___ Jungen morgen.（その少年を訪ねる・弱変化名詞4格）',
-    choices: ['der', 'den', 'dem', 'des'],
+    choices: ['der', 'den', 'dem', 'die'],
     answer: 1,
     hint: 'besuchen は4格。男性4格の定冠詞＋弱変化名詞の-enに注目。',
     explanation: 'Ich besuche den Jungen morgen.（私はその少年を明日訪ねます。）der Jungeも弱変化名詞で、1格以外はJungenとなる。冠詞は男性4格denを選び、名詞もJunge→Jungenに変える。',
@@ -1314,7 +1314,7 @@ const QUESTIONS = [
   {
     id: 'l4-19', lektion: 4, category: '弱変化名詞',
     prompt: 'Ich gebe ___ Jungen einen Ball.（その少年に・弱変化名詞3格）',
-    choices: ['der', 'den', 'dem', 'des'],
+    choices: ['der', 'den', 'dem', 'die'],
     answer: 2,
     hint: 'geben は3格＋4格。男性3格の定冠詞＋弱変化名詞 -en。',
     explanation: 'Ich gebe dem Jungen einen Ball.（私はその少年にボールをあげる。）der Junge は弱変化名詞で、1格以外は Jungen になる。geben は3格＋4格を取るので「少年に」は男性3格 dem＋Jungen。',
@@ -1350,7 +1350,7 @@ const QUESTIONS = [
   {
     id: 'l4-23', lektion: 4, category: '弱変化名詞',
     prompt: 'Das ist die Bedeutung ___ Namens.（その名前の意味・男性2格、特殊な弱変化名詞）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['die', 'des', 'dem', 'den'],
     answer: 1,
     hint: 'der Name は弱変化名詞。2格は特別な -ns 語尾になる。',
     explanation: 'Das ist die Bedeutung des Namens.（これはその名前の意味です。）der Name, der Gedanke, der Glaube, der Wille のような -e で終わる弱変化名詞の一部は、2格でだけ -n ではなく -ns が付く特殊な形（Namens）になる。冠詞自体は通常通り男性2格 des。',
@@ -1467,7 +1467,7 @@ const QUESTIONS = [
   {
     id: 'l4-36', lektion: 4, category: '弱変化名詞',
     prompt: 'Ich sehe ___ Studenten dort.（その学生が見える・男性4格、弱変化名詞）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 3,
     hint: 'sehen は4格支配。弱変化名詞は4格でも -en が付く。',
     explanation: 'Ich sehe den Studenten dort.（あそこにその学生が見える。）der Student は弱変化名詞。sehen は4格支配なので、冠詞は den、名詞にも -en が付いて den Studenten となる。',
@@ -1476,7 +1476,7 @@ const QUESTIONS = [
   {
     id: 'l4-37', lektion: 4, category: '弱変化名詞',
     prompt: 'Ich helfe ___ Studenten.（その学生を手伝う・男性3格、弱変化名詞）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 2,
     hint: 'helfen は3格支配。弱変化名詞は3格でも -en が付く。',
     explanation: 'Ich helfe dem Studenten.（私はその学生を手伝う。）helfen は3格支配なので、冠詞は dem、名詞にも -en が付いて dem Studenten となる。',
@@ -1503,7 +1503,7 @@ const QUESTIONS = [
   {
     id: 'l4-40', lektion: 4, category: '弱変化名詞',
     prompt: 'Die Lehrerin fragt ___ Jungen.（その少年に質問する・男性4格、弱変化名詞）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 3,
     hint: 'fragen は4格支配。der Junge も弱変化名詞。',
     explanation: 'Die Lehrerin fragt den Jungen.（その女性教師はその少年に質問する。）der Junge も弱変化名詞の一つ。fragen は4格支配なので、冠詞は den、名詞にも -en が付いて den Jungen となる。',
@@ -1957,7 +1957,7 @@ const QUESTIONS = [
   {
     id: 'l6-10', lektion: 6, category: '3・4格支配の前置詞',
     prompt: 'Otto legt seine Tasche auf ___ Stuhl.（椅子の上に置く＝移動 / Stuhl 男性）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 3,
     hint: 'legen＝置く（移動）→4格。男性4格は？',
     explanation: 'Otto legt seine Tasche auf den Stuhl.（オットーは自分のバッグを椅子の上に置く。）legen（置く）はhängen(掛ける)と同じく移動を表す動詞で4格を取る。Stuhlは男性名詞なので男性4格den。',
@@ -1966,7 +1966,7 @@ const QUESTIONS = [
   {
     id: 'l6-11', lektion: 6, category: '3・4格支配の前置詞',
     prompt: 'Meine Tasche liegt auf ___ Stuhl.（椅子の上にある＝位置 / Stuhl 男性）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 2,
     hint: 'liegen＝置いてある（位置）→3格。男性3格は？',
     explanation: 'Meine Tasche liegt auf dem Stuhl.（私のバッグは椅子の上にある。）liegen（horizontal な状態である）はlegenに対応する自動詞で、位置・状態を表すので3格を取る。Stuhlは男性名詞なので男性3格dem。',
@@ -2020,7 +2020,7 @@ const QUESTIONS = [
   {
     id: 'l6-17', lektion: 6, category: '前置詞の格支配',
     prompt: 'Ich fahre mit ___ Bus zur Schule.（バスで / Bus 男性）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 2,
     hint: 'mit は3格支配。男性3格の定冠詞は？',
     explanation: 'Ich fahre mit dem Bus zur Schule.（私はバスで学校へ行く。）mit は3格支配の前置詞。Bus は男性名詞なので男性3格 dem。「mit ＋乗り物の3格」で交通手段を表す（mit dem Zug など）。',
@@ -2146,7 +2146,7 @@ const QUESTIONS = [
   {
     id: 'l6-31', lektion: 6, category: '前置詞の格支配',
     prompt: 'Wir fahren mit ___ Zug.（電車で・mit は常に3格、Zug は男性名詞）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 2,
     hint: 'mit は常に3格支配。男性3格は dem。',
     explanation: 'Wir fahren mit dem Zug.（私たちは電車で行く。）mit（～と一緒に・～を使って）は常に3格を取る前置詞。男性名詞 Zug の定冠詞3格は der → dem に変化する。',
@@ -2227,7 +2227,7 @@ const QUESTIONS = [
   {
     id: 'l6-40', lektion: 6, category: '前置詞の格支配',
     prompt: 'Wir laufen durch ___ Park.（公園を通って・durch は常に4格、Park は男性名詞）',
-    choices: ['der', 'des', 'dem', 'den'],
+    choices: ['der', 'die', 'dem', 'den'],
     answer: 3,
     hint: 'durch は常に4格支配。男性4格は den。',
     explanation: 'Wir laufen durch den Park.（私たちは公園を通り抜けて走る。）durch（～を通って）は常に4格を取る前置詞。男性名詞 Park の定冠詞4格は der → den に変化する。',
@@ -2679,7 +2679,7 @@ const QUESTIONS = [
   {
     id: 'l8-03', lektion: 8, category: '4格をとる動詞',
     prompt: 'Der Lehrer fragt ___ Schüler.（先生は生徒に質問する・男性4格）',
-    choices: ['dem', 'den', 'der', 'des'],
+    choices: ['dem', 'den', 'der', 'die'],
     answer: 1,
     hint: '日本語は「生徒に」だが fragen は4格支配。',
     explanation: 'Der Lehrer fragt den Schüler.（先生はその生徒に質問する。）日本語では「～に質問する」だが、fragen は4格をとる他動詞。男性4格 den Schüler。答える側の antworten が3格支配なのと対照的。',
@@ -2688,7 +2688,7 @@ const QUESTIONS = [
   {
     id: 'l8-04', lektion: 8, category: '4格をとる動詞',
     prompt: 'Ich finde ___ Film langweilig.（その映画を退屈だと思う・男性4格）',
-    choices: ['der', 'den', 'dem', 'des'],
+    choices: ['der', 'den', 'dem', 'die'],
     answer: 1,
     hint: 'finden（～だと思う）は4格＋形容詞。男性4格は den。',
     explanation: 'Ich finde den Film langweilig.（私はその映画を退屈だと思う。）finden は「4格＋形容詞」で「（4格）を～だと思う」という意味。男性4格 den Film。',
@@ -2697,7 +2697,7 @@ const QUESTIONS = [
   {
     id: 'l8-05', lektion: 8, category: '4格をとる動詞',
     prompt: 'Sie braucht ___ Stift.（一本のペンを必要としている・男性4格・不定冠詞）',
-    choices: ['ein', 'einen', 'einem', 'eines'],
+    choices: ['ein', 'einen', 'eine', 'einem'],
     answer: 1,
     hint: 'brauchen は4格支配。不定冠詞の男性4格は？',
     explanation: 'Sie braucht einen Stift.（彼女は一本のペンを必要としている。）brauchen（必要とする）は4格支配。不定冠詞の男性は1格 ein → 4格 einen に変化する。',
