@@ -1,4 +1,5 @@
 /**
+/**
  * Lektion 1-7 の択一（多肢選択）問題データ。
  * すべて元教材「ドイツ語テキスト_Lektion1-7_学習資料.md」の文法解説・練習問題（解答付き）に準拠。
  *
@@ -2838,6 +2839,110 @@ const QUESTIONS = [
     hint: 'mit＝常に3格。in＝「町へ」は移動なので4格。',
     explanation: 'Wir fahren mit dem Zug in die Stadt.（私たちは電車で町へ行く。）mit は常に3格 → dem Zug（男性3格）。in は「町へ」という移動なので4格 → die Stadt（女性4格）。',
     tip: 'mit＝常に3格(dem Zug)、in＝移動なら4格(in die Stadt)。前置詞ごとに格を判定し、動詞が移動か静止かも見る。',
+  },
+
+  /* --- L6 追加：zwischen, neben の問題（テキストで重要だが実装が不足していた） --- */
+  {
+    id: 'l6-51', lektion: 6, category: '3・4格支配の前置詞',
+    prompt: 'Das Buch liegt ___ Tischen.（本は机の間に置いてある・位置／zwischen＋複数3格）',
+    choices: ['zwischen den', 'zwischen dem', 'zwischen die', 'zwischen das'],
+    answer: 0,
+    translation: '本は机の間に置いてある。',
+    hint: 'liegen＝静止（どこに？）→ zwischen は3格。複数3格は den。',
+    explanation: 'Das Buch liegt zwischen den Tischen.（本は机の間に置いてある。）liegen は「どこに（位置）」を表す自動詞なので、zwischen（～の間）は3格を取る。複数の定冠詞3格は den。',
+    tip: '3・4格支配の前置詞（in, an, auf, über, unter, vor, hinter, neben, zwischen）は「静止＝3格」「移動＝4格」。動詞が状態か移動かを見分ける。',
+  },
+  {
+    id: 'l6-52', lektion: 6, category: '3・4格支配の前置詞',
+    prompt: 'Die Katze läuft ___ Stühle.（猫は椅子の間を走ってくぐって行く・移動／zwischen＋複数4格）',
+    choices: ['zwischen die', 'zwischen den', 'zwischen das', 'zwischen dem'],
+    answer: 0,
+    translation: '猫は椅子の間を走ってくぐって行く。',
+    hint: 'laufen＝移動（どこへ？）→ zwischen は4格。複数4格は die。',
+    explanation: 'Die Katze läuft zwischen die Stühle.（猫は椅子の間を走ってくぐって行く。）laufen は「どこへ（移動）」を表す他動詞なので、zwischen（～の間）は4格を取る。複数の定冠詞4格は die。',
+    tip: 'zwischen は「位置」なら3格(zwischen den)、「移動」なら4格(zwischen die)。複数では定冠詞の形が異なるので区別できる。',
+  },
+  {
+    id: 'l6-53', lektion: 6, category: '3・4格支配の前置詞',
+    prompt: 'Das Kind sitzt ___ Mutter.（子供は母親の横に座っている・位置／neben＋女性3格）',
+    choices: ['neben der', 'neben die', 'neben das', 'neben ein'],
+    answer: 0,
+    translation: '子供は母親の横に座っている。',
+    hint: 'sitzen＝静止（どこに？）→ neben は3格。女性3格は der。',
+    explanation: 'Das Kind sitzt neben der Mutter.（子供は母親の横に座っている。）sitzen は「どこに（位置）」を表す自動詞なので、neben（～の横）は3格を取る。女性名詞 Mutter の定冠詞3格は der。',
+    tip: 'neben も 3・4格支配の前置詞。sitzen「座っている」なら3格(neben der Mutter)、laufen「走って行く」なら4格(neben die Mutter)。',
+  },
+  {
+    id: 'l6-54', lektion: 6, category: '3・4格支配の前置詞',
+    prompt: 'Das Kind läuft ___ Mutter.（子供は母親の横へ走って行く・移動／neben＋女性4格）',
+    choices: ['neben die', 'neben der', 'neben das', 'neben ein'],
+    answer: 0,
+    translation: '子供は母親の横へ走って行く。',
+    hint: 'laufen＝移動（どこへ？）→ neben は4格。女性4格は die。',
+    explanation: 'Das Kind läuft neben die Mutter.（子供は母親の横へ走って行く。）laufen は「どこへ（移動）」を表す他動詞なので、neben（～の横）は4格を取る。女性名詞 Mutter の定冠詞4格は die。',
+    tip: 'neben + 女性名詞の場合、3格＝der、4格＝die で形が異なる。「どこに」「どこへ」の意味で格を使い分ける。',
+  },
+
+  /* --- L6 追加：hinter, vor, über の問題（3・4格両対応前置詞の完全網羅） --- */
+  {
+    id: 'l6-55', lektion: 6, category: '3・4格支配の前置詞',
+    prompt: 'Das Auto steht ___ Haus.（車は家の後ろに停まっている・位置／hinter＋中性3格）',
+    choices: ['hinter dem', 'hinter das', 'hinter den', 'hinter der'],
+    answer: 0,
+    translation: '車は家の後ろに停まっている。',
+    hint: 'stehen＝静止（どこに？）→ hinter は3格。中性3格は dem。',
+    explanation: 'Das Auto steht hinter dem Haus.（車は家の後ろに停まっている。）stehen は「どこに（位置）」を表す自動詞なので、hinter（～の後ろ）は3格を取る。中性名詞 Haus の定冠詞3格は dem。',
+    tip: 'hinter（～の後ろ）も 3・4格支配の前置詞。「位置」なら3格(hinter dem Haus)、「移動」なら4格(hinter das Haus)。',
+  },
+  {
+    id: 'l6-56', lektion: 6, category: '3・4格支配の前置詞',
+    prompt: 'Das Auto fährt ___ Haus.（車は家の後ろへ走って行く・移動／hinter＋中性4格）',
+    choices: ['hinter das', 'hinter dem', 'hinter den', 'hinter der'],
+    answer: 0,
+    translation: '車は家の後ろへ走って行く。',
+    hint: 'fahren＝移動（どこへ？）→ hinter は4格。中性4格は das。',
+    explanation: 'Das Auto fährt hinter das Haus.（車は家の後ろへ走って行く。）fahren は「どこへ（移動）」を表す他動詞なので、hinter（～の後ろ）は4格を取る。中性名詞 Haus の定冠詞4格は das。',
+    tip: 'hinter + 中性名詞で「hinter das（4格・移動）」と「hinter dem（3格・位置）」の違いを確認する。',
+  },
+  {
+    id: 'l6-57', lektion: 6, category: '3・4格支配の前置詞',
+    prompt: 'Der Mann steht ___ Tür.（男性は戸の前に立っている・位置／vor＋女性3格）',
+    choices: ['vor der', 'vor die', 'vor das', 'vor den'],
+    answer: 0,
+    translation: '男性は戸の前に立っている。',
+    hint: 'stehen＝静止（どこに？）→ vor は3格。女性3格は der。',
+    explanation: 'Der Mann steht vor der Tür.（男性は戸の前に立っている。）stehen は「どこに（位置）」を表す自動詞なので、vor（～の前）は3格を取る。女性名詞 Tür の定冠詞3格は der。',
+    tip: 'vor（～の前）も 3・4格支配の前置詞。「静止」なら3格(vor der Tür)、「移動」なら4格(vor die Tür)。',
+  },
+  {
+    id: 'l6-58', lektion: 6, category: '3・4格支配の前置詞',
+    prompt: 'Das Kind läuft ___ Tür.（子供は戸の前へ走って行く・移動／vor＋女性4格）',
+    choices: ['vor die', 'vor der', 'vor das', 'vor den'],
+    answer: 0,
+    translation: '子供は戸の前へ走って行く。',
+    hint: 'laufen＝移動（どこへ？）→ vor は4格。女性4格は die。',
+    explanation: 'Das Kind läuft vor die Tür.（子供は戸の前へ走って行く。）laufen は「どこへ（移動）」を表す他動詞なので、vor（～の前）は4格を取る。女性名詞 Tür の定冠詞4格は die。',
+    tip: 'vor + 女性名詞で「vor die（4格・移動）」と「vor der（3格・位置）」の区別が重要。',
+  },
+  {
+    id: 'l6-59', lektion: 6, category: '3・4格支配の前置詞',
+    prompt: 'Das Flugzeug fliegt ___ Wald.（飛行機は森の上を飛んでいる・位置／über＋男性3格）',
+    choices: ['über dem', 'über den', 'über das', 'über der'],
+    answer: 0,
+    translation: '飛行機は森の上を飛んでいる。',
+    hint: 'fliegen＝動き（どこに？）→ über は3格。男性3格は dem。',
+    explanation: 'Das Flugzeug fliegt über dem Wald.（飛行機は森の上を飛んでいる。）fliegen は「飛行する」という継続的な動作で「どこに（位置・経過地点）」を表す場合は3格を取る。男性名詞 Wald の定冠詞3格は dem。',
+    tip: 'über（～の上に）も 3・4格支配の前置詞。「水平面上での移動・経過」は3格(über dem Wald)。',
+  },
+  {
+    id: 'l6-60', lektion: 6, category: '3・4格支配の前置詞',
+    prompt: 'Der Junge wirft den Ball ___ Zaun.（少年はボールをフェンスの上へ投げる・移動／über＋男性4格）',
+    choices: ['über den', 'über dem', 'über das', 'über der'],
+    answer: 0,
+    translation: '少年はボールをフェンスの上へ投げる。',
+    hint: 'werfen＝投げる（どこへ？）→ über は4格。男性4格は den。',
+    explanation: 'Der Junge wirft den Ball über den Zaun.（少年はボールをフェンスの上へ投げる。）werfen（投げる）は「（対象物を）～へ移動させる」動作なので、über（～の上へ）は4格を取る。男性名詞 Zaun の定冠詞4格は den。',
+    tip: 'über + 男性名詞で「über den（4格・throw over）」と「über dem（3格・fly over）」の使い分けは動詞で判定。',
   },
 
   /* ===================== Lektion 7 ===================== */
