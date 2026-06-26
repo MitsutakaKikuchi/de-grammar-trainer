@@ -70,7 +70,7 @@ const Quiz = (() => {
   /**
    * 任意の問題リストからセッションを生成する（全範囲ランダム・間違い復習で使用）。
    * @param {Object[]} questions 出題する問題の配列
-   * @param {{ mode: string, label: string }} meta モード情報
+   * @param {{ mode: string, label: string, ordered?: boolean }} meta モード情報（ordered: true で渡された順序を保持）
    * @returns {Object} セッション状態
    */
   function createCustomSession(questions, meta) {
@@ -78,7 +78,8 @@ const Quiz = (() => {
       mode: meta.mode,
       lektionId: null,
       label: meta.label,
-      pool: shuffle(questions),
+      // ordered 指定時は渡された順（＝ミスの多い順など）を保持、それ以外はシャッフル
+      pool: meta.ordered ? questions.slice() : shuffle(questions),
       roundStart: 0,
       questions: [],
       index: 0,
