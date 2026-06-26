@@ -21,6 +21,24 @@ const Quiz = (() => {
     return a;
   }
 
+  // 同程度の優先度の問題を毎回少し入れ替えるためのランダム揺らぎ幅（バケットは崩さない）
+  const JITTER = 0.45;
+
+  /**
+   * 学習履歴の優先度（高いほど先）に軽いランダム揺らぎを加えて並べる。
+   * 苦手・未学習を先に、毎回正解する習得済みを後ろに回す。Storage が無い場合は単純シャッフル。
+   * @param {Array} arr 問題配列
+   * @returns {Array} 並べ替え済みの新しい配列
+   */
+  function orderByPriority(arr) {
+    if (typeof Storage === 'undefined' || !Storage.getPriorityMap) return shuffle(arr);
+    const pmap = Storage.getPriorityMap();
+    return arr
+      .map((q) => ({ q, key: (pmap[q.id] || 0) + Math.random() * JITTER }))
+      .sort((a, b) => b.key - a.key)
+      .map((x) => x.q);
+  }
+
   /**
    * 選択肢をシャッフルし、正解indexを追従させた問題オブジェクトを返す。
    * @param {Object} q 元の問題
@@ -56,7 +74,7 @@ const Quiz = (() => {
       mode: 'lektion',     // 'lektion' | 'random' | 'review'
       lektionId,
       label: null,         // 特別モードの表示名
-      pool: shuffle(pool), // 全問（問題順シャッフル済み）
+      pool: orderByPriority(pool), // 苦手・未学習を先に、習得済みを後ろに並べる
       roundStart: 0,       // 現在ラウンドの開始index
       questions: [],       // 現在ラウンドの出題
       index: 0,
@@ -78,8 +96,8 @@ const Quiz = (() => {
       mode: meta.mode,
       lektionId: null,
       label: meta.label,
-      // ordered 指定時は渡された順（＝ミスの多い順など）を保持、それ以外はシャッフル
-      pool: meta.ordered ? questions.slice() : shuffle(questions),
+      // ordered 指定時は渡された順（＝ミスの多い順など）を保持、それ以外は優先度順に並べる
+      pool: meta.ordered ? questions.slice() : orderByPriority(questions),
       roundStart: 0,
       questions: [],
       index: 0,
