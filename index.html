@@ -4,25 +4,70 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#3b82f6">
-  <meta name="description" content="ドイツ語 Lektion 1〜7 の格変化・人称変化を択一問題で練習できる初学者向け学習アプリ">
-  <title>ドイツ語文法トレーナー｜Lektion 1-7</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="語学・邦楽の択一／並び替え学習サイト集。ドイツ語文法・英語並び替え・邦楽歌詞研究の3つのトレーナーへのハブ。">
+  <title>学習サイト｜ハブ</title>
+  <style>
+    :root {
+      --bg: #f6f7fb; --fg: #1f2430; --muted: #6b7280; --card: #ffffff;
+      --border: #e6e8ef; --shadow: 0 6px 24px rgba(20, 28, 56, .08);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #0f1117; --fg: #e8eaf0; --muted: #9aa3b2; --card: #171a22; --border: #262b36; --shadow: 0 6px 24px rgba(0,0,0,.4); }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--fg);
+      font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+      -webkit-font-smoothing: antialiased; line-height: 1.6;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 40px 20px 64px; }
+    header { text-align: center; margin-bottom: 32px; }
+    h1 { font-size: 1.6rem; margin: 0 0 8px; letter-spacing: .02em; }
+    .sub { color: var(--muted); font-size: .95rem; margin: 0; }
+    .grid { display: grid; gap: 16px; }
+    @media (min-width: 560px) { .grid { grid-template-columns: 1fr 1fr; } }
+    .site {
+      display: block; text-decoration: none; color: inherit;
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 22px 20px; box-shadow: var(--shadow);
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      border-top: 4px solid var(--accent);
+    }
+    .site:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(20,28,56,.14); border-color: var(--accent); }
+    .site:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    .site--wide { grid-column: 1 / -1; }
+    .site-emoji { font-size: 1.8rem; }
+    .site-title { font-size: 1.15rem; font-weight: 700; margin: 8px 0 4px; }
+    .site-desc { color: var(--muted); font-size: .9rem; margin: 0; }
+    footer { text-align: center; color: var(--muted); font-size: .8rem; margin-top: 36px; }
+  </style>
 </head>
 <body>
-  <header class="app-header">
-    <button class="home-link" id="homeBtn" aria-label="ホームに戻る">
-      <span class="home-icon">‹</span> ホーム
-    </button>
-    <span class="app-logo">🇩🇪 Grammatik</span>
-  </header>
+  <div class="wrap">
+    <header>
+      <h1>学習サイト</h1>
+      <p class="sub">語学・邦楽の択一／並び替えトレーナー集</p>
+    </header>
 
-  <main id="view" class="view"></main>
+    <nav class="grid">
+      <a class="site" href="邦楽歌詞研究/index.html" style="--accent:#8b5cf6">
+        <div class="site-emoji">🎴</div>
+        <div class="site-title">邦楽歌詞研究</div>
+        <p class="site-desc">第1〜10回・全250問。雅楽・能・狂言・地歌箏曲・長唄・浄瑠璃を択一で。</p>
+      </a>
+      <a class="site" href="https://mitsutakakikuchi.github.io/english-reorder-trainer/" style="--accent:#0ea5e9">
+        <div class="site-emoji">🇬🇧</div>
+        <div class="site-title">英語並び替えサイト</div>
+        <p class="site-desc">語順を並び替えて英文を組み立てるトレーニング。</p>
+      </a>
+      <a class="site site--wide" href="ドイツ語/index.html" style="--accent:#ef4444">
+        <div class="site-emoji">🇩🇪</div>
+        <div class="site-title">ドイツ語文法トレーナー</div>
+        <p class="site-desc">Lektion 1〜8 の格変化・人称変化・格支配を択一問題で。</p>
+      </a>
+    </nav>
 
-  <!-- データ → ロジック → アプリ本体 の順に読み込む（ES Modules不使用でfile://でも動作） -->
-  <script src="js/data/lektionen.js"></script>
-  <script src="js/data/questions.js"></script>
-  <script src="js/storage.js"></script>
-  <script src="js/quiz.js"></script>
-  <script src="js/app.js"></script>
+    <footer>各サイトの進捗は端末内（localStorage）に保存されます。</footer>
+  </div>
 </body>
 </html>

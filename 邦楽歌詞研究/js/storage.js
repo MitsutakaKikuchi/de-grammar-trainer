@@ -1,10 +1,17 @@
 /**
- * localStorage を使った進捗・成績の保存ラッパ。
- * 保存形式: { [lektionId]: { bestRate, lastRate, lastCorrect, lastTotal, attempts, updatedAt } }
+ * localStorage を使った進捗・成績・ゲーム要素の保存ラッパ。
+ * - 進捗      : { [lektionId]: { bestRate, lastRate, lastCorrect, lastTotal, attempts, updatedAt } }
+ * - 学習履歴  : { [questionId]: { miss, streak, correct, lastSeenAt, lastCorrectAt } }
+ * - 出題設定  : ランダム出題の対象セクション（回）ID配列
+ * - ゲーム要素: 最高連続正解（コンボ）・獲得バッジ
  */
 const Storage = (() => {
-  const STORAGE_KEY = 'de-grammar-progress-v1';
-  const WRONG_KEY = 'de-grammar-wrong-v1';
+  const PREFIX = 'hougaku-kashi';
+  const STORAGE_KEY = `${PREFIX}-progress-v1`;
+  const WRONG_KEY = `${PREFIX}-wrong-v1`;
+  const SELECT_KEY = `${PREFIX}-select-v1`;
+  const COMBO_KEY = `${PREFIX}-maxcombo-v1`;
+  const BADGE_KEY = `${PREFIX}-badges-v1`;
 
   /**
    * 全進捗を読み込む。
@@ -15,14 +22,13 @@ const Storage = (() => {
       const raw = localStorage.getItem(STORAGE_KEY);
       return raw ? JSON.parse(raw) : {};
     } catch (err) {
-      // localStorage が使えない/壊れている場合も学習自体は続行できるようにする
       console.warn('進捗の読み込みに失敗しました:', err);
       return {};
     }
   }
 
   /**
-   * 指定Lektionの進捗を取得する。
+   * 指定回の進捗を取得する。
    * @param {number} lektionId
    * @returns {Object|null}
    */
@@ -77,11 +83,6 @@ const Storage = (() => {
 
   /**
    * 統計1件を既定値で正規化する（旧形式・欠損フィールドの吸収）。
-   *  - miss          : 累計の不正解回数
-   *  - streak        : 直近の連続正解回数（GRADUATE_STREAK 以上で習得済み）
-   *  - correct       : 累計の正解回数
-   *  - lastSeenAt    : 最後に出題・回答した時刻(ms)
-   *  - lastCorrectAt : 最後に正解した時刻(ms)
    * @param {Object} s
    * @returns {{miss:number, streak:number, correct:number, lastSeenAt:number, lastCorrectAt:number}}
    */
@@ -105,7 +106,6 @@ const Storage = (() => {
       if (!raw) return {};
       const data = JSON.parse(raw);
       const out = {};
-      // 旧形式（IDの配列）からの移行：各IDをミス1回として扱う
       if (Array.isArray(data)) {
         data.forEach((id) => { out[id] = normalizeStat({ miss: 1 }); });
         return out;
@@ -157,7 +157,6 @@ const Storage = (() => {
 
   /**
    * 正解を記録する（連続正解数+1・正解時刻を更新）。
-   * 履歴は削除せず保持し、連続正解が増えるほど出題優先度が下がる（後回しになる）。
    * @param {string} questionId
    */
   function recordCorrect(questionId) {
@@ -173,7 +172,7 @@ const Storage = (() => {
   }
 
   /**
-   * 苦手問題IDを出題優先度の高い順（よく間違える順）に返す。
+   * 苦手問題IDを出題優先度の高い順（よく間違える＝正答数の少ない順）に返す。
    * @returns {string[]}
    */
   function getWeakIds() {
@@ -222,8 +221,92 @@ const Storage = (() => {
     }
   }
 
+  /* ---------- ランダム出題の対象セクション（回）設定 ---------- */
+
+  /** 全回IDを返す。 */
+  function allLektionIds() {
+    return (typeof LEKTIONEN !== 'undefined' && Array.isArray(LEKTIONEN)) ? LEKTIONEN.map((l) => l.id) : [];
+  }
+
+  /** ランダム出題の対象回ID一覧を取得する（未設定なら全回）。 */
+  function getSelectedLektionen() {
+    try {
+      const raw = localStorage.getItem(SELECT_KEY);
+      const arr = raw ? JSON.parse(raw) : null;
+      if (Array.isArray(arr) && arr.length) return arr;
+    } catch (err) {
+      console.warn('出題設定の読み込みに失敗しました:', err);
+    }
+    return allLektionIds();
+  }
+
+  /** ランダム出題の対象回を保存する。 */
+  function setSelectedLektionen(ids) {
+    try {
+      localStorage.setItem(SELECT_KEY, JSON.stringify(ids));
+    } catch (err) {
+      console.warn('出題設定の保存に失敗しました:', err);
+    }
+  }
+
+  /* ---------- ゲーム要素（コンボ・バッジ） ---------- */
+
+  /** 自己ベストの連続正解数（コンボ）を取得する。 */
+  function getMaxCombo() {
+    try {
+      return Number(localStorage.getItem(COMBO_KEY)) || 0;
+    } catch (err) {
+      return 0;
+    }
+  }
+
+  /** コンボが自己ベストを更新したら保存する。 */
+  function recordCombo(n) {
+    try {
+      if (n > getMaxCombo()) localStorage.setItem(COMBO_KEY, String(n));
+    } catch (err) {
+      /* 無視 */
+    }
+  }
+
+  /** 獲得済みバッジID一覧を返す。 */
+  function getEarnedBadges() {
+    try {
+      const raw = localStorage.getItem(BADGE_KEY);
+      const a = raw ? JSON.parse(raw) : [];
+      return Array.isArray(a) ? a : [];
+    } catch (err) {
+      return [];
+    }
+  }
+
+  /** バッジを付与する。新規付与なら true を返す。 */
+  function awardBadge(id) {
+    try {
+      const a = getEarnedBadges();
+      if (a.includes(id)) return false;
+      a.push(id);
+      localStorage.setItem(BADGE_KEY, JSON.stringify(a));
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  /** ゲーム要素（コンボ・バッジ）を消去する。 */
+  function clearGameData() {
+    try {
+      localStorage.removeItem(COMBO_KEY);
+      localStorage.removeItem(BADGE_KEY);
+    } catch (err) {
+      /* 無視 */
+    }
+  }
+
   return {
     loadAll, getProgress, saveResult, clearAll,
     recordWrong, recordCorrect, getWeakIds, getPriorityMap, getSummary, clearWrong,
+    getSelectedLektionen, setSelectedLektionen,
+    getMaxCombo, recordCombo, getEarnedBadges, awardBadge, clearGameData,
   };
 })();

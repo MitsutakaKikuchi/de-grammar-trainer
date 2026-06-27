@@ -127,6 +127,93 @@
     }
   }
 
+  /* ---------- ゲーム要素（コンボ・バッジ） ---------- */
+
+  const BADGE_DEFS = [
+    { id: 'first_perfect', icon: '🌟', name: 'パーフェクト', desc: '1ラウンド全問正解' },
+    { id: 'combo5', icon: '🔥', name: '5コンボ', desc: '5問連続正解' },
+    { id: 'combo10', icon: '⚡', name: '10コンボ', desc: '10問連続正解' },
+    { id: 'clear3', icon: '🎖️', name: '三冠', desc: '3つのLektionで満点（100%）' },
+    { id: 'clearAll', icon: '👑', name: '全制覇', desc: 'すべてのLektionで満点（100%）' },
+  ];
+
+  /** 満点（bestRate===100）のLektion数を数える。 */
+  function masteredLektionCount() {
+    return LEKTIONEN.filter((l) => {
+      const p = Storage.getProgress(l.id);
+      return p && p.bestRate === 100;
+    }).length;
+  }
+
+  /** 現時点で条件を満たすバッジIDを返す。 */
+  function satisfiedBadgeIds(roundRate) {
+    const ids = [];
+    if (roundRate === 100) ids.push('first_perfect');
+    const mc = Storage.getMaxCombo();
+    if (mc >= 5) ids.push('combo5');
+    if (mc >= 10) ids.push('combo10');
+    const mastered = masteredLektionCount();
+    if (mastered >= 3) ids.push('clear3');
+    if (mastered >= LEKTIONEN.length) ids.push('clearAll');
+    return ids;
+  }
+
+  /** コンボ数に応じた煽りメッセージとレベルを返す。 */
+  function comboMessage(c) {
+    if (c >= 10) return { t: `${c} COMBO!! 神がかってる！👑`, lv: 5 };
+    if (c >= 7) return { t: `${c} COMBO! 止まらない！🚀`, lv: 4 };
+    if (c >= 5) return { t: `${c} COMBO! 絶好調！⚡`, lv: 3 };
+    if (c >= 3) return { t: `${c} 連続正解！🔥`, lv: 2 };
+    if (c >= 2) return { t: `${c} 連続！`, lv: 1 };
+    return null;
+  }
+
+  /** 画面中央にコンボの煽り演出を一瞬表示する。 */
+  function showComboFlash(combo) {
+    const m = comboMessage(combo);
+    if (!m || reduceMotion) return;
+    const el = document.createElement('div');
+    el.className = `combo-flash combo-flash--lv${m.lv}`;
+    el.textContent = m.t;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1100);
+  }
+
+  /** 新規獲得バッジをトーストで順番に知らせる。 */
+  function showBadgeToast(ids) {
+    ids.forEach((id, i) => {
+      const def = BADGE_DEFS.find((b) => b.id === id);
+      if (!def) return;
+      setTimeout(() => {
+        const el = document.createElement('div');
+        el.className = 'badge-toast';
+        el.innerHTML = `<span class="badge-toast-ico">${def.icon}</span><span class="badge-toast-body"><b>バッジ獲得！</b><span>${esc(def.name)}（${esc(def.desc)}）</span></span>`;
+        document.body.appendChild(el);
+        void el.offsetWidth;
+        el.classList.add('badge-toast--in');
+        setTimeout(() => {
+          el.classList.remove('badge-toast--in');
+          setTimeout(() => el.remove(), 300);
+        }, 2600);
+      }, i * 450);
+    });
+  }
+
+  /** ホームのバッジ棚HTMLを返す。 */
+  function buildBadgeHtml() {
+    const earned = new Set(Storage.getEarnedBadges());
+    const maxCombo = Storage.getMaxCombo();
+    const items = BADGE_DEFS.map((b) => {
+      const on = earned.has(b.id);
+      return `<span class="badge ${on ? 'badge--on' : 'badge--off'}" title="${esc(b.name)}：${esc(b.desc)}">${b.icon}</span>`;
+    }).join('');
+    return `
+      <div class="badges-bar">
+        <span class="badges-label">🏅 バッジ ${earned.size}/${BADGE_DEFS.length}${maxCombo >= 2 ? ` ・ 最高 ${maxCombo} コンボ` : ''}</span>
+        <div class="badges-row">${items}</div>
+      </div>`;
+  }
+
   /* ---------- ホーム ---------- */
 
   function renderHome() {
@@ -163,6 +250,7 @@
           <p class="hero-sub">Lektion 1〜8 ｜ 格変化・人称変化・格支配を択一問題で練習</p>
         </div>
         ${buildSummaryHtml()}
+        ${buildBadgeHtml()}
         <div class="special-grid">
           <button class="special-card special-card--random" id="randomBtn">
             <span class="special-icon">🎲</span>
@@ -193,7 +281,7 @@
 
     document.getElementById('randomBtn').addEventListener('click', () => {
       vibrate(8);
-      startRandomQuiz();
+      renderRandomSettings();
     });
     const reviewBtn = document.getElementById('reviewBtn');
     if (!reviewDisabled) {
@@ -290,9 +378,88 @@
     renderQuestion();
   }
 
-  /** 全レッスンの問題を混ぜてランダム出題する。 */
-  function startRandomQuiz() {
-    session = Quiz.createCustomSession(QUESTIONS, { mode: 'random', label: '全範囲ランダム' });
+  /* ---------- ランダム出題の設定（セクション選択） ---------- */
+
+  /** ランダム出題の対象Lektion（セクション）を選ぶ設定画面。 */
+  function renderRandomSettings() {
+    homeBtn.classList.remove('hidden');
+    const selected = new Set(Storage.getSelectedLektionen());
+
+    const chips = LEKTIONEN.map((l) => {
+      const count = QUESTIONS.filter((q) => q.lektion === l.id).length;
+      const on = selected.has(l.id);
+      return `
+        <button class="sec-chip${on ? ' sec-chip--on' : ''}" data-lektion="${l.id}" style="--accent:${l.accent}" aria-pressed="${on}">
+          <span class="sec-chip-num">Lektion ${l.id}</span>
+          <span class="sec-chip-title">${esc(l.title)}</span>
+          <span class="sec-chip-count">${count}問</span>
+        </button>`;
+    }).join('');
+
+    mountView(`
+      <section class="settings">
+        <div class="settings-head">
+          <h1 class="settings-title">🎲 ランダム出題の設定</h1>
+          <p class="settings-sub">出題する Lektion（セクション）を選んでください。複数選択できます。</p>
+        </div>
+        <div class="settings-actions-top">
+          <button class="btn btn-ghost btn-sm" id="selAll" type="button">すべて選択</button>
+          <button class="btn btn-ghost btn-sm" id="selNone" type="button">すべて解除</button>
+        </div>
+        <div class="sec-grid">${chips}</div>
+        <div class="settings-foot">
+          <span class="settings-count" id="selCount"></span>
+          <button class="btn btn-primary" id="startRandomBtn" type="button">この設定で開始</button>
+        </div>
+      </section>
+    `);
+
+    const countEl = document.getElementById('selCount');
+    const startBtn = document.getElementById('startRandomBtn');
+    const selectedIds = () => [...viewEl.querySelectorAll('.sec-chip--on')].map((b) => Number(b.dataset.lektion));
+    const updateCount = () => {
+      const ids = selectedIds();
+      const n = QUESTIONS.filter((q) => ids.includes(q.lektion)).length;
+      countEl.textContent = `選択中：${ids.length} Lektion ／ ${n} 問`;
+      startBtn.disabled = ids.length === 0;
+    };
+
+    viewEl.querySelectorAll('.sec-chip').forEach((b) => {
+      b.addEventListener('click', () => {
+        const on = b.classList.toggle('sec-chip--on');
+        b.setAttribute('aria-pressed', String(on));
+        vibrate(6);
+        updateCount();
+      });
+    });
+    document.getElementById('selAll').addEventListener('click', () => {
+      viewEl.querySelectorAll('.sec-chip').forEach((b) => { b.classList.add('sec-chip--on'); b.setAttribute('aria-pressed', 'true'); });
+      vibrate(8); updateCount();
+    });
+    document.getElementById('selNone').addEventListener('click', () => {
+      viewEl.querySelectorAll('.sec-chip').forEach((b) => { b.classList.remove('sec-chip--on'); b.setAttribute('aria-pressed', 'false'); });
+      vibrate(8); updateCount();
+    });
+    startBtn.addEventListener('click', () => {
+      const ids = selectedIds();
+      if (ids.length === 0) return;
+      Storage.setSelectedLektionen(ids);
+      vibrate(8);
+      startRandomQuiz(ids);
+    });
+
+    updateCount();
+  }
+
+  /** 選択されたLektionの問題を混ぜてランダム出題する（未指定なら保存済み設定）。 */
+  function startRandomQuiz(lektionIds) {
+    const ids = (lektionIds && lektionIds.length) ? lektionIds : Storage.getSelectedLektionen();
+    const pool = QUESTIONS.filter((q) => ids.includes(q.lektion));
+    if (pool.length === 0) return renderRandomSettings();
+    const label = ids.length >= LEKTIONEN.length
+      ? '全範囲ランダム'
+      : `ランダム（${ids.length} Lektion・${pool.length}問）`;
+    session = Quiz.createCustomSession(pool, { mode: 'random', label });
     renderQuestion();
   }
 
@@ -333,7 +500,10 @@
     mountView(`
       <section class="quiz" style="--accent:${lek.accent}">
         <div class="quiz-top">
-          ${roundLabel ? `<span class="quiz-round">${roundLabel}</span>` : '<span></span>'}
+          <span class="quiz-top-left">
+            ${roundLabel ? `<span class="quiz-round">${roundLabel}</span>` : ''}
+            ${(session.combo || 0) >= 2 ? `<span class="quiz-combo">🔥 ${session.combo} 連続</span>` : ''}
+          </span>
           <button class="btn btn-ghost btn-grammar" id="grammarBtn" type="button">📖 解説を見る</button>
         </div>
         <div class="quiz-bar">
@@ -392,12 +562,17 @@
           : '';
 
         if (result.correct) {
+          session.combo = (session.combo || 0) + 1;
+          Storage.recordCombo(session.combo);
           btn.classList.add('pop');
           vibrate(12);
           if (!reduceMotion) burstConfetti();
+          if (session.combo >= 2) showComboFlash(session.combo);
+          const comboTag = session.combo >= 2 ? ` <span class="fb-combo">🔥 ${session.combo}連続！</span>` : '';
           feedbackEl.className = 'feedback feedback--ok';
-          feedbackEl.innerHTML = `<strong>正解！</strong> ${esc(Quiz.current(session).explanation)}${tipHtml}`;
+          feedbackEl.innerHTML = `<strong>正解！</strong>${comboTag} ${esc(Quiz.current(session).explanation)}${tipHtml}`;
         } else {
+          session.combo = 0;
           btn.classList.add('wrong', 'shake');
           vibrate([20, 40, 20]);
           feedbackEl.className = 'feedback feedback--ng';
@@ -433,6 +608,9 @@
     const rate = Math.round((correct / total) * 100);
     // Lektion別の最高記録はLektionモードのときだけ保存する
     if (isLektion) Storage.saveResult(session.lektionId, correct, total);
+
+    // バッジ判定（このラウンドの結果を保存した後で評価する）
+    const earnedNow = satisfiedBadgeIds(rate).filter((id) => Storage.awardBadge(id));
 
     const r = Quiz.roundInfo(session);
     const hasNext = Quiz.hasNextRound(session);
@@ -489,6 +667,7 @@
     `);
 
     animateCount(document.querySelector('.score-num'), rate);
+    if (earnedNow.length) showBadgeToast(earnedNow);
     if (hasNext) {
       document.getElementById('nextRoundBtn').addEventListener('click', () => {
         vibrate(8);
