@@ -340,8 +340,8 @@ MODALS.forEach((m) => {
     tip: 'wollen（自分の意志）と sollen（他者の意志）、müssen（必要）と dürfen（許可）の対比で覚える。',
   });
 });
-// 名詞 独→日（後半20語）
-const NOUN_VOCAB = NOUNS.slice(20);
+// 名詞 独→日（全46語、定冠詞付きで出題）
+const NOUN_VOCAB = NOUNS;
 NOUN_VOCAB.forEach((n) => {
   const ds = distractors(NOUNS, n.de, (x) => x.de, 3).map((x) => x.ja);
   const { choices, answer } = fixedChoices([n.ja, ...ds], n.ja);

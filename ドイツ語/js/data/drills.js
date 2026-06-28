@@ -2287,6 +2287,346 @@ const DRILLS = [
   {
     "id": "d-vocab-130",
     "theme": "vocab",
+    "lektion": 1,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „der Roman“ の意味は？",
+    "choices": [
+      "小説",
+      "報告書",
+      "犬",
+      "バッグ"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "der Roman =「小説」（男性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-131",
+    "theme": "vocab",
+    "lektion": 2,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „der Student“ の意味は？",
+    "choices": [
+      "大学生",
+      "歯科医",
+      "オーブン",
+      "壁"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "der Student =「大学生」（男性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-132",
+    "theme": "vocab",
+    "lektion": 2,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „der Lehrer“ の意味は？",
+    "choices": [
+      "教師",
+      "パン屋",
+      "チーズ",
+      "休暇"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "der Lehrer =「教師」（男性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-133",
+    "theme": "vocab",
+    "lektion": 2,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „der Arzt“ の意味は？",
+    "choices": [
+      "医者",
+      "小型パン",
+      "椅子",
+      "海岸"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "der Arzt =「医者」（男性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-134",
+    "theme": "vocab",
+    "lektion": 2,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „das Bier“ の意味は？",
+    "choices": [
+      "ビール",
+      "海岸",
+      "医者",
+      "父"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "das Bier =「ビール」（中性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-135",
+    "theme": "vocab",
+    "lektion": 2,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „der Wein“ の意味は？",
+    "choices": [
+      "ワイン",
+      "オーブン",
+      "壁",
+      "遠足"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "der Wein =「ワイン」（男性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-136",
+    "theme": "vocab",
+    "lektion": 2,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „der Winzer“ の意味は？",
+    "choices": [
+      "ワイン醸造家",
+      "馬",
+      "錠剤",
+      "教授"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "der Winzer =「ワイン醸造家」（男性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-137",
+    "theme": "vocab",
+    "lektion": 2,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „der Hund“ の意味は？",
+    "choices": [
+      "犬",
+      "馬",
+      "錠剤",
+      "教授"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "der Hund =「犬」（男性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-138",
+    "theme": "vocab",
+    "lektion": 2,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „die Katze“ の意味は？",
+    "choices": [
+      "猫",
+      "錠剤",
+      "教授",
+      "ソーセージ"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "die Katze =「猫」（女性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-139",
+    "theme": "vocab",
+    "lektion": 2,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „das Mädchen“ の意味は？",
+    "choices": [
+      "少女",
+      "犬",
+      "生徒",
+      "歯科医"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "das Mädchen =「少女」（中性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-140",
+    "theme": "vocab",
+    "lektion": 2,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „das Pferd“ の意味は？",
+    "choices": [
+      "馬",
+      "教師",
+      "少女",
+      "錠剤"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "das Pferd =「馬」（中性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-141",
+    "theme": "vocab",
+    "lektion": 2,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „der Vater“ の意味は？",
+    "choices": [
+      "父",
+      "椅子",
+      "海岸",
+      "医者"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "der Vater =「父」（男性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-142",
+    "theme": "vocab",
+    "lektion": 2,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „die Mutter“ の意味は？",
+    "choices": [
+      "母",
+      "海岸",
+      "医者",
+      "馬"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "die Mutter =「母」（女性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-143",
+    "theme": "vocab",
+    "lektion": 2,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „das Kind“ の意味は？",
+    "choices": [
+      "子供",
+      "小説",
+      "犬",
+      "生徒"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "das Kind =「子供」（中性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-144",
+    "theme": "vocab",
+    "lektion": 4,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „die Tasche“ の意味は？",
+    "choices": [
+      "バッグ",
+      "推理小説",
+      "カードゲーム",
+      "朝食"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "die Tasche =「バッグ」（女性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-145",
+    "theme": "vocab",
+    "lektion": 4,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „der Schüler“ の意味は？",
+    "choices": [
+      "生徒",
+      "ビール",
+      "父",
+      "指輪"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "der Schüler =「生徒」（男性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-146",
+    "theme": "vocab",
+    "lektion": 4,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „der Krimi“ の意味は？",
+    "choices": [
+      "推理小説",
+      "市役所",
+      "ワイン",
+      "母"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "der Krimi =「推理小説」（男性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-147",
+    "theme": "vocab",
+    "lektion": 4,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „die Tablette“ の意味は？",
+    "choices": [
+      "錠剤",
+      "教授",
+      "ソーセージ",
+      "劇場"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "die Tablette =「錠剤」（女性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-148",
+    "theme": "vocab",
+    "lektion": 5,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „der Regenschirm“ の意味は？",
+    "choices": [
+      "傘",
+      "遠足",
+      "ビール",
+      "父"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "der Regenschirm =「傘」（男性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-149",
+    "theme": "vocab",
+    "lektion": 5,
+    "category": "単語の意味（名詞 独→日）",
+    "prompt": "名詞 „der Ring“ の意味は？",
+    "choices": [
+      "指輪",
+      "馬",
+      "錠剤",
+      "インターンシップ"
+    ],
+    "answer": 0,
+    "hint": "名詞は冠詞（性）とセットで思い出す。",
+    "explanation": "der Ring =「指輪」（男性名詞）。",
+    "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
+  },
+  {
+    "id": "d-vocab-150",
+    "theme": "vocab",
     "lektion": 5,
     "category": "単語の意味（名詞 独→日）",
     "prompt": "名詞 „der Pullover“ の意味は？",
@@ -2302,7 +2642,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-131",
+    "id": "d-vocab-151",
     "theme": "vocab",
     "lektion": 5,
     "category": "単語の意味（名詞 独→日）",
@@ -2319,7 +2659,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-132",
+    "id": "d-vocab-152",
     "theme": "vocab",
     "lektion": 5,
     "category": "単語の意味（名詞 独→日）",
@@ -2336,7 +2676,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-133",
+    "id": "d-vocab-153",
     "theme": "vocab",
     "lektion": 5,
     "category": "単語の意味（名詞 独→日）",
@@ -2353,7 +2693,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-134",
+    "id": "d-vocab-154",
     "theme": "vocab",
     "lektion": 5,
     "category": "単語の意味（名詞 独→日）",
@@ -2370,7 +2710,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-135",
+    "id": "d-vocab-155",
     "theme": "vocab",
     "lektion": 5,
     "category": "単語の意味（名詞 独→日）",
@@ -2387,7 +2727,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-136",
+    "id": "d-vocab-156",
     "theme": "vocab",
     "lektion": 6,
     "category": "単語の意味（名詞 独→日）",
@@ -2404,7 +2744,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-137",
+    "id": "d-vocab-157",
     "theme": "vocab",
     "lektion": 6,
     "category": "単語の意味（名詞 独→日）",
@@ -2421,7 +2761,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-138",
+    "id": "d-vocab-158",
     "theme": "vocab",
     "lektion": 6,
     "category": "単語の意味（名詞 独→日）",
@@ -2438,7 +2778,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-139",
+    "id": "d-vocab-159",
     "theme": "vocab",
     "lektion": 6,
     "category": "単語の意味（名詞 独→日）",
@@ -2455,7 +2795,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-140",
+    "id": "d-vocab-160",
     "theme": "vocab",
     "lektion": 6,
     "category": "単語の意味（名詞 独→日）",
@@ -2472,7 +2812,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-141",
+    "id": "d-vocab-161",
     "theme": "vocab",
     "lektion": 6,
     "category": "単語の意味（名詞 独→日）",
@@ -2489,7 +2829,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-142",
+    "id": "d-vocab-162",
     "theme": "vocab",
     "lektion": 6,
     "category": "単語の意味（名詞 独→日）",
@@ -2506,7 +2846,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-143",
+    "id": "d-vocab-163",
     "theme": "vocab",
     "lektion": 6,
     "category": "単語の意味（名詞 独→日）",
@@ -2523,7 +2863,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-144",
+    "id": "d-vocab-164",
     "theme": "vocab",
     "lektion": 6,
     "category": "単語の意味（名詞 独→日）",
@@ -2540,7 +2880,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-145",
+    "id": "d-vocab-165",
     "theme": "vocab",
     "lektion": 6,
     "category": "単語の意味（名詞 独→日）",
@@ -2557,7 +2897,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-146",
+    "id": "d-vocab-166",
     "theme": "vocab",
     "lektion": 6,
     "category": "単語の意味（名詞 独→日）",
@@ -2574,7 +2914,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-147",
+    "id": "d-vocab-167",
     "theme": "vocab",
     "lektion": 6,
     "category": "単語の意味（名詞 独→日）",
@@ -2591,7 +2931,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-148",
+    "id": "d-vocab-168",
     "theme": "vocab",
     "lektion": 6,
     "category": "単語の意味（名詞 独→日）",
@@ -2608,7 +2948,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-149",
+    "id": "d-vocab-169",
     "theme": "vocab",
     "lektion": 6,
     "category": "単語の意味（名詞 独→日）",
@@ -2625,7 +2965,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-150",
+    "id": "d-vocab-170",
     "theme": "vocab",
     "lektion": 7,
     "category": "単語の意味（名詞 独→日）",
@@ -2642,7 +2982,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-151",
+    "id": "d-vocab-171",
     "theme": "vocab",
     "lektion": 7,
     "category": "単語の意味（名詞 独→日）",
@@ -2659,7 +2999,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-152",
+    "id": "d-vocab-172",
     "theme": "vocab",
     "lektion": 7,
     "category": "単語の意味（名詞 独→日）",
@@ -2676,7 +3016,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-153",
+    "id": "d-vocab-173",
     "theme": "vocab",
     "lektion": 7,
     "category": "単語の意味（名詞 独→日）",
@@ -2693,7 +3033,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-154",
+    "id": "d-vocab-174",
     "theme": "vocab",
     "lektion": 7,
     "category": "単語の意味（名詞 独→日）",
@@ -2710,7 +3050,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-vocab-155",
+    "id": "d-vocab-175",
     "theme": "vocab",
     "lektion": 7,
     "category": "単語の意味（名詞 独→日）",
@@ -2727,7 +3067,7 @@ const DRILLS = [
     "tip": "名詞は必ず定冠詞つきで暗記すると、性も同時に覚えられる。"
   },
   {
-    "id": "d-gender-156",
+    "id": "d-gender-176",
     "theme": "gender",
     "lektion": 1,
     "category": "名詞の性",
@@ -2744,7 +3084,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-157",
+    "id": "d-gender-177",
     "theme": "gender",
     "lektion": 2,
     "category": "名詞の性",
@@ -2761,7 +3101,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-158",
+    "id": "d-gender-178",
     "theme": "gender",
     "lektion": 2,
     "category": "名詞の性",
@@ -2778,7 +3118,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-159",
+    "id": "d-gender-179",
     "theme": "gender",
     "lektion": 2,
     "category": "名詞の性",
@@ -2795,7 +3135,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-160",
+    "id": "d-gender-180",
     "theme": "gender",
     "lektion": 2,
     "category": "名詞の性",
@@ -2812,7 +3152,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-161",
+    "id": "d-gender-181",
     "theme": "gender",
     "lektion": 2,
     "category": "名詞の性",
@@ -2829,7 +3169,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-162",
+    "id": "d-gender-182",
     "theme": "gender",
     "lektion": 2,
     "category": "名詞の性",
@@ -2846,7 +3186,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-163",
+    "id": "d-gender-183",
     "theme": "gender",
     "lektion": 2,
     "category": "名詞の性",
@@ -2863,7 +3203,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-164",
+    "id": "d-gender-184",
     "theme": "gender",
     "lektion": 2,
     "category": "名詞の性",
@@ -2880,7 +3220,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-165",
+    "id": "d-gender-185",
     "theme": "gender",
     "lektion": 2,
     "category": "名詞の性",
@@ -2897,7 +3237,7 @@ const DRILLS = [
     "tip": "-chen で終わる名詞は必ず中性（das Mädchen, das Brötchen）。"
   },
   {
-    "id": "d-gender-166",
+    "id": "d-gender-186",
     "theme": "gender",
     "lektion": 2,
     "category": "名詞の性",
@@ -2914,7 +3254,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-167",
+    "id": "d-gender-187",
     "theme": "gender",
     "lektion": 2,
     "category": "名詞の性",
@@ -2931,7 +3271,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-168",
+    "id": "d-gender-188",
     "theme": "gender",
     "lektion": 2,
     "category": "名詞の性",
@@ -2948,7 +3288,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-169",
+    "id": "d-gender-189",
     "theme": "gender",
     "lektion": 2,
     "category": "名詞の性",
@@ -2965,7 +3305,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-170",
+    "id": "d-gender-190",
     "theme": "gender",
     "lektion": 4,
     "category": "名詞の性",
@@ -2982,7 +3322,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-171",
+    "id": "d-gender-191",
     "theme": "gender",
     "lektion": 4,
     "category": "名詞の性",
@@ -2999,7 +3339,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-172",
+    "id": "d-gender-192",
     "theme": "gender",
     "lektion": 4,
     "category": "名詞の性",
@@ -3016,7 +3356,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-173",
+    "id": "d-gender-193",
     "theme": "gender",
     "lektion": 4,
     "category": "名詞の性",
@@ -3033,7 +3373,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-174",
+    "id": "d-gender-194",
     "theme": "gender",
     "lektion": 5,
     "category": "名詞の性",
@@ -3050,7 +3390,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-175",
+    "id": "d-gender-195",
     "theme": "gender",
     "lektion": 5,
     "category": "名詞の性",
@@ -3067,7 +3407,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-176",
+    "id": "d-gender-196",
     "theme": "gender",
     "lektion": 5,
     "category": "名詞の性",
@@ -3084,7 +3424,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-177",
+    "id": "d-gender-197",
     "theme": "gender",
     "lektion": 5,
     "category": "名詞の性",
@@ -3101,7 +3441,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-178",
+    "id": "d-gender-198",
     "theme": "gender",
     "lektion": 5,
     "category": "名詞の性",
@@ -3118,7 +3458,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-179",
+    "id": "d-gender-199",
     "theme": "gender",
     "lektion": 5,
     "category": "名詞の性",
@@ -3135,7 +3475,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-180",
+    "id": "d-gender-200",
     "theme": "gender",
     "lektion": 5,
     "category": "名詞の性",
@@ -3152,7 +3492,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-181",
+    "id": "d-gender-201",
     "theme": "gender",
     "lektion": 5,
     "category": "名詞の性",
@@ -3169,7 +3509,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-182",
+    "id": "d-gender-202",
     "theme": "gender",
     "lektion": 6,
     "category": "名詞の性",
@@ -3186,7 +3526,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-183",
+    "id": "d-gender-203",
     "theme": "gender",
     "lektion": 6,
     "category": "名詞の性",
@@ -3203,7 +3543,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-184",
+    "id": "d-gender-204",
     "theme": "gender",
     "lektion": 6,
     "category": "名詞の性",
@@ -3220,7 +3560,7 @@ const DRILLS = [
     "tip": "-chen で終わる名詞は必ず中性（das Mädchen, das Brötchen）。"
   },
   {
-    "id": "d-gender-185",
+    "id": "d-gender-205",
     "theme": "gender",
     "lektion": 6,
     "category": "名詞の性",
@@ -3237,7 +3577,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-186",
+    "id": "d-gender-206",
     "theme": "gender",
     "lektion": 6,
     "category": "名詞の性",
@@ -3254,7 +3594,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-187",
+    "id": "d-gender-207",
     "theme": "gender",
     "lektion": 6,
     "category": "名詞の性",
@@ -3271,7 +3611,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-188",
+    "id": "d-gender-208",
     "theme": "gender",
     "lektion": 6,
     "category": "名詞の性",
@@ -3288,7 +3628,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-189",
+    "id": "d-gender-209",
     "theme": "gender",
     "lektion": 6,
     "category": "名詞の性",
@@ -3305,7 +3645,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-190",
+    "id": "d-gender-210",
     "theme": "gender",
     "lektion": 6,
     "category": "名詞の性",
@@ -3322,7 +3662,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-191",
+    "id": "d-gender-211",
     "theme": "gender",
     "lektion": 6,
     "category": "名詞の性",
@@ -3339,7 +3679,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-192",
+    "id": "d-gender-212",
     "theme": "gender",
     "lektion": 6,
     "category": "名詞の性",
@@ -3356,7 +3696,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-193",
+    "id": "d-gender-213",
     "theme": "gender",
     "lektion": 6,
     "category": "名詞の性",
@@ -3373,7 +3713,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-194",
+    "id": "d-gender-214",
     "theme": "gender",
     "lektion": 6,
     "category": "名詞の性",
@@ -3390,7 +3730,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-195",
+    "id": "d-gender-215",
     "theme": "gender",
     "lektion": 6,
     "category": "名詞の性",
@@ -3407,7 +3747,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-196",
+    "id": "d-gender-216",
     "theme": "gender",
     "lektion": 7,
     "category": "名詞の性",
@@ -3424,7 +3764,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-197",
+    "id": "d-gender-217",
     "theme": "gender",
     "lektion": 7,
     "category": "名詞の性",
@@ -3441,7 +3781,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-198",
+    "id": "d-gender-218",
     "theme": "gender",
     "lektion": 7,
     "category": "名詞の性",
@@ -3458,7 +3798,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-199",
+    "id": "d-gender-219",
     "theme": "gender",
     "lektion": 7,
     "category": "名詞の性",
@@ -3475,7 +3815,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-200",
+    "id": "d-gender-220",
     "theme": "gender",
     "lektion": 7,
     "category": "名詞の性",
@@ -3492,7 +3832,7 @@ const DRILLS = [
     "tip": "性に規則は少ない。定冠詞ごと「der/die/das ＋ 名詞」で音で覚えるのが近道。"
   },
   {
-    "id": "d-gender-201",
+    "id": "d-gender-221",
     "theme": "gender",
     "lektion": 7,
     "category": "名詞の性",
