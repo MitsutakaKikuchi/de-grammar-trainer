@@ -220,6 +220,9 @@ body {
 .special-card:disabled { cursor: not-allowed; opacity: 0.55; filter: grayscale(0.3); }
 .special-card--random { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
 .special-card--review { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+.special-card--drill { background: linear-gradient(135deg, #7c3aed, #0ea5e9); }
+/* 特訓ドリルカードは1段で全幅に広げ、ランダム/復習の下に置く */
+@media (min-width: 600px) { .special-card--drill { grid-column: 1 / -1; } }
 .special-icon { font-size: 1.7rem; line-height: 1; flex-shrink: 0; }
 .special-body { display: flex; flex-direction: column; gap: 3px; }
 .special-title { font-weight: 700; font-size: 1.02rem; }

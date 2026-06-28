@@ -266,6 +266,13 @@
               <span class="special-sub">${reviewDisabled ? 'まだ苦手な問題はありません' : `苦手リスト ${weakCount} 問・苦手な順に出題`}</span>
             </span>
           </button>
+          <button class="special-card special-card--drill" id="drillBtn">
+            <span class="special-icon">⚡</span>
+            <span class="special-body">
+              <span class="special-title">特訓ドリル</span>
+              <span class="special-sub">単語の意味・動詞/前置詞の格支配・名詞の性をテーマ別に連続特訓</span>
+            </span>
+          </button>
         </div>
         <div class="card-grid">${cards}</div>
         <p class="home-foot">学習したいレッスンを選んでください</p>
@@ -290,6 +297,10 @@
         startWeakQuiz();
       });
     }
+    document.getElementById('drillBtn').addEventListener('click', () => {
+      vibrate(8);
+      renderDrillSettings();
+    });
   }
 
   /* ---------- 文法解説 ---------- */
@@ -463,15 +474,102 @@
     renderQuestion();
   }
 
-  /** 苦手リスト（よく間違える問題）をミスの多い順に出題する。 */
+  /** 苦手リスト（よく間違える問題）をミスの多い順に出題する。通常問題とドリル問題の両方を対象にする。 */
   function startWeakQuiz() {
     const ids = Storage.getWeakIds(); // ミスの多い順
     const order = new Map(ids.map((id, i) => [id, i]));
-    const pool = QUESTIONS
+    const pool = QUESTIONS.concat(DRILLS)
       .filter((q) => order.has(q.id))
       .sort((a, b) => order.get(a.id) - order.get(b.id));
     if (pool.length === 0) return renderHome();
     session = Quiz.createCustomSession(pool, { mode: 'review', label: 'よく間違える問題', ordered: true });
+    renderQuestion();
+  }
+
+  /* ---------- 特訓ドリル（テーマ選択） ---------- */
+
+  /** ドリルのデフォルトアクセント色（複数テーマ選択時）。 */
+  const DRILL_ACCENT = '#7c3aed';
+
+  /** 特訓ドリルのテーマを選ぶ設定画面。 */
+  function renderDrillSettings() {
+    homeBtn.classList.remove('hidden');
+
+    const chips = DRILL_THEMES.map((t) => {
+      const count = DRILLS.filter((q) => q.theme === t.id).length;
+      return `
+        <button class="sec-chip drill-chip" data-theme="${t.id}" style="--accent:${t.accent}" aria-pressed="false">
+          <span class="sec-chip-num">${t.icon} ${esc(t.title)}</span>
+          <span class="sec-chip-title">${esc(t.sub)}</span>
+          <span class="sec-chip-count">${count}問</span>
+        </button>`;
+    }).join('');
+
+    mountView(`
+      <section class="settings">
+        <div class="settings-head">
+          <h1 class="settings-title">⚡ 特訓ドリル</h1>
+          <p class="settings-sub">鍛えたいテーマを選んでください。複数選べます。10問ずつ連続で出題します。</p>
+        </div>
+        <div class="settings-actions-top">
+          <button class="btn btn-ghost btn-sm" id="selAll" type="button">すべて選択</button>
+          <button class="btn btn-ghost btn-sm" id="selNone" type="button">すべて解除</button>
+        </div>
+        <div class="sec-grid">${chips}</div>
+        <div class="settings-foot">
+          <span class="settings-count" id="selCount"></span>
+          <button class="btn btn-primary" id="startDrillBtn" type="button">この設定で開始</button>
+        </div>
+      </section>
+    `);
+
+    const countEl = document.getElementById('selCount');
+    const startBtn = document.getElementById('startDrillBtn');
+    const selectedIds = () => [...viewEl.querySelectorAll('.drill-chip[aria-pressed="true"]')].map((b) => b.dataset.theme);
+    const updateCount = () => {
+      const ids = selectedIds();
+      const n = DRILLS.filter((q) => ids.includes(q.theme)).length;
+      countEl.textContent = `選択中：${ids.length} テーマ ／ ${n} 問`;
+      startBtn.disabled = ids.length === 0;
+    };
+
+    viewEl.querySelectorAll('.drill-chip').forEach((b) => {
+      b.addEventListener('click', () => {
+        const on = b.getAttribute('aria-pressed') !== 'true';
+        b.setAttribute('aria-pressed', String(on));
+        b.classList.toggle('sec-chip--on', on);
+        vibrate(6);
+        updateCount();
+      });
+    });
+    document.getElementById('selAll').addEventListener('click', () => {
+      viewEl.querySelectorAll('.drill-chip').forEach((b) => { b.classList.add('sec-chip--on'); b.setAttribute('aria-pressed', 'true'); });
+      vibrate(8); updateCount();
+    });
+    document.getElementById('selNone').addEventListener('click', () => {
+      viewEl.querySelectorAll('.drill-chip').forEach((b) => { b.classList.remove('sec-chip--on'); b.setAttribute('aria-pressed', 'false'); });
+      vibrate(8); updateCount();
+    });
+    startBtn.addEventListener('click', () => {
+      const ids = selectedIds();
+      if (ids.length === 0) return;
+      vibrate(8);
+      startDrillQuiz(ids);
+    });
+
+    updateCount();
+  }
+
+  /** 選択したテーマのドリル問題を連続出題する。 */
+  function startDrillQuiz(themeIds) {
+    const ids = (themeIds && themeIds.length) ? themeIds : DRILL_THEMES.map((t) => t.id);
+    const pool = DRILLS.filter((q) => ids.includes(q.theme));
+    if (pool.length === 0) return renderDrillSettings();
+    const single = ids.length === 1 ? DRILL_THEMES.find((t) => t.id === ids[0]) : null;
+    const label = single ? `特訓ドリル：${single.title}` : `特訓ドリル（${ids.length}テーマ・${pool.length}問）`;
+    session = Quiz.createCustomSession(pool, { mode: 'drill', label });
+    session.drillThemes = ids;
+    session.accent = single ? single.accent : DRILL_ACCENT;
     renderQuestion();
   }
 
@@ -485,6 +583,7 @@
     const lek = session.mode === 'lektion'
       ? LEKTIONEN.find((l) => l.id === session.lektionId)
       : lektionOf(q);
+    const accent = session.mode === 'drill' ? session.accent : lek.accent;
     const p = Quiz.progress(session);
     const r = Quiz.roundInfo(session);
     const pct = Math.round(((p.current - 1) / p.total) * 100);
@@ -498,7 +597,7 @@
     `).join('');
 
     mountView(`
-      <section class="quiz" style="--accent:${lek.accent}">
+      <section class="quiz" style="--accent:${accent}">
         <div class="quiz-top">
           <span class="quiz-top-left">
             ${roundLabel ? `<span class="quiz-round">${roundLabel}</span>` : ''}
@@ -510,7 +609,7 @@
           <div class="quiz-progress"><div class="quiz-progress-fill" style="width:${pct}%"></div></div>
           <span class="quiz-count">${p.current} / ${p.total}</span>
         </div>
-        <span class="quiz-cat">${session.mode !== 'lektion' ? `Lektion ${lek.id}・` : ''}${esc(q.category)}</span>
+        <span class="quiz-cat">${(session.mode === 'random' || session.mode === 'review') ? `Lektion ${lek.id}・` : ''}${esc(q.category)}</span>
         ${q.translation ? `<p class="quiz-translation">${esc(q.translation)}</p>` : ''}
         <h2 class="quiz-prompt">${esc(germanOnly(q.prompt))}</h2>
         <div class="choices" id="choices">${choices}</div>
@@ -602,7 +701,7 @@
   function renderResult() {
     const isLektion = session.mode === 'lektion';
     const lek = isLektion ? LEKTIONEN.find((l) => l.id === session.lektionId) : null;
-    const accent = lek ? lek.accent : '#14b8a6';
+    const accent = session.mode === 'drill' ? session.accent : (lek ? lek.accent : '#14b8a6');
     const total = session.questions.length;
     const correct = session.correctCount;
     const rate = Math.round((correct / total) * 100);
@@ -690,6 +789,7 @@
       vibrate(8);
       if (session.mode === 'random') startRandomQuiz();
       else if (session.mode === 'review') startWeakQuiz();
+      else if (session.mode === 'drill') startDrillQuiz(session.drillThemes);
       else startQuiz(session.lektionId);
     });
     document.getElementById('backBtn').addEventListener('click', () => {
