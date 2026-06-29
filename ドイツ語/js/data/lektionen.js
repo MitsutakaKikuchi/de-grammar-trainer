@@ -388,10 +388,10 @@ const LEKTIONEN = [
   },
   {
     id: 7,
-    title: '話法の助動詞・未来形・従属の接続詞',
-    subtitle: 'Er möchte dieses Jahr mit seiner Frau in die Türkei fahren.',
-    subtitleJa: '彼は今年妻とトルコへ行きたいと思っています。',
-    themes: ['話法の助動詞', '未来形 werden', '従属接続詞'],
+    title: '話法の助動詞',
+    subtitle: 'Mein Bruder will Germanistik studieren.',
+    subtitleJa: '私の兄はドイツ文学を専攻するつもりです。',
+    themes: ['話法の助動詞', '枠構造'],
     accent: '#ef4444',
     grammar: [
       {
@@ -411,7 +411,7 @@ const LEKTIONEN = [
       },
       {
         heading: '② 助動詞の語順（枠構造）',
-        body: '助動詞は定動詞として2番目、本動詞は不定詞（原形）で文末に置く。',
+        body: '助動詞は定動詞として2番目、本動詞は不定詞（原形）で文末に置く（枠構造）。',
         table: {
           headers: ['1番目', '定動詞（助動詞）', '…', '文末（不定詞）'],
           rows: [
@@ -419,37 +419,7 @@ const LEKTIONEN = [
             ['Mein Bruder', 'kann', 'gut Klavier', 'spielen.'],
           ],
         },
-      },
-      {
-        heading: '③ 未来形（werden + 不定詞）',
-        body: 'werden を定動詞として2番目、不定詞を文末に置く。',
-        table: {
-          headers: ['主語', '用法', '例'],
-          rows: [
-            ['ich/du/wir/ihr', '意志（するつもりだ）', 'Ich werde immer helfen.'],
-            ['er/sie/es/sie', '推量（だろう）', 'Er wird wohl krank sein.'],
-          ],
-        },
-        notes: ['morgen など未来を示す語があれば、現在形でも未来を表せる。'],
-      },
-      {
-        heading: '④ 従属の接続詞と定動詞の文末',
-        body: '従属の接続詞が導く文（従属文）では、定動詞は文末に置かれる。',
-        table: {
-          headers: ['接続詞', '意味'],
-          rows: [
-            ['als', '～したとき'],
-            ['dass', '～ということ'],
-            ['ob', '～かどうか'],
-            ['weil', '～なので'],
-            ['obwohl', '～にもかかわらず'],
-            ['wenn', '～ならば／～するとき'],
-          ],
-        },
-        notes: [
-          'Frau Bauer bleibt zu Hause, weil das Wetter schlecht ist.',
-          '従属文が文頭にくると、主文の定動詞はコンマ直後（全体の2番目）に置く: Weil das Wetter schlecht ist, bleibt sie zu Hause.',
-        ],
+        notes: ['möchte は「〜したい」という控えめな願望を表す（mögen の接続法II式）。'],
       },
     ],
   },

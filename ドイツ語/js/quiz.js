@@ -1,17 +1,15 @@
 /**
  * クイズエンジン。指定Lektionの問題を取得・シャッフルし、1問ずつ即時判定して採点する。
+ * 2つの出題形式に対応する純粋なロジック（UI非依存）:
+ *   ① 組み立て式（buildMode）… chips（並び替え）/ tiles（語形変化）。語句タイルを並べて文を作り、
+ *      正解の語順 tokens と照合する。tiles はタップで語形が循環し、answer が正解形。
+ *   ② 択一式（choices）… 4択から1つ選ぶ。選択肢をシャッフルして answer index を追従させる。
  * 1セッションは全問をシャッフルしたプールを持ち、ROUND_SIZE 問ずつ「ラウンド」として出題する。
- * ラウンドを解き終えると、残りがあれば「続きを解く」で次のラウンドへ進める。
- * UI には依存しない純粋なロジック。
  */
 const Quiz = (() => {
   const ROUND_SIZE = 10; // 1ラウンドあたりの出題数
 
-  /**
-   * 配列をシャッフルする（Fisher-Yates、非破壊）。
-   * @param {Array} arr
-   * @returns {Array} 新しいシャッフル済み配列
-   */
+  /** 配列をシャッフルする（Fisher-Yates、非破壊）。 */
   function shuffle(arr) {
     const a = arr.slice();
     for (let i = a.length - 1; i > 0; i--) {
@@ -27,8 +25,6 @@ const Quiz = (() => {
   /**
    * 学習履歴の優先度（高いほど先）に軽いランダム揺らぎを加えて並べる。
    * 苦手・未学習を先に、毎回正解する習得済みを後ろに回す。Storage が無い場合は単純シャッフル。
-   * @param {Array} arr 問題配列
-   * @returns {Array} 並べ替え済みの新しい配列
    */
   function orderByPriority(arr) {
     if (typeof Storage === 'undefined' || !Storage.getPriorityMap) return shuffle(arr);
@@ -39,64 +35,85 @@ const Quiz = (() => {
       .map((x) => x.q);
   }
 
-  /**
-   * 選択肢をシャッフルし、正解indexを追従させた問題オブジェクトを返す。
-   * @param {Object} q 元の問題
-   * @returns {Object} シャッフル済みの問題
-   */
+  /** "a / b / c" 形式の文字列を語句トークン配列にする。 */
+  function splitChips(str) {
+    if (!str) return [];
+    return String(str).split('/').map((s) => s.trim()).filter((s) => s.length > 0);
+  }
+
+  /** 択一問題の選択肢をシャッフルし、正解indexを追従させる。 */
   function shuffleChoices(q) {
     const indices = shuffle(q.choices.map((_, i) => i));
     const choices = indices.map((i) => q.choices[i]);
     const answer = indices.indexOf(q.answer);
-    return { ...q, choices, answer };
+    return { ...q, choices, answer, buildMode: false };
   }
 
   /**
-   * 現在のラウンドの問題（選択肢シャッフル済み）をプールから切り出してセットする。
-   * @param {Object} session
+   * 問題に出題用の情報を付与する。
+   *  - tiles あり … 語形変化モード。各タイルは候補 forms と現在の選択 idx を持つ。
+   *      fixed=true は固定、それ以外はタップで forms を循環し answer が正解形。
+   *  - chips あり … 並び替えモード（全タイル固定）。
+   *  - それ以外  … 択一モード（choices をシャッフル）。
+   * 戻り値の buildMode が true なら組み立て式、false なら択一式。
+   *   tokens : 正解の語順（配列、組み立て式のみ）
+   *   bank   : 出題するタイル {forms,idx,fixed,dummy,answer?} の配列（シャッフル済み）
    */
+  function prepare(q) {
+    if (q.tiles && q.tiles.length) {
+      const tiles = q.tiles.map((t) => (typeof t === 'string'
+        ? { forms: [t], idx: 0, fixed: true, dummy: false }
+        : { forms: t.forms.slice(), idx: 0, fixed: false, dummy: false, answer: t.answer }));
+      const tokens = tiles.map((t) => (t.fixed ? t.forms[0] : t.answer));
+      const dummyTiles = splitChips(q.dummies).map((d) => ({ forms: [d], idx: 0, fixed: true, dummy: true }));
+      const bank = shuffle(tiles.concat(dummyTiles));
+      return { ...q, tokens, bank, formMode: true, buildMode: true };
+    }
+    if (q.chips) {
+      const toks = splitChips(q.chips);
+      const dummies = splitChips(q.dummies);
+      const bank = shuffle(
+        toks.map((t) => ({ forms: [t], idx: 0, fixed: true, dummy: false }))
+          .concat(dummies.map((t) => ({ forms: [t], idx: 0, fixed: true, dummy: true })))
+      );
+      return { ...q, tokens: toks, bank, buildMode: true };
+    }
+    return shuffleChoices(q);
+  }
+
+  /** 現在のラウンドの問題をプールから切り出してセットする。 */
   function loadRound(session) {
     const slice = session.pool.slice(session.roundStart, session.roundStart + ROUND_SIZE);
-    session.questions = slice.map(shuffleChoices);
+    session.questions = slice.map(prepare);
     session.index = 0;
     session.correctCount = 0;
     session.answers = [];
   }
 
-  /**
-   * 指定Lektionのクイズセッションを生成する（全問をシャッフルし最初のラウンドを準備）。
-   * @param {number} lektionId
-   * @returns {Object} セッション状態
-   */
+  /** 指定Lektionのクイズセッションを生成する。 */
   function createSession(lektionId) {
     const pool = QUESTIONS.filter((q) => q.lektion === lektionId);
     const session = {
-      mode: 'lektion',     // 'lektion' | 'random' | 'review'
+      mode: 'lektion',
       lektionId,
-      label: null,         // 特別モードの表示名
-      pool: orderByPriority(pool), // 苦手・未学習を先に、習得済みを後ろに並べる
-      roundStart: 0,       // 現在ラウンドの開始index
-      questions: [],       // 現在ラウンドの出題
+      label: null,
+      pool: orderByPriority(pool),
+      roundStart: 0,
+      questions: [],
       index: 0,
       correctCount: 0,
-      answers: [], // { question, selected, correct }
+      answers: [],
     };
     loadRound(session);
     return session;
   }
 
-  /**
-   * 任意の問題リストからセッションを生成する（全範囲ランダム・間違い復習で使用）。
-   * @param {Object[]} questions 出題する問題の配列
-   * @param {{ mode: string, label: string, ordered?: boolean }} meta モード情報（ordered: true で渡された順序を保持）
-   * @returns {Object} セッション状態
-   */
+  /** 任意の問題リストからセッションを生成する（ランダム・復習で使用）。 */
   function createCustomSession(questions, meta) {
     const session = {
       mode: meta.mode,
       lektionId: null,
       label: meta.label,
-      // ordered 指定時は渡された順（＝ミスの多い順など）を保持、それ以外は優先度順に並べる
       pool: meta.ordered ? questions.slice() : orderByPriority(questions),
       roundStart: 0,
       questions: [],
@@ -108,29 +125,15 @@ const Quiz = (() => {
     return session;
   }
 
-  /**
-   * 次のラウンドがあるか（まだ出題していない問題が残っているか）。
-   * @param {Object} session
-   * @returns {boolean}
-   */
   function hasNextRound(session) {
     return session.roundStart + session.questions.length < session.pool.length;
   }
 
-  /**
-   * 次のラウンドへ進める。
-   * @param {Object} session
-   */
   function startNextRound(session) {
     session.roundStart += ROUND_SIZE;
     loadRound(session);
   }
 
-  /**
-   * ラウンド情報（現在の何ラウンド目か／全ラウンド数）を返す。
-   * @param {Object} session
-   * @returns {{ round: number, totalRounds: number }}
-   */
   function roundInfo(session) {
     return {
       round: Math.floor(session.roundStart / ROUND_SIZE) + 1,
@@ -138,19 +141,12 @@ const Quiz = (() => {
     };
   }
 
-  /**
-   * 現在の問題を返す。
-   * @param {Object} session
-   * @returns {Object|null}
-   */
   function current(session) {
     return session.questions[session.index] || null;
   }
 
   /**
-   * 回答を記録し、正誤を返す。
-   * @param {Object} session
-   * @param {number} selectedIndex 選んだ選択肢index
+   * 択一式の回答を記録し、正誤を返す。
    * @returns {{ correct: boolean, answer: number }}
    */
   function answer(session, selectedIndex) {
@@ -162,25 +158,26 @@ const Quiz = (() => {
   }
 
   /**
-   * 次の問題へ進める。
-   * @param {Object} session
-   * @returns {boolean} まだ問題が残っていれば true
+   * 組み立て式の回答（並べた語句列）を採点する。
+   * @returns {{ correct: boolean, tokens: string[] }}
    */
+  function check(session, builtTexts) {
+    const q = current(session);
+    const isCorrect = JSON.stringify(builtTexts) === JSON.stringify(q.tokens);
+    if (isCorrect) session.correctCount++;
+    session.answers.push({ question: q, built: builtTexts.slice(), correct: isCorrect });
+    return { correct: isCorrect, tokens: q.tokens };
+  }
+
   function next(session) {
     session.index++;
     return session.index < session.questions.length;
   }
 
-  /**
-   * 進捗（n / total）を返す。
-   */
   function progress(session) {
     return { current: session.index + 1, total: session.questions.length };
   }
 
-  /**
-   * 間違えた問題の一覧を返す。
-   */
   function wrongAnswers(session) {
     return session.answers.filter((a) => !a.correct);
   }
@@ -190,6 +187,7 @@ const Quiz = (() => {
     createCustomSession,
     current,
     answer,
+    check,
     next,
     progress,
     wrongAnswers,

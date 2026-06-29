@@ -266,13 +266,6 @@
               <span class="special-sub">${reviewDisabled ? 'まだ苦手な問題はありません' : `苦手リスト ${weakCount} 問・苦手な順に出題`}</span>
             </span>
           </button>
-          <button class="special-card special-card--drill" id="drillBtn">
-            <span class="special-icon">⚡</span>
-            <span class="special-body">
-              <span class="special-title">特訓ドリル</span>
-              <span class="special-sub">単語の意味・動詞/前置詞の格支配・名詞の性をテーマ別に連続特訓</span>
-            </span>
-          </button>
         </div>
         <div class="card-grid">${cards}</div>
         <p class="home-foot">学習したいレッスンを選んでください</p>
@@ -297,10 +290,6 @@
         startWeakQuiz();
       });
     }
-    document.getElementById('drillBtn').addEventListener('click', () => {
-      vibrate(8);
-      renderDrillSettings();
-    });
   }
 
   /* ---------- 文法解説 ---------- */
@@ -474,102 +463,15 @@
     renderQuestion();
   }
 
-  /** 苦手リスト（よく間違える問題）をミスの多い順に出題する。通常問題とドリル問題の両方を対象にする。 */
+  /** 苦手リスト（よく間違える問題）をミスの多い順に出題する。 */
   function startWeakQuiz() {
     const ids = Storage.getWeakIds(); // ミスの多い順
     const order = new Map(ids.map((id, i) => [id, i]));
-    const pool = QUESTIONS.concat(DRILLS)
+    const pool = QUESTIONS
       .filter((q) => order.has(q.id))
       .sort((a, b) => order.get(a.id) - order.get(b.id));
     if (pool.length === 0) return renderHome();
     session = Quiz.createCustomSession(pool, { mode: 'review', label: 'よく間違える問題', ordered: true });
-    renderQuestion();
-  }
-
-  /* ---------- 特訓ドリル（テーマ選択） ---------- */
-
-  /** ドリルのデフォルトアクセント色（複数テーマ選択時）。 */
-  const DRILL_ACCENT = '#7c3aed';
-
-  /** 特訓ドリルのテーマを選ぶ設定画面。 */
-  function renderDrillSettings() {
-    homeBtn.classList.remove('hidden');
-
-    const chips = DRILL_THEMES.map((t) => {
-      const count = DRILLS.filter((q) => q.theme === t.id).length;
-      return `
-        <button class="sec-chip drill-chip" data-theme="${t.id}" style="--accent:${t.accent}" aria-pressed="false">
-          <span class="sec-chip-num">${t.icon} ${esc(t.title)}</span>
-          <span class="sec-chip-title">${esc(t.sub)}</span>
-          <span class="sec-chip-count">${count}問</span>
-        </button>`;
-    }).join('');
-
-    mountView(`
-      <section class="settings">
-        <div class="settings-head">
-          <h1 class="settings-title">⚡ 特訓ドリル</h1>
-          <p class="settings-sub">鍛えたいテーマを選んでください。複数選べます。10問ずつ連続で出題します。</p>
-        </div>
-        <div class="settings-actions-top">
-          <button class="btn btn-ghost btn-sm" id="selAll" type="button">すべて選択</button>
-          <button class="btn btn-ghost btn-sm" id="selNone" type="button">すべて解除</button>
-        </div>
-        <div class="sec-grid">${chips}</div>
-        <div class="settings-foot">
-          <span class="settings-count" id="selCount"></span>
-          <button class="btn btn-primary" id="startDrillBtn" type="button">この設定で開始</button>
-        </div>
-      </section>
-    `);
-
-    const countEl = document.getElementById('selCount');
-    const startBtn = document.getElementById('startDrillBtn');
-    const selectedIds = () => [...viewEl.querySelectorAll('.drill-chip[aria-pressed="true"]')].map((b) => b.dataset.theme);
-    const updateCount = () => {
-      const ids = selectedIds();
-      const n = DRILLS.filter((q) => ids.includes(q.theme)).length;
-      countEl.textContent = `選択中：${ids.length} テーマ ／ ${n} 問`;
-      startBtn.disabled = ids.length === 0;
-    };
-
-    viewEl.querySelectorAll('.drill-chip').forEach((b) => {
-      b.addEventListener('click', () => {
-        const on = b.getAttribute('aria-pressed') !== 'true';
-        b.setAttribute('aria-pressed', String(on));
-        b.classList.toggle('sec-chip--on', on);
-        vibrate(6);
-        updateCount();
-      });
-    });
-    document.getElementById('selAll').addEventListener('click', () => {
-      viewEl.querySelectorAll('.drill-chip').forEach((b) => { b.classList.add('sec-chip--on'); b.setAttribute('aria-pressed', 'true'); });
-      vibrate(8); updateCount();
-    });
-    document.getElementById('selNone').addEventListener('click', () => {
-      viewEl.querySelectorAll('.drill-chip').forEach((b) => { b.classList.remove('sec-chip--on'); b.setAttribute('aria-pressed', 'false'); });
-      vibrate(8); updateCount();
-    });
-    startBtn.addEventListener('click', () => {
-      const ids = selectedIds();
-      if (ids.length === 0) return;
-      vibrate(8);
-      startDrillQuiz(ids);
-    });
-
-    updateCount();
-  }
-
-  /** 選択したテーマのドリル問題を連続出題する。 */
-  function startDrillQuiz(themeIds) {
-    const ids = (themeIds && themeIds.length) ? themeIds : DRILL_THEMES.map((t) => t.id);
-    const pool = DRILLS.filter((q) => ids.includes(q.theme));
-    if (pool.length === 0) return renderDrillSettings();
-    const single = ids.length === 1 ? DRILL_THEMES.find((t) => t.id === ids[0]) : null;
-    const label = single ? `特訓ドリル：${single.title}` : `特訓ドリル（${ids.length}テーマ・${pool.length}問）`;
-    session = Quiz.createCustomSession(pool, { mode: 'drill', label });
-    session.drillThemes = ids;
-    session.accent = single ? single.accent : DRILL_ACCENT;
     renderQuestion();
   }
 
@@ -578,26 +480,41 @@
     return LEKTIONEN.find((l) => l.id === q.lektion) || LEKTIONEN[0];
   }
 
+  /** 問題の表示用フィールドを正規化（新スキーマ ja/exp と旧 prompt/explanation の両対応）。 */
+  function questionText(q) { return q.ja || germanOnly(q.prompt || ''); }
+  function questionExp(q) { return q.exp || q.explanation || ''; }
+
+  /** 解答確定時に共通で行うコンボ加算・進捗記録・演出。正誤に応じたコンボタグHTMLを返す。 */
+  function applyAnswerResult(q, correct) {
+    if (correct) {
+      Storage.recordCorrect(q.id);
+      session.combo = (session.combo || 0) + 1;
+      Storage.recordCombo(session.combo);
+      vibrate(12);
+      if (!reduceMotion) burstConfetti();
+      if (session.combo >= 2) showComboFlash(session.combo);
+      return session.combo >= 2 ? ` <span class="fb-combo">🔥 ${session.combo}連続！</span>` : '';
+    }
+    Storage.recordWrong(q.id);
+    session.combo = 0;
+    vibrate([20, 40, 20]);
+    return '';
+  }
+
   function renderQuestion() {
     const q = Quiz.current(session);
     const lek = session.mode === 'lektion'
       ? LEKTIONEN.find((l) => l.id === session.lektionId)
       : lektionOf(q);
-    const accent = session.mode === 'drill' ? session.accent : lek.accent;
+    const accent = lek.accent;
     const p = Quiz.progress(session);
     const r = Quiz.roundInfo(session);
     const pct = Math.round(((p.current - 1) / p.total) * 100);
     const roundLabel = r.totalRounds > 1 ? `ラウンド ${r.round} / ${r.totalRounds}` : '';
+    const catPrefix = (session.mode === 'random' || session.mode === 'review') ? `Lektion ${lek.id}・` : '';
 
-    const choices = q.choices.map((c, i) => `
-      <button class="choice" data-index="${i}">
-        <span class="choice-key">${String.fromCharCode(65 + i)}</span>
-        <span class="choice-text">${esc(c)}</span>
-      </button>
-    `).join('');
-
-    mountView(`
-      <section class="quiz" style="--accent:${accent}">
+    // 共通ヘッダ（進捗バー・カテゴリ・日本語訳）
+    const headerHtml = `
         <div class="quiz-top">
           <span class="quiz-top-left">
             ${roundLabel ? `<span class="quiz-round">${roundLabel}</span>` : ''}
@@ -609,12 +526,43 @@
           <div class="quiz-progress"><div class="quiz-progress-fill" style="width:${pct}%"></div></div>
           <span class="quiz-count">${p.current} / ${p.total}</span>
         </div>
-        <span class="quiz-cat">${(session.mode === 'random' || session.mode === 'review') ? `Lektion ${lek.id}・` : ''}${esc(q.category)}</span>
-        ${q.translation ? `<p class="quiz-translation">${esc(q.translation)}</p>` : ''}
-        <h2 class="quiz-prompt">${esc(germanOnly(q.prompt))}</h2>
+        <span class="quiz-cat">${catPrefix}${esc(q.category)}</span>
+        <h2 class="quiz-prompt">${esc(questionText(q))}</h2>`;
+
+    if (q.buildMode) {
+      renderBuildQuestion(q, lek, accent, p, headerHtml);
+    } else {
+      renderChoiceQuestion(q, lek, accent, p, headerHtml);
+    }
+  }
+
+  /** 末尾の解説フィードバックHTMLを組み立てる（コンボ・解説・コツ）。 */
+  function feedbackBody(q, comboTag, correct, correctLine) {
+    const tipHtml = q.tip
+      ? `<div class="tip-box"><span class="tip-label">💡 覚え方のコツ</span>${esc(q.tip)}</div>`
+      : '';
+    const head = correct
+      ? `<strong>正解！</strong>${comboTag}`
+      : `<strong>不正解</strong>${correctLine}`;
+    return `${head} ${esc(questionExp(q))}${tipHtml}`;
+  }
+
+  /* ---------- 択一形式の出題 ---------- */
+
+  function renderChoiceQuestion(q, lek, accent, p, headerHtml) {
+    const choices = q.choices.map((c, i) => `
+      <button class="choice" data-index="${i}">
+        <span class="choice-key">${String.fromCharCode(65 + i)}</span>
+        <span class="choice-text">${esc(c)}</span>
+      </button>
+    `).join('');
+
+    mountView(`
+      <section class="quiz" style="--accent:${accent}">
+        ${headerHtml}
         <div class="choices" id="choices">${choices}</div>
         <button class="btn btn-ghost btn-hint" id="hintBtn">💡 ヒントを見る</button>
-        <div class="hint" id="hint" hidden>${esc(q.hint)}${hintTableFor(q)}</div>
+        <div class="hint" id="hint" hidden>${esc(q.hint || '')}${hintTableFor(q)}</div>
         <div class="feedback" id="feedback" aria-live="polite" hidden></div>
         <button class="btn btn-primary btn-next" id="nextBtn" hidden></button>
       </section>
@@ -626,11 +574,7 @@
     const feedbackEl = document.getElementById('feedback');
     const nextBtn = document.getElementById('nextBtn');
 
-    document.getElementById('grammarBtn').addEventListener('click', () => {
-      vibrate(8);
-      showGrammarOverlay(lek);
-    });
-
+    document.getElementById('grammarBtn').addEventListener('click', () => { vibrate(8); showGrammarOverlay(lek); });
     hintBtn.addEventListener('click', () => {
       hintEl.hidden = false;
       hintBtn.classList.add('used');
@@ -639,61 +583,185 @@
 
     choicesEl.querySelectorAll('.choice').forEach((btn) => {
       btn.addEventListener('click', () => {
-        const selected = Number(btn.dataset.index);
-        const result = Quiz.answer(session, selected);
-
-        // 苦手リストを更新（不正解→ミス記録、正解→連続正解を記録し2回で卒業）
-        if (result.correct) {
-          Storage.recordCorrect(q.id);
-        } else {
-          Storage.recordWrong(q.id);
-        }
-
-        // 全選択肢を無効化し、正解/不正解をマーク
+        const result = Quiz.answer(session, Number(btn.dataset.index));
         choicesEl.querySelectorAll('.choice').forEach((b, i) => {
           b.disabled = true;
           b.classList.add('locked');
           if (i === result.answer) b.classList.add('correct');
         });
-
-        const tipHtml = q.tip
-          ? `<div class="tip-box"><span class="tip-label">💡 覚え方のコツ</span>${esc(q.tip)}</div>`
-          : '';
-
+        const comboTag = applyAnswerResult(q, result.correct);
         if (result.correct) {
-          session.combo = (session.combo || 0) + 1;
-          Storage.recordCombo(session.combo);
           btn.classList.add('pop');
-          vibrate(12);
-          if (!reduceMotion) burstConfetti();
-          if (session.combo >= 2) showComboFlash(session.combo);
-          const comboTag = session.combo >= 2 ? ` <span class="fb-combo">🔥 ${session.combo}連続！</span>` : '';
           feedbackEl.className = 'feedback feedback--ok';
-          feedbackEl.innerHTML = `<strong>正解！</strong>${comboTag} ${esc(Quiz.current(session).explanation)}${tipHtml}`;
+          feedbackEl.innerHTML = feedbackBody(q, comboTag, true);
         } else {
-          session.combo = 0;
           btn.classList.add('wrong', 'shake');
-          vibrate([20, 40, 20]);
           feedbackEl.className = 'feedback feedback--ng';
-          feedbackEl.innerHTML = `<strong>不正解</strong> 正解は <b>${esc(q.choices[result.answer])}</b><br>${esc(Quiz.current(session).explanation)}${tipHtml}`;
+          feedbackEl.innerHTML = feedbackBody(q, '', false, ` 正解は <b>${esc(q.choices[result.answer])}</b><br>`);
         }
         feedbackEl.hidden = false;
         hintBtn.hidden = true;
-
-        const last = p.current === p.total;
-        nextBtn.textContent = last ? '結果を見る →' : '次の問題 →';
+        nextBtn.textContent = p.current === p.total ? '結果を見る →' : '次の問題 →';
         nextBtn.hidden = false;
       });
     });
 
     nextBtn.addEventListener('click', () => {
       vibrate(8);
-      if (Quiz.next(session)) {
-        renderQuestion();
+      if (Quiz.next(session)) renderQuestion(); else renderResult();
+    });
+  }
+
+  /* ---------- 組み立て形式（並び替え・語形変化）の出題 ---------- */
+
+  function renderBuildQuestion(q, lek, accent, p, headerHtml) {
+    let placed = [];      // q.bank のindex を並べた順
+    let answered = false;
+    let resetPending = false;
+    let resetTimer = null;
+    const hasFormTile = q.bank.some((it) => !it.fixed && !it.dummy);
+    const tileText = (it) => it.forms[it.idx];
+
+    mountView(`
+      <section class="quiz" style="--accent:${accent}">
+        ${headerHtml}
+        ${hasFormTile ? '<div class="transform-note">✏️ <b>オレンジのタイル</b>はタップで語形が変わります。正しい形に直して並べよう（<b>✕</b>で削除）。</div>' : ''}
+        <div class="answer-area" id="answerArea" aria-label="組み立てた独文"></div>
+        <div class="bank" id="bank" aria-label="語句"></div>
+        <div class="quiz-controls">
+          <button class="btn btn-ghost btn-reset" id="resetBtn" type="button">↺ リセット</button>
+          <button class="btn btn-primary btn-check" id="checkBtn" type="button" disabled>答え合わせ</button>
+        </div>
+        <button class="btn btn-ghost btn-hint" id="hintBtn" type="button">💡 ヒントを見る</button>
+        <div class="hint" id="hint" hidden>${esc(q.hint || '')}</div>
+        <div class="feedback" id="feedback" aria-live="polite" hidden></div>
+        <button class="btn btn-primary btn-next" id="nextBtn" type="button" hidden></button>
+      </section>
+    `);
+
+    const answerArea = document.getElementById('answerArea');
+    const bankEl = document.getElementById('bank');
+    const resetBtn = document.getElementById('resetBtn');
+    const checkBtn = document.getElementById('checkBtn');
+    const hintBtn = document.getElementById('hintBtn');
+    const hintEl = document.getElementById('hint');
+    const feedbackEl = document.getElementById('feedback');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function renderTiles() {
+      if (placed.length === 0) {
+        answerArea.innerHTML = '<span class="answer-placeholder">下の語句をタップして独文を作ろう</span>';
       } else {
-        renderResult();
+        answerArea.innerHTML = placed.map((bi, pos) => {
+          const item = q.bank[bi];
+          const isForm = !item.fixed && !item.dummy;
+          let cls = 'tile' + (isForm ? ' tile--form' : '');
+          if (answered) cls += tileText(item) === q.tokens[pos] ? ' tile--ok' : ' tile--ng';
+          const cyc = (isForm && !answered) ? '<span class="tile-cyc" aria-hidden="true">⇅</span>' : '';
+          const xb = answered ? '' : '<span class="tile-x" data-x="1" aria-label="削除">✕</span>';
+          return `<button class="${cls}" data-loc="ans" data-i="${pos}">${cyc}<span class="tile-txt">${esc(tileText(item))}</span>${xb}</button>`;
+        }).join('');
+      }
+      const remaining = q.bank
+        .map((item, bi) => ({ item, bi }))
+        .filter(({ bi }) => !placed.includes(bi));
+      bankEl.innerHTML = remaining.length
+        ? remaining.map(({ item, bi }) => {
+            const isForm = !item.fixed && !item.dummy;
+            return `<button class="tile${isForm ? ' tile--form' : ''}" data-loc="bank" data-i="${bi}"><span class="tile-txt">${esc(tileText(item))}</span></button>`;
+          }).join('')
+        : '<span class="bank-empty">すべて使いました</span>';
+      checkBtn.disabled = answered || placed.length === 0;
+    }
+
+    answerArea.addEventListener('click', (e) => {
+      if (answered) return;
+      const tileEl = e.target.closest('.tile');
+      if (!tileEl) return;
+      const pos = Number(tileEl.dataset.i);
+      const item = q.bank[placed[pos]];
+      if (e.target.closest('.tile-x')) {
+        placed.splice(pos, 1);
+      } else if (item && !item.fixed && !item.dummy) {
+        item.idx = (item.idx + 1) % item.forms.length;    // 本体タップ：語形を次へ
+      } else {
+        placed.splice(pos, 1);
+      }
+      vibrate(6);
+      renderTiles();
+    });
+
+    bankEl.addEventListener('click', (e) => {
+      const t = e.target.closest('.tile');
+      if (!t || answered) return;
+      const bi = Number(t.dataset.i);
+      if (!placed.includes(bi)) placed.push(bi);
+      vibrate(6);
+      renderTiles();
+    });
+
+    resetBtn.addEventListener('click', () => {
+      if (answered) return;
+      if (resetPending) {
+        placed = [];
+        resetPending = false;
+        clearTimeout(resetTimer);
+        resetBtn.textContent = '↺ リセット';
+        resetBtn.classList.remove('btn-reset--confirm');
+        vibrate(8);
+        renderTiles();
+      } else {
+        resetPending = true;
+        resetBtn.textContent = 'もう一度押すと消去';
+        resetBtn.classList.add('btn-reset--confirm');
+        vibrate([10, 30, 10]);
+        resetTimer = setTimeout(() => {
+          resetPending = false;
+          resetBtn.textContent = '↺ リセット';
+          resetBtn.classList.remove('btn-reset--confirm');
+        }, 2000);
       }
     });
+
+    document.getElementById('grammarBtn').addEventListener('click', () => { vibrate(8); showGrammarOverlay(lek); });
+    hintBtn.addEventListener('click', () => {
+      hintEl.hidden = false;
+      hintBtn.classList.add('used');
+      hintBtn.textContent = '💡 ヒント表示中';
+    });
+
+    checkBtn.addEventListener('click', () => {
+      if (answered || placed.length === 0) return;
+      answered = true;
+      const built = placed.map((bi) => tileText(q.bank[bi]));
+      const result = Quiz.check(session, built);
+      renderTiles();
+      resetBtn.disabled = true;
+      checkBtn.hidden = true;
+      hintBtn.hidden = true;
+
+      const comboTag = applyAnswerResult(q, result.correct);
+      const sentenceHtml = q.sentence ? `<div class="fb-sentence">${esc(q.sentence)}</div>` : '';
+      if (result.correct) {
+        feedbackEl.className = 'feedback feedback--ok';
+        feedbackEl.innerHTML = `<div class="fb-result fb-result--ok">✅ 正解！${comboTag}</div>${sentenceHtml}<div class="fb-section">${esc(questionExp(q))}</div>${q.tip ? `<div class="tip-box"><span class="tip-label">💡 覚え方のコツ</span>${esc(q.tip)}</div>` : ''}`;
+      } else {
+        answerArea.classList.add('shake');
+        setTimeout(() => answerArea.classList.remove('shake'), 420);
+        feedbackEl.className = 'feedback feedback--ng';
+        feedbackEl.innerHTML = `<div class="fb-result fb-result--ng">✗ おしい！</div><p class="fb-correct-label">正しい語順はこちら：</p>${sentenceHtml}<div class="fb-section">${esc(questionExp(q))}</div>${q.tip ? `<div class="tip-box"><span class="tip-label">💡 覚え方のコツ</span>${esc(q.tip)}</div>` : ''}`;
+      }
+      feedbackEl.hidden = false;
+      nextBtn.textContent = p.current === p.total ? '結果を見る →' : '次の問題 →';
+      nextBtn.hidden = false;
+    });
+
+    nextBtn.addEventListener('click', () => {
+      vibrate(8);
+      if (Quiz.next(session)) renderQuestion(); else renderResult();
+    });
+
+    renderTiles();
   }
 
   /* ---------- 結果 ---------- */
@@ -701,7 +769,7 @@
   function renderResult() {
     const isLektion = session.mode === 'lektion';
     const lek = isLektion ? LEKTIONEN.find((l) => l.id === session.lektionId) : null;
-    const accent = session.mode === 'drill' ? session.accent : (lek ? lek.accent : '#14b8a6');
+    const accent = lek ? lek.accent : '#14b8a6';
     const total = session.questions.length;
     const correct = session.correctCount;
     const rate = Math.round((correct / total) * 100);
@@ -721,14 +789,17 @@
       ? `
         <div class="review">
           <h3 class="review-title">復習：間違えた問題（${wrong.length}問）</h3>
-          ${wrong.map((a) => `
+          ${wrong.map((a) => {
+            const aq = a.question;
+            const ans = aq.buildMode ? (aq.sentence || aq.tokens.join(' ')) : aq.choices[aq.answer];
+            return `
             <div class="review-item">
-              <p class="review-q">${esc(a.question.prompt)}</p>
-              <p class="review-a">正解：<b>${esc(a.question.choices[a.question.answer])}</b></p>
-              <p class="review-e">${esc(a.question.explanation)}</p>
-              ${a.question.tip ? `<p class="review-tip">💡 ${esc(a.question.tip)}</p>` : ''}
-            </div>
-          `).join('')}
+              <p class="review-q">${esc(questionText(aq))}</p>
+              <p class="review-a">正解：<b>${esc(ans)}</b></p>
+              <p class="review-e">${esc(questionExp(aq))}</p>
+              ${aq.tip ? `<p class="review-tip">💡 ${esc(aq.tip)}</p>` : ''}
+            </div>`;
+          }).join('')}
         </div>`
       : '<p class="all-correct">全問正解！この調子で続けましょう。✨</p>';
 
@@ -789,7 +860,6 @@
       vibrate(8);
       if (session.mode === 'random') startRandomQuiz();
       else if (session.mode === 'review') startWeakQuiz();
-      else if (session.mode === 'drill') startDrillQuiz(session.drillThemes);
       else startQuiz(session.lektionId);
     });
     document.getElementById('backBtn').addEventListener('click', () => {
