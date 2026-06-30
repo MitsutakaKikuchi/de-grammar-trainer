@@ -1,12 +1,10 @@
 /**
  * ドイツ語 Lektion 1-8 の問題データ（自動生成: ドイツ語初級/js/gen_questions.js）。
  * 出典: ドイツ語テキスト_Lektion1-7_学習資料.md の各Lektion練習問題(Übung)・例文。
- * 形式:
- *   - 組み立て式 … chips（"a / b / c" を並び替え）/ tiles（[固定文字列 | {forms,answer}] をタップで語形変化）
- *   - 択一式     … choices（配列）＋ answer（0始まりのindex）
+ * 形式: 組み立て式（chips=並び替え / tiles=[固定文字列 | {forms,answer}] をタップで語形変化）/ 択一式（choices+answer）。
  * 各問: id / lektion / category / ja(日本語訳=問題文) / (chips|tiles|choices+answer) / sentence(正解文) / hint / exp / tip
- *   冠詞を選ぶ問題は ja に名詞の性を明示する（性は与え、格に応じた冠詞を選ばせる）。
- *   L7は話法の助動詞まで（未来形・従属接続詞は含めない）。L8は格支配の総合（択一）。
+ *   問題文(ja)には格・方向・人称・動詞の意味のヒントを書かない。名詞の性のみ示す。
+ *   L7は話法の助動詞まで。L8は格支配の総合（択一）。
  * 手で編集せず、元データを直して gen_questions.js を再実行すること。
  */
 const QUESTIONS = [
@@ -14,7 +12,7 @@ const QUESTIONS = [
     "id": "l1-01",
     "lektion": 1,
     "category": "動詞の人称変化",
-    "ja": "君は何を飲むの？（trinken＝飲む）",
+    "ja": "君は何を飲むの？",
     "tiles": [
       "Was",
       {
@@ -28,7 +26,7 @@ const QUESTIONS = [
       "du"
     ],
     "sentence": "Was trinkst du?",
-    "hint": "du の語尾は -st。",
+    "hint": "trinken（飲む）。du の語尾は -st。",
     "exp": "du trinkst（語幹 trink- ＋ -st）。",
     "tip": "人称語尾: ich-e / du-st / er-t / wir-en / ihr-t / sie-en。"
   },
@@ -36,7 +34,7 @@ const QUESTIONS = [
     "id": "l1-02",
     "lektion": 1,
     "category": "動詞の人称変化",
-    "ja": "私はコーヒーを飲みます。（trinken）",
+    "ja": "私はコーヒーを飲みます。",
     "tiles": [
       "Ich",
       {
@@ -50,7 +48,7 @@ const QUESTIONS = [
       "Kaffee"
     ],
     "sentence": "Ich trinke Kaffee.",
-    "hint": "ich の語尾は -e。",
+    "hint": "trinken。ich の語尾は -e。",
     "exp": "ich trinke（-e）。",
     "tip": "主語に合わせて語尾を変える。"
   },
@@ -58,7 +56,7 @@ const QUESTIONS = [
     "id": "l1-03",
     "lektion": 1,
     "category": "動詞の人称変化",
-    "ja": "ミュラーさんはとても上手に泳ぎます。（schwimmen＝泳ぐ／3人称単数）",
+    "ja": "ミュラーさんはとても上手に泳ぎます。",
     "tiles": [
       "Frau Müller",
       {
@@ -73,7 +71,7 @@ const QUESTIONS = [
       "gut"
     ],
     "sentence": "Frau Müller schwimmt sehr gut.",
-    "hint": "er/sie/es の語尾は -t。",
+    "hint": "schwimmen（泳ぐ）。er/sie/es は -t。",
     "exp": "3人称単数 → schwimmt。",
     "tip": "人名・Frau/Herr＋名前は er/sie/es 扱い。"
   },
@@ -81,7 +79,7 @@ const QUESTIONS = [
     "id": "l1-04",
     "lektion": 1,
     "category": "動詞の人称変化",
-    "ja": "君はハンブルク出身なの？（kommen＝来る／aus＋3格で「〜出身」）",
+    "ja": "君はハンブルク出身なの？",
     "tiles": [
       {
         "forms": [
@@ -96,7 +94,7 @@ const QUESTIONS = [
       "Hamburg"
     ],
     "sentence": "Kommst du aus Hamburg?",
-    "hint": "疑問文は〈定動詞＋主語〉。du → -st。",
+    "hint": "kommen（来る/出身）。疑問文は〈定動詞＋主語〉。",
     "exp": "Kommst du …?（du の -st）。",
     "tip": "決定疑問文は動詞が文頭。"
   },
@@ -104,7 +102,30 @@ const QUESTIONS = [
     "id": "l1-05",
     "lektion": 1,
     "category": "動詞の人称変化",
-    "ja": "君は熱心に働くね。（arbeiten＝働く）",
+    "ja": "私はベルリン出身です。",
+    "tiles": [
+      "Ich",
+      {
+        "forms": [
+          "komme",
+          "kommst",
+          "kommt"
+        ],
+        "answer": "komme"
+      },
+      "aus",
+      "Berlin"
+    ],
+    "sentence": "Ich komme aus Berlin.",
+    "hint": "kommen。aus＋場所で「〜出身」。",
+    "exp": "ich komme aus Berlin。",
+    "tip": "aus＋3格で出身・出所。"
+  },
+  {
+    "id": "l1-06",
+    "lektion": 1,
+    "category": "動詞の人称変化",
+    "ja": "君は熱心に働くね。",
     "tiles": [
       "Du",
       {
@@ -118,15 +139,15 @@ const QUESTIONS = [
       "fleißig"
     ],
     "sentence": "Du arbeitest fleißig.",
-    "hint": "語幹が -t で終わる動詞は du で口調の e を入れる。",
+    "hint": "arbeiten（働く）。語幹 -t は du で口調の e。",
     "exp": "arbeit- ＋ -est → arbeitest。",
     "tip": "-t/-d 語幹は du -est, er -et。"
   },
   {
-    "id": "l1-06",
+    "id": "l1-07",
     "lektion": 1,
     "category": "動詞の人称変化",
-    "ja": "君は旅行が好き？（reisen＝旅行する）",
+    "ja": "君は旅行が好き？",
     "tiles": [
       {
         "forms": [
@@ -140,12 +161,127 @@ const QUESTIONS = [
       "gern"
     ],
     "sentence": "Reist du gern?",
-    "hint": "語幹が -s で終わる動詞は du で -t のみ。",
+    "hint": "reisen（旅行する）。語幹 -s は du で -t のみ。",
     "exp": "reis- ＋ -t → du reist。",
     "tip": "-s/-ß/-z 語幹は du -t。"
   },
   {
-    "id": "l1-07",
+    "id": "l1-08",
+    "lektion": 1,
+    "category": "動詞の人称変化",
+    "ja": "今晩私はベートーヴェンを聴きます。（Heute Abend で始める）",
+    "tiles": [
+      "Heute Abend",
+      {
+        "forms": [
+          "höre",
+          "hörst",
+          "hört"
+        ],
+        "answer": "höre"
+      },
+      "ich",
+      "Beethoven"
+    ],
+    "sentence": "Heute Abend höre ich Beethoven.",
+    "hint": "hören（聴く）。文頭が時の副詞→倒置。",
+    "exp": "Heute Abend(1) höre(2) ich …。",
+    "tip": "文頭が副詞でも定動詞は2番目。"
+  },
+  {
+    "id": "l1-09",
+    "lektion": 1,
+    "category": "動詞の人称変化",
+    "ja": "君は今どこへ行くの？",
+    "tiles": [
+      "Wohin",
+      {
+        "forms": [
+          "gehe",
+          "gehst",
+          "geht"
+        ],
+        "answer": "gehst"
+      },
+      "du",
+      "jetzt"
+    ],
+    "sentence": "Wohin gehst du jetzt?",
+    "hint": "gehen（行く）。wohin＝どこへ。",
+    "exp": "Wohin gehst du jetzt?",
+    "tip": "疑問詞＋定動詞＋主語。"
+  },
+  {
+    "id": "l1-10",
+    "lektion": 1,
+    "category": "動詞の人称変化",
+    "ja": "マイヤーさんはどこに住んでいますか？",
+    "tiles": [
+      "Wo",
+      {
+        "forms": [
+          "wohne",
+          "wohnst",
+          "wohnt"
+        ],
+        "answer": "wohnt"
+      },
+      "Herr Meier"
+    ],
+    "sentence": "Wo wohnt Herr Meier?",
+    "hint": "wohnen（住む）。Herr Meier は3人称単数。",
+    "exp": "Wo wohnt Herr Meier?",
+    "tip": "wo＝どこに（位置）。"
+  },
+  {
+    "id": "l1-11",
+    "lektion": 1,
+    "category": "動詞の人称変化",
+    "ja": "君たちは今日テニスをします。",
+    "tiles": [
+      "Ihr",
+      {
+        "forms": [
+          "spiele",
+          "spielst",
+          "spielt",
+          "spielen"
+        ],
+        "answer": "spielt"
+      },
+      "heute",
+      "Tennis"
+    ],
+    "sentence": "Ihr spielt heute Tennis.",
+    "hint": "spielen（する）。ihr の語尾は -t。",
+    "exp": "ihr spielt（-t）。",
+    "tip": "ihr は -t、wir/sie は -en。"
+  },
+  {
+    "id": "l1-12",
+    "lektion": 1,
+    "category": "動詞の人称変化",
+    "ja": "彼は今法律を勉強していますか？",
+    "tiles": [
+      {
+        "forms": [
+          "Studiere",
+          "Studierst",
+          "Studiert"
+        ],
+        "answer": "Studiert"
+      },
+      "er",
+      "jetzt",
+      "Jura"
+    ],
+    "sentence": "Studiert er jetzt Jura?",
+    "hint": "studieren（専攻する）。er は -t。",
+    "exp": "Studiert er jetzt Jura?",
+    "tip": "疑問文は動詞が文頭。"
+  },
+  {
+    "id": "l1-13",
     "lektion": 1,
     "category": "語順（定動詞第2位）",
     "ja": "彼はサッカーをするのが好きです。",
@@ -156,7 +292,7 @@ const QUESTIONS = [
     "tip": "定動詞第2位の原則。"
   },
   {
-    "id": "l1-08",
+    "id": "l1-14",
     "lektion": 1,
     "category": "語順（倒置）",
     "ja": "明日フランツはサッカーをします。（Morgen で始める）",
@@ -167,7 +303,7 @@ const QUESTIONS = [
     "tip": "文頭に副詞→主語と動詞が入れ替わる。"
   },
   {
-    "id": "l1-09",
+    "id": "l1-15",
     "lektion": 1,
     "category": "語順（疑問詞）",
     "ja": "今日彼は何をしますか？",
@@ -178,13 +314,13 @@ const QUESTIONS = [
     "tip": "疑問詞＋定動詞＋主語。"
   },
   {
-    "id": "l1-10",
+    "id": "l1-16",
     "lektion": 1,
     "category": "語順（倒置）",
-    "ja": "明日彼はドイツへ飛びます。（Morgen で始める／fliegen＝飛行機で行く）",
+    "ja": "明日彼はドイツへ飛びます。（Morgen で始める）",
     "chips": "Morgen / fliegt / er / nach / Deutschland",
     "sentence": "Morgen fliegt er nach Deutschland.",
-    "hint": "nach＋地名で「〜へ」。",
+    "hint": "fliegen（飛行機で行く）。nach＋地名。",
     "exp": "Morgen fliegt er nach Deutschland.",
     "tip": "nach＋無冠詞の地名。"
   },
@@ -192,7 +328,7 @@ const QUESTIONS = [
     "id": "l2-01",
     "lektion": 2,
     "category": "sein / haben",
-    "ja": "私は大学生で、君も大学生だ。（sein＝〜である）",
+    "ja": "私は大学生で、君も大学生だ。",
     "tiles": [
       "Ich",
       {
@@ -218,7 +354,7 @@ const QUESTIONS = [
       "Student"
     ],
     "sentence": "Ich bin Student und du bist auch Student.",
-    "hint": "ich→bin, du→bist。",
+    "hint": "sein。ich→bin, du→bist。",
     "exp": "sein: ich bin / du bist。",
     "tip": "sein は不規則。bin/bist/ist を丸暗記。"
   },
@@ -226,7 +362,7 @@ const QUESTIONS = [
     "id": "l2-02",
     "lektion": 2,
     "category": "sein / haben",
-    "ja": "君はお腹が空いてる？（haben＝持つ／Hunger haben＝空腹）",
+    "ja": "君はお腹が空いてる？",
     "tiles": [
       {
         "forms": [
@@ -240,15 +376,15 @@ const QUESTIONS = [
       "Hunger"
     ],
     "sentence": "Hast du Hunger?",
-    "hint": "du→hast。",
-    "exp": "haben: du hast。空腹は Hunger haben。",
+    "hint": "haben（持つ）。Hunger haben＝空腹。du→hast。",
+    "exp": "haben: du hast。",
     "tip": "「空腹・渇き」は haben で表す。"
   },
   {
     "id": "l2-03",
     "lektion": 2,
     "category": "sein / haben",
-    "ja": "ユストさんは頭痛がします。（haben／Kopfschmerzen＝頭痛・複数）",
+    "ja": "ユストさんは頭痛がします。",
     "tiles": [
       "Frau Just",
       {
@@ -262,7 +398,7 @@ const QUESTIONS = [
       "Kopfschmerzen"
     ],
     "sentence": "Frau Just hat Kopfschmerzen.",
-    "hint": "3人称単数→hat。",
+    "hint": "haben。3人称単数→hat。",
     "exp": "haben: er/sie/es hat。",
     "tip": "痛みは Schmerzen（複数）＋ haben。"
   },
@@ -270,7 +406,7 @@ const QUESTIONS = [
     "id": "l2-04",
     "lektion": 2,
     "category": "sein / haben",
-    "ja": "あなたのご職業は何ですか？（sein／Sie で）",
+    "ja": "あなたのご職業は何ですか？",
     "tiles": [
       "Was",
       {
@@ -285,15 +421,59 @@ const QUESTIONS = [
       "von Beruf"
     ],
     "sentence": "Was sind Sie von Beruf?",
-    "hint": "Sie（敬称）→sind。",
+    "hint": "sein。Sie（敬称）→sind。",
     "exp": "sein: Sie sind。",
     "tip": "職業を尋ねる定型 Was sind Sie von Beruf?"
   },
   {
     "id": "l2-05",
     "lektion": 2,
+    "category": "sein / haben",
+    "ja": "彼は教師です。",
+    "tiles": [
+      "Er",
+      {
+        "forms": [
+          "bin",
+          "bist",
+          "ist"
+        ],
+        "answer": "ist"
+      },
+      "Lehrer"
+    ],
+    "sentence": "Er ist Lehrer.",
+    "hint": "sein。er→ist。",
+    "exp": "sein: er ist。",
+    "tip": "職業・身分は無冠詞で言う。"
+  },
+  {
+    "id": "l2-06",
+    "lektion": 2,
+    "category": "sein / haben",
+    "ja": "私はのどが渇いています。",
+    "tiles": [
+      "Ich",
+      {
+        "forms": [
+          "habe",
+          "hast",
+          "hat"
+        ],
+        "answer": "habe"
+      },
+      "Durst"
+    ],
+    "sentence": "Ich habe Durst.",
+    "hint": "haben。Durst haben＝のどが渇く。",
+    "exp": "haben: ich habe。",
+    "tip": "Durst（渇き）も haben。"
+  },
+  {
+    "id": "l2-07",
+    "lektion": 2,
     "category": "名詞の性（不定冠詞）",
-    "ja": "一人の男性がそこで歌っています。（Mann＝男性名詞）",
+    "ja": "一人の男性がそこで歌っています。（Mann＝男性）",
     "tiles": [
       {
         "forms": [
@@ -312,10 +492,10 @@ const QUESTIONS = [
     "tip": "不定冠詞: 男/中 ein, 女 eine。"
   },
   {
-    "id": "l2-06",
+    "id": "l2-08",
     "lektion": 2,
     "category": "名詞の性（不定冠詞）",
-    "ja": "一人の女性がコーヒーを飲んでいます。（Frau＝女性名詞）",
+    "ja": "一人の女性がコーヒーを飲んでいます。（Frau＝女性）",
     "tiles": [
       {
         "forms": [
@@ -334,7 +514,54 @@ const QUESTIONS = [
     "tip": "性は冠詞ごと覚える。"
   },
   {
-    "id": "l2-07",
+    "id": "l2-09",
+    "lektion": 2,
+    "category": "名詞の性（定冠詞1格）",
+    "ja": "その男性はペーターという名前です。（Mann＝男性）",
+    "tiles": [
+      {
+        "forms": [
+          "Der",
+          "Die",
+          "Das"
+        ],
+        "answer": "Der"
+      },
+      "Mann",
+      "heißt",
+      "Peter"
+    ],
+    "sentence": "Der Mann heißt Peter.",
+    "hint": "男性の定冠詞（1格）は der。",
+    "exp": "der Mann（男性1格）。",
+    "tip": "定冠詞1格: 男 der / 女 die / 中 das。"
+  },
+  {
+    "id": "l2-10",
+    "lektion": 2,
+    "category": "名詞の性（定冠詞1格）",
+    "ja": "その女性はドイツ出身です。（Frau＝女性）",
+    "tiles": [
+      {
+        "forms": [
+          "Der",
+          "Die",
+          "Das"
+        ],
+        "answer": "Die"
+      },
+      "Frau",
+      "kommt",
+      "aus",
+      "Deutschland"
+    ],
+    "sentence": "Die Frau kommt aus Deutschland.",
+    "hint": "女性の定冠詞（1格）は die。",
+    "exp": "die Frau（女性1格）。",
+    "tip": "性を覚えていれば冠詞は決まる。"
+  },
+  {
+    "id": "l2-11",
     "lektion": 2,
     "category": "複数形",
     "ja": "「犬（der Hund）」の複数形は？",
@@ -350,7 +577,7 @@ const QUESTIONS = [
     "tip": "複数の定冠詞は性に関係なく die。"
   },
   {
-    "id": "l2-08",
+    "id": "l2-12",
     "lektion": 2,
     "category": "複数形",
     "ja": "「子供（das Kind）」の複数形は？",
@@ -366,10 +593,26 @@ const QUESTIONS = [
     "tip": "中性短音節は er式が多い。"
   },
   {
-    "id": "l2-09",
+    "id": "l2-13",
+    "lektion": 2,
+    "category": "複数形",
+    "ja": "「父（der Vater）」の複数形は？",
+    "choices": [
+      "die Väter",
+      "die Vater",
+      "die Vaters",
+      "die Vatern"
+    ],
+    "answer": 0,
+    "hint": "無語尾式＋ウムラウト。",
+    "exp": "Vater → Väter（幹母音がウムラウト）。",
+    "tip": "-er/-el で終わる男性は無語尾＋ウムラウトが多い。"
+  },
+  {
+    "id": "l2-14",
     "lektion": 2,
     "category": "語順（倒置）",
-    "ja": "ここは天気がとても良いです。（Hier で始める／Wetter＝中性）",
+    "ja": "ここは天気がとても良いです。（Hier で始める）",
     "chips": "Hier / ist / das Wetter / sehr / schön",
     "sentence": "Hier ist das Wetter sehr schön.",
     "hint": "文頭が Hier でも定動詞は2番目。",
@@ -379,8 +622,8 @@ const QUESTIONS = [
   {
     "id": "l3-01",
     "lektion": 3,
-    "category": "動詞の格支配（3格＋4格）",
-    "ja": "息子は母に雑誌を持ってくる。（bringen＝3格に4格を／Mutter＝女性, Zeitschrift＝女性）",
+    "category": "動詞の格支配",
+    "ja": "息子は母に雑誌を持ってくる。（Mutter＝女性, Zeitschrift＝女性）",
     "tiles": [
       "Der Sohn",
       "bringt",
@@ -402,15 +645,15 @@ const QUESTIONS = [
       "Zeitschrift"
     ],
     "sentence": "Der Sohn bringt der Mutter eine Zeitschrift.",
-    "hint": "母に＝3格(der)、雑誌を＝4格(eine)。",
-    "exp": "bringen は3格＋4格。der Mutter（3格）/ eine Zeitschrift（4格）。",
+    "hint": "bringen は「（人）に（物）を」。母＝受け手、雑誌＝渡す物。",
+    "exp": "der Mutter（3格）/ eine Zeitschrift（4格）。",
     "tip": "「人に物を」型は 3格＋4格。"
   },
   {
     "id": "l3-02",
     "lektion": 3,
-    "category": "動詞の格支配（3格＋4格）",
-    "ja": "彼女は叔母に手紙を書く。（schreiben＝3格に4格を／Tante＝女性, Brief＝男性）",
+    "category": "動詞の格支配",
+    "ja": "彼女は叔母に手紙を書く。（Tante＝女性, Brief＝男性）",
     "tiles": [
       "Sie",
       "schreibt",
@@ -434,15 +677,15 @@ const QUESTIONS = [
       "Brief"
     ],
     "sentence": "Sie schreibt der Tante einen Brief.",
-    "hint": "叔母に＝3格(der)、手紙を＝4格(einen)。",
-    "exp": "schreiben は3格＋4格。einen Brief（男性4格）。",
+    "hint": "schreiben は「（人）に（物）を」。",
+    "exp": "der Tante（3格）/ einen Brief（男性4格）。",
     "tip": "男性4格は冠詞が -en（den/einen）。"
   },
   {
     "id": "l3-03",
     "lektion": 3,
-    "category": "動詞の格支配（4格）",
-    "ja": "私はその通りを知らない。（kennen＝4格／Straße＝女性）",
+    "category": "動詞の格支配",
+    "ja": "私はその通りを知らない。（Straße＝女性）",
     "tiles": [
       "Ich",
       "kenne",
@@ -457,15 +700,15 @@ const QUESTIONS = [
       "nicht"
     ],
     "sentence": "Ich kenne die Straße nicht.",
-    "hint": "kennen は4格。女性4格＝die。",
+    "hint": "kennen は「〜を」。",
     "exp": "die Straße（女性4格）。",
     "tip": "女性は1格と4格が同形（die）。"
   },
   {
     "id": "l3-04",
     "lektion": 3,
-    "category": "動詞の格支配（4格）",
-    "ja": "先生は（一人の）生徒に質問する。（fragen＝4格／Schüler＝男性）",
+    "category": "動詞の格支配",
+    "ja": "先生は（一人の）生徒に質問する。（Schüler＝男性）",
     "tiles": [
       "Der Lehrer",
       "fragt",
@@ -481,15 +724,15 @@ const QUESTIONS = [
       "Schüler"
     ],
     "sentence": "Der Lehrer fragt einen Schüler.",
-    "hint": "fragen は4格（「〜に質問する」でも4格）。",
+    "hint": "fragen は「〜に質問する」でも直接目的語をとる。",
     "exp": "einen Schüler（男性4格）。",
-    "tip": "fragen は日本語の「に」につられず4格。"
+    "tip": "fragen は日本語の「に」につられない。"
   },
   {
     "id": "l3-05",
     "lektion": 3,
-    "category": "動詞の格支配（3格）",
-    "ja": "その生徒は先生に答える。（antworten＝3格／Schüler＝男性, Lehrer＝男性）",
+    "category": "動詞の格支配",
+    "ja": "その生徒は先生に答える。（Schüler＝男性, Lehrer＝男性）",
     "tiles": [
       "Der Schüler",
       "antwortet",
@@ -505,15 +748,15 @@ const QUESTIONS = [
       "Lehrer"
     ],
     "sentence": "Der Schüler antwortet dem Lehrer.",
-    "hint": "antworten は3格。男性3格＝dem。",
+    "hint": "antworten は答える相手をとる。",
     "exp": "dem Lehrer（男性3格）。",
-    "tip": "antworten/danken/helfen は3格。"
+    "tip": "antworten/danken/helfen はこのタイプ。"
   },
   {
     "id": "l3-06",
     "lektion": 3,
-    "category": "動詞の格支配（3格＋4格）",
-    "ja": "父は子供たちに童話を語る。（erzählen＝3格に4格を／Kinder＝複数, Märchen＝中性）",
+    "category": "動詞の格支配",
+    "ja": "父は子供たちに童話を語る。（Kinder＝複数, Märchen＝中性）",
     "tiles": [
       "Der Vater",
       "erzählt",
@@ -537,15 +780,15 @@ const QUESTIONS = [
       "Märchen"
     ],
     "sentence": "Der Vater erzählt den Kindern ein Märchen.",
-    "hint": "複数3格は den＋名詞に -n。中性4格＝ein。",
-    "exp": "den Kindern（複数3格, Kinder→Kindern）/ ein Märchen（中性4格）。",
-    "tip": "複数3格は名詞語尾に -n が付く。"
+    "hint": "erzählen は「（人）に（話）を」。複数は名詞に -n。",
+    "exp": "den Kindern（複数）/ ein Märchen（中性）。",
+    "tip": "複数は冠詞 den＋名詞語尾 -n。"
   },
   {
     "id": "l3-07",
     "lektion": 3,
-    "category": "動詞の格支配（3格）",
-    "ja": "ハンドバッグはその女性のものだ。（gehören＝3格／Frau＝女性）",
+    "category": "動詞の格支配",
+    "ja": "ハンドバッグはその女性のものだ。（Frau＝女性）",
     "tiles": [
       "Die Handtasche",
       "gehört",
@@ -559,15 +802,15 @@ const QUESTIONS = [
       "Frau"
     ],
     "sentence": "Die Handtasche gehört der Frau.",
-    "hint": "gehören は3格。女性3格＝der。",
-    "exp": "der Frau（女性3格）。",
+    "hint": "gehören は「〜のものだ」。所有者をとる。",
+    "exp": "der Frau（女性）。",
     "tip": "女性の2格・3格は der。"
   },
   {
     "id": "l3-08",
     "lektion": 3,
-    "category": "動詞の格支配（3格）",
-    "ja": "オートバイはその男性のものだ。（gehören＝3格／Mann＝男性）",
+    "category": "動詞の格支配",
+    "ja": "オートバイはその男性のものだ。（Mann＝男性）",
     "tiles": [
       "Das Motorrad",
       "gehört",
@@ -583,15 +826,15 @@ const QUESTIONS = [
       "Mann"
     ],
     "sentence": "Das Motorrad gehört dem Mann.",
-    "hint": "男性3格＝dem。",
-    "exp": "dem Mann（男性3格）。",
-    "tip": "gehören は「〜のものだ」で3格。"
+    "hint": "gehören は所有者をとる。",
+    "exp": "dem Mann（男性）。",
+    "tip": "gehören は「〜のものだ」。"
   },
   {
     "id": "l3-09",
     "lektion": 3,
-    "category": "動詞の格支配（3格＋4格）",
-    "ja": "少女は（女の）友達に写真を見せる。（zeigen＝3格に4格を／Freundin＝女性, Foto＝中性）",
+    "category": "動詞の格支配",
+    "ja": "少女は（女の）友達に写真を見せる。（Freundin＝女性, Foto＝中性）",
     "tiles": [
       "Das Mädchen",
       "zeigt",
@@ -614,15 +857,93 @@ const QUESTIONS = [
       "Foto"
     ],
     "sentence": "Das Mädchen zeigt einer Freundin ein Foto.",
-    "hint": "友達に＝女性3格(einer)、写真を＝中性4格(ein)。",
-    "exp": "einer Freundin（女性3格）/ ein Foto（中性4格）。",
+    "hint": "zeigen は「（人）に（物）を」。",
+    "exp": "einer Freundin / ein Foto。",
     "tip": "不定冠詞 女性3格＝einer。"
   },
   {
     "id": "l3-10",
     "lektion": 3,
+    "category": "動詞の格支配",
+    "ja": "私はその子供に本を贈ります。（Kind＝中性, Buch＝中性）",
+    "tiles": [
+      "Ich",
+      "schenke",
+      {
+        "forms": [
+          "das",
+          "des",
+          "dem"
+        ],
+        "answer": "dem"
+      },
+      "Kind",
+      {
+        "forms": [
+          "das",
+          "des",
+          "dem"
+        ],
+        "answer": "das"
+      },
+      "Buch"
+    ],
+    "sentence": "Ich schenke dem Kind das Buch.",
+    "hint": "schenken は「（人）に（物）を」。",
+    "exp": "dem Kind（中性3格）/ das Buch（中性4格）。",
+    "tip": "中性は1格と4格が同形（das）。"
+  },
+  {
+    "id": "l3-11",
+    "lektion": 3,
+    "category": "動詞の格支配",
+    "ja": "彼女はその子供たちに感謝します。（Kinder＝複数）",
+    "tiles": [
+      "Sie",
+      "dankt",
+      {
+        "forms": [
+          "die",
+          "der",
+          "den"
+        ],
+        "answer": "den"
+      },
+      "Kindern"
+    ],
+    "sentence": "Sie dankt den Kindern.",
+    "hint": "danken は感謝する相手をとる。複数は -n。",
+    "exp": "den Kindern（複数）。",
+    "tip": "複数3格は den＋語尾 -n。"
+  },
+  {
+    "id": "l3-12",
+    "lektion": 3,
+    "category": "動詞の格支配",
+    "ja": "先生は子供たちを褒める。（Kinder＝複数）",
+    "tiles": [
+      "Der Lehrer",
+      "lobt",
+      {
+        "forms": [
+          "die",
+          "der",
+          "den"
+        ],
+        "answer": "die"
+      },
+      "Kinder"
+    ],
+    "sentence": "Der Lehrer lobt die Kinder.",
+    "hint": "loben は「〜を」。複数。",
+    "exp": "die Kinder（複数の直接目的語）。",
+    "tip": "複数1・4格の冠詞は die。"
+  },
+  {
+    "id": "l3-13",
+    "lektion": 3,
     "category": "2格（所有）",
-    "ja": "その男性の車は新しい。（2格／Mann＝男性）",
+    "ja": "その男性の車は新しい。（Mann＝男性）",
     "tiles": [
       "Der Wagen",
       {
@@ -639,12 +960,37 @@ const QUESTIONS = [
       "neu"
     ],
     "sentence": "Der Wagen des Mannes ist neu.",
-    "hint": "「〜の」は2格。男性2格＝des＋名詞に -(e)s。",
+    "hint": "「〜の」を表す形。男性は冠詞 des＋名詞 -(e)s。",
     "exp": "des Mannes（男性2格）。",
     "tip": "男性・中性2格は des、名詞も -(e)s。"
   },
   {
-    "id": "l3-11",
+    "id": "l3-14",
+    "lektion": 3,
+    "category": "2格（所有）",
+    "ja": "彼はある医者の娘を愛している。（Arzt＝男性）",
+    "tiles": [
+      "Er",
+      "liebt",
+      "die Tochter",
+      {
+        "forms": [
+          "ein",
+          "eines",
+          "einem",
+          "einen"
+        ],
+        "answer": "eines"
+      },
+      "Arztes"
+    ],
+    "sentence": "Er liebt die Tochter eines Arztes.",
+    "hint": "「ある医者の」は2格。男性は eines＋名詞 -es。",
+    "exp": "eines Arztes（男性2格）。",
+    "tip": "2格は後ろから名詞を修飾。"
+  },
+  {
+    "id": "l3-15",
     "lektion": 3,
     "category": "語順（2格）",
     "ja": "これは友人の携帯電話です。（des Freundes＝友人の）",
@@ -657,8 +1003,8 @@ const QUESTIONS = [
   {
     "id": "l4-01",
     "lektion": 4,
-    "category": "不規則動詞（e→i）",
-    "ja": "君はその錠剤を飲む？（nehmen＝取る/飲む／du）",
+    "category": "不規則動詞",
+    "ja": "君はその錠剤を飲む？",
     "tiles": [
       {
         "forms": [
@@ -672,15 +1018,15 @@ const QUESTIONS = [
       "die Tabletten"
     ],
     "sentence": "Nimmst du die Tabletten?",
-    "hint": "nehmen は du/er で nimm- に変化。",
-    "exp": "du nimmst（特殊: nehm→nimm）。",
+    "hint": "nehmen（取る/飲む）。du/er で nimm- に変化。",
+    "exp": "du nimmst（nehm→nimm）。",
     "tip": "nehmen は du nimmst, er nimmt。"
   },
   {
     "id": "l4-02",
     "lektion": 4,
-    "category": "不規則動詞（e→i）",
-    "ja": "私は朝に錠剤を飲みます。（nehmen／ich）",
+    "category": "不規則動詞",
+    "ja": "私は朝に錠剤を飲みます。",
     "tiles": [
       "Ich",
       {
@@ -695,15 +1041,15 @@ const QUESTIONS = [
       "die Tabletten"
     ],
     "sentence": "Ich nehme morgens die Tabletten.",
-    "hint": "ich は語幹変化しない。",
-    "exp": "ich nehme（1人称は語幹そのまま）。",
+    "hint": "nehmen。ich は語幹そのまま。",
+    "exp": "ich nehme（1人称は変化なし）。",
     "tip": "語幹変化は du と er/sie/es だけ。"
   },
   {
     "id": "l4-03",
     "lektion": 4,
-    "category": "不規則動詞（e→i）",
-    "ja": "マリアは今日その友人に会う？（treffen＝会う／3人称単数）",
+    "category": "不規則動詞",
+    "ja": "マリアは今日その友人に会う？",
     "tiles": [
       {
         "forms": [
@@ -718,15 +1064,15 @@ const QUESTIONS = [
       "den Freund"
     ],
     "sentence": "Trifft Maria heute den Freund?",
-    "hint": "treffen は e→i。",
+    "hint": "treffen（会う）。e→i。Maria は3人称単数。",
     "exp": "er/sie trifft（treff→triff）。",
     "tip": "treffen は4格をとる。"
   },
   {
     "id": "l4-04",
     "lektion": 4,
-    "category": "不規則動詞（e→ie）",
-    "ja": "君は推理小説を読む？（lesen＝読む／du・Krimi＝男性）",
+    "category": "不規則動詞",
+    "ja": "君は推理小説を読む？",
     "tiles": [
       {
         "forms": [
@@ -740,15 +1086,15 @@ const QUESTIONS = [
       "einen Krimi"
     ],
     "sentence": "Liest du einen Krimi?",
-    "hint": "lesen は e→ie。",
+    "hint": "lesen（読む）。e→ie。",
     "exp": "du liest（les→lies）。",
     "tip": "sehen/lesen/empfehlen は e→ie。"
   },
   {
     "id": "l4-05",
     "lektion": 4,
-    "category": "不規則動詞（e→i）",
-    "ja": "フランツはその少女に時計をあげる。（geben＝3格に4格を／Mädchen＝中性, Uhr＝女性）",
+    "category": "不規則動詞",
+    "ja": "フランツはその少女に時計をあげる。（Mädchen＝中性, Uhr＝女性）",
     "tiles": [
       "Franz",
       {
@@ -763,15 +1109,15 @@ const QUESTIONS = [
       "die Uhr"
     ],
     "sentence": "Franz gibt dem Mädchen die Uhr.",
-    "hint": "geben は e→i。3格(dem Mädchen)＋4格(die Uhr)。",
+    "hint": "geben（与える）。e→i。",
     "exp": "er gibt（geb→gib）。",
-    "tip": "geben は3格＋4格をとる。"
+    "tip": "geben は「（人）に（物）を」。"
   },
   {
     "id": "l4-06",
     "lektion": 4,
-    "category": "不規則動詞（e→i）",
-    "ja": "アンナは魚を好んで食べる。（essen＝食べる／3人称単数）",
+    "category": "不規則動詞",
+    "ja": "アンナは魚を好んで食べる。",
     "tiles": [
       "Anna",
       {
@@ -786,15 +1132,15 @@ const QUESTIONS = [
       "Fisch"
     ],
     "sentence": "Anna isst gern Fisch.",
-    "hint": "essen は e→i（du/er は isst）。",
+    "hint": "essen（食べる）。e→i。",
     "exp": "sie isst（ess→iss）。",
     "tip": "essen の du と er は同形 isst。"
   },
   {
     "id": "l4-07",
     "lektion": 4,
-    "category": "不規則動詞（a→ä）",
-    "ja": "ハンスは明日ボンへ行く？（fahren＝乗り物で行く／3人称単数）",
+    "category": "不規則動詞",
+    "ja": "ハンスは明日ボンへ行く？",
     "tiles": [
       {
         "forms": [
@@ -809,15 +1155,15 @@ const QUESTIONS = [
       "nach Bonn"
     ],
     "sentence": "Fährt Hans morgen nach Bonn?",
-    "hint": "fahren は a→ä。",
+    "hint": "fahren（乗り物で行く）。a→ä。",
     "exp": "er fährt（fahr→fähr）。",
     "tip": "fahren/tragen/schlafen は a→ä。"
   },
   {
     "id": "l4-08",
     "lektion": 4,
-    "category": "不規則動詞（a→ä）",
-    "ja": "オットーはひげをはやしている？（tragen＝身につける／Bart＝男性）",
+    "category": "不規則動詞",
+    "ja": "オットーはひげをはやしている？",
     "tiles": [
       {
         "forms": [
@@ -831,48 +1177,142 @@ const QUESTIONS = [
       "einen Bart"
     ],
     "sentence": "Trägt Otto einen Bart?",
-    "hint": "tragen は a→ä。",
-    "exp": "er trägt。einen Bart（男性4格）。",
-    "tip": "tragen は「運ぶ・着る・生やす」。"
+    "hint": "tragen（運ぶ・着る・生やす）。a→ä。",
+    "exp": "er trägt。",
+    "tip": "tragen は a→ä。"
   },
   {
     "id": "l4-09",
     "lektion": 4,
-    "category": "命令形（du）",
-    "ja": "ハンス、座って！（命令形・du／Platz nehmen＝着席する）",
-    "chips": "Nimm / Platz",
-    "sentence": "Nimm Platz!",
-    "hint": "nehmen の du 命令は Nimm（語幹変化が残る）。",
-    "exp": "e→i 動詞の du 命令は変化形のまま: Nimm!",
-    "tip": "du命令: 語幹のみ（e→i は維持）。"
+    "category": "不規則動詞",
+    "ja": "あそこの教会が見えますか？（Kirche＝女性）",
+    "tiles": [
+      {
+        "forms": [
+          "Sehe",
+          "Siehst",
+          "Sieht"
+        ],
+        "answer": "Siehst"
+      },
+      "du",
+      "die Kirche",
+      "dort"
+    ],
+    "sentence": "Siehst du die Kirche dort?",
+    "hint": "sehen（見る）。e→ie。",
+    "exp": "du siehst（seh→sieh）。",
+    "tip": "die Kirche（女性4格）。"
   },
   {
     "id": "l4-10",
     "lektion": 4,
-    "category": "命令形（Sie）",
-    "ja": "ワルターさん、ゆっくり話してください！（命令形・Sie）",
-    "chips": "Sprechen / Sie / bitte / langsam",
-    "sentence": "Sprechen Sie bitte langsam!",
-    "hint": "Sie命令は〈動詞＋Sie〉。",
-    "exp": "Sprechen Sie …!（敬称の命令）。",
-    "tip": "Sie命令は不定詞と同形＋Sie。"
+    "category": "不規則動詞",
+    "ja": "フランツはのちに教師になります。",
+    "tiles": [
+      "Franz",
+      {
+        "forms": [
+          "werde",
+          "wirst",
+          "wird"
+        ],
+        "answer": "wird"
+      },
+      "später",
+      "Lehrer"
+    ],
+    "sentence": "Franz wird später Lehrer.",
+    "hint": "werden（〜になる）。er→wird。",
+    "exp": "er wird（不規則）。",
+    "tip": "werden: du wirst, er wird。"
   },
   {
     "id": "l4-11",
     "lektion": 4,
-    "category": "命令形（ihr）",
-    "ja": "ハンスとアンナ、静かにして！（命令形・ihr／sein）",
+    "category": "命令形",
+    "ja": "ハンス、座って！（Platz nehmen＝着席する）",
+    "chips": "Nimm / Platz",
+    "sentence": "Nimm Platz!",
+    "hint": "nehmen の du 命令は Nimm。",
+    "exp": "e→i 動詞の du 命令は変化形のまま: Nimm!",
+    "tip": "du命令: 語幹のみ（e→i は維持）。"
+  },
+  {
+    "id": "l4-12",
+    "lektion": 4,
+    "category": "命令形",
+    "ja": "lesen（読む）の du に対する命令形は？",
+    "choices": [
+      "Lies",
+      "Lese",
+      "Liest",
+      "Les"
+    ],
+    "answer": 0,
+    "hint": "e→ie は命令でも維持。",
+    "exp": "lesen → Lies!",
+    "tip": "e→ie/e→i 動詞の du 命令は変化形。"
+  },
+  {
+    "id": "l4-13",
+    "lektion": 4,
+    "category": "命令形",
+    "ja": "essen（食べる）の du に対する命令形は？",
+    "choices": [
+      "Iss",
+      "Esse",
+      "Isst",
+      "Es"
+    ],
+    "answer": 0,
+    "hint": "e→i は命令でも維持。",
+    "exp": "essen → Iss!",
+    "tip": "語尾 e は付けない。"
+  },
+  {
+    "id": "l4-14",
+    "lektion": 4,
+    "category": "命令形",
+    "ja": "sprechen（話す）の du に対する命令形は？",
+    "choices": [
+      "Sprich",
+      "Sprech",
+      "Sprichst",
+      "Spreche"
+    ],
+    "answer": 0,
+    "hint": "e→i は命令でも維持。",
+    "exp": "sprechen → Sprich!",
+    "tip": "×Sprech ではなく Sprich。"
+  },
+  {
+    "id": "l4-15",
+    "lektion": 4,
+    "category": "命令形",
+    "ja": "ワルターさん、ゆっくり話してください！（Sie に対する命令）",
+    "chips": "Sprechen / Sie / bitte / langsam",
+    "sentence": "Sprechen Sie bitte langsam!",
+    "hint": "Sie命令は〈動詞＋Sie〉。",
+    "exp": "Sprechen Sie …!",
+    "tip": "Sie命令は不定詞と同形＋Sie。"
+  },
+  {
+    "id": "l4-16",
+    "lektion": 4,
+    "category": "命令形",
+    "ja": "ハンスとアンナ、静かにして！（ihr に対する命令）",
     "chips": "Seid / ruhig",
     "sentence": "Seid ruhig!",
     "hint": "sein の ihr 命令は Seid。",
     "exp": "ihr命令は ihr の形: Seid!",
-    "tip": "sein の命令: du sei / ihr seid / Sie seien Sie。"
+    "tip": "sein: du sei / ihr seid / Sie seien Sie。"
   },
   {
     "id": "l5-01",
     "lektion": 5,
-    "category": "定冠詞類（dieser）",
-    "ja": "私はこの車を買います。（dieser＝この／Wagen＝男性4格）",
+    "category": "定冠詞類",
+    "ja": "私はこの車を買います。（Wagen＝男性）",
     "tiles": [
       "Ich",
       "kaufe",
@@ -888,15 +1328,38 @@ const QUESTIONS = [
       "Wagen"
     ],
     "sentence": "Ich kaufe diesen Wagen.",
-    "hint": "dieser は定冠詞と同じ変化。男性4格＝diesen。",
-    "exp": "diesen Wagen（男性4格）。",
+    "hint": "dieser は定冠詞と同じ変化。「〜を」。",
+    "exp": "diesen Wagen（男性の直接目的語）。",
     "tip": "dieser/jeder/welcher は der型変化。"
   },
   {
     "id": "l5-02",
     "lektion": 5,
-    "category": "所有冠詞（3格）",
-    "ja": "このハンドバッグは私の母にとても気に入っている。（gefallen＝3格／mein・Mutter＝女性）",
+    "category": "定冠詞類",
+    "ja": "どの女性がそれですか？（Frau＝女性）",
+    "tiles": [
+      {
+        "forms": [
+          "Welcher",
+          "Welche",
+          "Welches"
+        ],
+        "answer": "Welche"
+      },
+      "Frau",
+      "ist",
+      "das"
+    ],
+    "sentence": "Welche Frau ist das?",
+    "hint": "welcher も der型。女性1格＝welche。",
+    "exp": "welche Frau（女性1格）。",
+    "tip": "welcher＝「どの」。"
+  },
+  {
+    "id": "l5-03",
+    "lektion": 5,
+    "category": "所有冠詞",
+    "ja": "このハンドバッグは私の母にとても気に入っている。（Mutter＝女性）",
     "tiles": [
       "Die Handtasche",
       "gefällt",
@@ -911,15 +1374,15 @@ const QUESTIONS = [
       "sehr"
     ],
     "sentence": "Die Handtasche gefällt meiner Mutter sehr.",
-    "hint": "gefallen は3格。女性3格＝meiner。",
-    "exp": "meiner Mutter（女性3格）。",
-    "tip": "gefallen は「〜の気に入る」で3格。"
+    "hint": "gefallen は気に入る人をとる。",
+    "exp": "meiner Mutter（女性）。",
+    "tip": "gefallen は「〜の気に入る」。"
   },
   {
-    "id": "l5-03",
+    "id": "l5-04",
     "lektion": 5,
-    "category": "所有冠詞（3格）",
-    "ja": "私は妹を手伝う。（helfen＝3格／mein・Schwester＝女性）",
+    "category": "所有冠詞",
+    "ja": "私は妹を手伝う。（Schwester＝女性）",
     "tiles": [
       "Ich",
       "helfe",
@@ -933,56 +1396,86 @@ const QUESTIONS = [
       "Schwester"
     ],
     "sentence": "Ich helfe meiner Schwester.",
-    "hint": "helfen は3格。",
-    "exp": "meiner Schwester（女性3格）。",
-    "tip": "helfen は4格に見えて3格。"
-  },
-  {
-    "id": "l5-04",
-    "lektion": 5,
-    "category": "所有冠詞・定冠詞類",
-    "ja": "君は友人にこの指輪を贈るの？（schenken＝3格に4格を／dein・Freund＝男性, Ring＝男性）",
-    "tiles": [
-      {
-        "forms": [
-          "Schenke",
-          "Schenkst",
-          "Schenkt"
-        ],
-        "answer": "Schenkst"
-      },
-      "du",
-      {
-        "forms": [
-          "dein",
-          "deines",
-          "deinem",
-          "deinen"
-        ],
-        "answer": "deinem"
-      },
-      "Freund",
-      {
-        "forms": [
-          "dieser",
-          "dieses",
-          "diesem",
-          "diesen"
-        ],
-        "answer": "diesen"
-      },
-      "Ring"
-    ],
-    "sentence": "Schenkst du deinem Freund diesen Ring?",
-    "hint": "友人に＝男性3格(deinem)、指輪を＝男性4格(diesen)。",
-    "exp": "deinem Freund（3格）/ diesen Ring（4格）。",
-    "tip": "所有冠詞も ein型・dieser は der型の変化。"
+    "hint": "helfen は手伝う相手をとる。",
+    "exp": "meiner Schwester（女性）。",
+    "tip": "helfen は4格に見えてこのタイプ。"
   },
   {
     "id": "l5-05",
     "lektion": 5,
-    "category": "所有冠詞（複数3格・中性4格）",
-    "ja": "母は子供たちに自分の写真を見せる。（zeigen＝3格に4格を／ihr・Kinder＝複数, Foto＝中性）",
+    "category": "所有冠詞",
+    "ja": "彼の妻のご職業は何ですか？（Frau＝女性）",
+    "tiles": [
+      "Was",
+      "ist",
+      {
+        "forms": [
+          "seine",
+          "seiner"
+        ],
+        "answer": "seine"
+      },
+      "Frau",
+      "von Beruf"
+    ],
+    "sentence": "Was ist seine Frau von Beruf?",
+    "hint": "seine Frau は主語（1格）。",
+    "exp": "seine Frau（女性1格）。",
+    "tip": "所有冠詞も性・格で変化（ein型）。"
+  },
+  {
+    "id": "l5-06",
+    "lektion": 5,
+    "category": "所有冠詞",
+    "ja": "私たちの街の教会はとても美しい。（Stadt＝女性, Kirche＝女性）",
+    "tiles": [
+      "Die Kirche",
+      {
+        "forms": [
+          "unsere",
+          "unserer"
+        ],
+        "answer": "unserer"
+      },
+      "Stadt",
+      "ist",
+      "sehr",
+      "schön"
+    ],
+    "sentence": "Die Kirche unserer Stadt ist sehr schön.",
+    "hint": "「私たちの街の」は所有（2格）。女性。",
+    "exp": "unserer Stadt（女性2格）。",
+    "tip": "女性2格の所有冠詞は -er。"
+  },
+  {
+    "id": "l5-07",
+    "lektion": 5,
+    "category": "否定冠詞 kein",
+    "ja": "私たちはお酒を飲みません。（Alkohol＝男性）",
+    "tiles": [
+      "Wir",
+      "trinken",
+      {
+        "forms": [
+          "kein",
+          "keines",
+          "keinem",
+          "keinen"
+        ],
+        "answer": "keinen"
+      },
+      "Alkohol"
+    ],
+    "sentence": "Wir trinken keinen Alkohol.",
+    "hint": "kein は ein 型。「〜を」（男性）。",
+    "exp": "keinen Alkohol（男性の直接目的語）。",
+    "tip": "kein は否定の不定冠詞。"
+  },
+  {
+    "id": "l5-08",
+    "lektion": 5,
+    "category": "所有冠詞",
+    "ja": "母は子供たちに自分の写真を見せる。（Kinder＝複数, Foto＝中性）",
     "tiles": [
       "Die Mutter",
       "zeigt",
@@ -1007,15 +1500,37 @@ const QUESTIONS = [
       "Foto"
     ],
     "sentence": "Die Mutter zeigt ihren Kindern ihr Foto.",
-    "hint": "複数3格＝ihren＋Kindern、中性4格＝ihr。",
-    "exp": "ihren Kindern（複数3格）/ ihr Foto（中性4格）。",
-    "tip": "ihr（彼女の）も冠詞類として格変化する。"
+    "hint": "zeigen は「（人）に（物）を」。ihr（彼女の）も変化。",
+    "exp": "ihren Kindern（複数）/ ihr Foto（中性）。",
+    "tip": "ihr（彼女の）も冠詞類として格変化。"
   },
   {
-    "id": "l5-06",
+    "id": "l5-09",
     "lektion": 5,
     "category": "疑問代名詞",
-    "ja": "君は誰を訪ねるの？（wen＝誰を／4格）— ___ besuchst du?",
+    "ja": "その少女は誰ですか？",
+    "tiles": [
+      {
+        "forms": [
+          "Wer",
+          "Wen",
+          "Wem"
+        ],
+        "answer": "Wer"
+      },
+      "ist",
+      "das Mädchen"
+    ],
+    "sentence": "Wer ist das Mädchen?",
+    "hint": "主語を尋ねる「誰が」。",
+    "exp": "1格（誰が）＝ wer。",
+    "tip": "wer/wessen/wem/wen（1/2/3/4格）。"
+  },
+  {
+    "id": "l5-10",
+    "lektion": 5,
+    "category": "疑問代名詞",
+    "ja": "君は誰を訪ねるの？— ___ besuchst du?",
     "choices": [
       "Wen",
       "Wer",
@@ -1023,15 +1538,15 @@ const QUESTIONS = [
       "Wessen"
     ],
     "answer": 0,
-    "hint": "besuchen は4格。「誰を」＝wen。",
-    "exp": "4格（誰を）＝ wen。Wen besuchst du?",
-    "tip": "疑問代名詞: wer/wessen/wem/wen（1/2/3/4格）。"
+    "hint": "besuchen は直接目的語。",
+    "exp": "4格（誰を）＝ wen。",
+    "tip": "疑問代名詞も格変化する。"
   },
   {
-    "id": "l5-07",
+    "id": "l5-11",
     "lektion": 5,
     "category": "疑問代名詞",
-    "ja": "この車は誰のもの？（gehören＝3格）— ___ gehört dieses Auto?",
+    "ja": "この車は誰のもの？— ___ gehört dieses Auto?",
     "choices": [
       "Wem",
       "Wer",
@@ -1039,15 +1554,15 @@ const QUESTIONS = [
       "Wessen"
     ],
     "answer": 0,
-    "hint": "gehören は3格。「誰に」＝wem。",
+    "hint": "gehören は所有者をとる。",
     "exp": "3格（誰に）＝ wem。",
-    "tip": "gehören＋3格 → wem で尋ねる。"
+    "tip": "gehören＋3格 → wem。"
   },
   {
-    "id": "l5-08",
+    "id": "l5-12",
     "lektion": 5,
     "category": "疑問代名詞",
-    "ja": "これは誰のバッグ？（誰の＝2格）— ___ Tasche ist das?",
+    "ja": "これは誰のバッグ？— ___ Tasche ist das?",
     "choices": [
       "Wessen",
       "Wer",
@@ -1055,15 +1570,15 @@ const QUESTIONS = [
       "Wen"
     ],
     "answer": 0,
-    "hint": "「誰の」＝2格 wessen。",
+    "hint": "「誰の」は所有。",
     "exp": "2格（誰の）＝ wessen。",
     "tip": "wessen ＋ 名詞で「誰の〜」。"
   },
   {
-    "id": "l5-09",
+    "id": "l5-13",
     "lektion": 5,
     "category": "語順",
-    "ja": "あなたの子供たちは今どこに住んでいますか？（deine Kinder）",
+    "ja": "あなたの子供たちは今どこに住んでいますか？",
     "chips": "Wo / wohnen / deine Kinder / jetzt",
     "sentence": "Wo wohnen deine Kinder jetzt?",
     "hint": "疑問詞＋定動詞＋主語。",
@@ -1073,8 +1588,8 @@ const QUESTIONS = [
   {
     "id": "l6-01",
     "lektion": 6,
-    "category": "人称代名詞（3格）",
-    "ja": "私は君に心から感謝する。（danken＝3格／du→？）",
+    "category": "人称代名詞",
+    "ja": "私は君に心から感謝する。",
     "tiles": [
       "Ich",
       "danke",
@@ -1089,15 +1604,15 @@ const QUESTIONS = [
       "herzlich"
     ],
     "sentence": "Ich danke dir herzlich.",
-    "hint": "danken は3格。du の3格＝dir。",
-    "exp": "du → 3格 dir。",
-    "tip": "人称代名詞 du: 3格 dir / 4格 dich。"
+    "hint": "danken は感謝する相手をとる。du の変化形は？",
+    "exp": "du → dir。",
+    "tip": "du: dir（に）/ dich（を）。"
   },
   {
     "id": "l6-02",
     "lektion": 6,
-    "category": "人称代名詞（4格）",
-    "ja": "君のために私はそのプレゼントを買う。（für＝4格／du→？・Für で始める）",
+    "category": "人称代名詞",
+    "ja": "君のために私はそのプレゼントを買う。（Für で始める）",
     "tiles": [
       "Für",
       {
@@ -1113,15 +1628,15 @@ const QUESTIONS = [
       "das Geschenk"
     ],
     "sentence": "Für dich kaufe ich das Geschenk.",
-    "hint": "für は4格。du の4格＝dich。文頭句の後は倒置。",
-    "exp": "für dich（4格）。Für dich(1) kaufe(2) ich …。",
-    "tip": "für＋4格。文頭が前置詞句でも定動詞は2番目。"
+    "hint": "für は決まった格をとる。文頭句の後は倒置。",
+    "exp": "für dich。Für dich(1) kaufe(2) ich …。",
+    "tip": "文頭が前置詞句でも定動詞は2番目。"
   },
   {
     "id": "l6-03",
     "lektion": 6,
-    "category": "人称代名詞（3格）",
-    "ja": "君は彼にその指輪を贈るの？（schenken＝3格に4格を／er→？）",
+    "category": "人称代名詞",
+    "ja": "君は彼にその指輪を贈るの？",
     "tiles": [
       {
         "forms": [
@@ -1143,15 +1658,60 @@ const QUESTIONS = [
       "den Ring"
     ],
     "sentence": "Schenkst du ihm den Ring?",
-    "hint": "schenken の「彼に」＝3格 ihm。",
-    "exp": "er → 3格 ihm。",
-    "tip": "er: 3格 ihm / 4格 ihn。"
+    "hint": "schenken は「（人）に（物）を」。er の変化形は？",
+    "exp": "er → ihm。",
+    "tip": "er: ihm（に）/ ihn（を）。"
   },
   {
     "id": "l6-04",
     "lektion": 6,
-    "category": "前置詞の格支配（3・4格／方向）",
-    "ja": "私はその絵を壁に掛ける。（an＝3・4格／移動＝方向・Wand＝女性）",
+    "category": "人称代名詞",
+    "ja": "この車は私たちにとても気に入っている。",
+    "tiles": [
+      "Dieses Auto",
+      "gefällt",
+      {
+        "forms": [
+          "wir",
+          "uns"
+        ],
+        "answer": "uns"
+      },
+      "sehr",
+      "gut"
+    ],
+    "sentence": "Dieses Auto gefällt uns sehr gut.",
+    "hint": "gefallen は気に入る人をとる。wir の変化形は？",
+    "exp": "wir → uns。",
+    "tip": "wir: uns（に・を同形）。"
+  },
+  {
+    "id": "l6-05",
+    "lektion": 6,
+    "category": "人称代名詞",
+    "ja": "私は彼女に新聞を持っていく。",
+    "tiles": [
+      "Ich",
+      "bringe",
+      {
+        "forms": [
+          "sie",
+          "ihr"
+        ],
+        "answer": "ihr"
+      },
+      "eine Zeitung"
+    ],
+    "sentence": "Ich bringe ihr eine Zeitung.",
+    "hint": "bringen は「（人）に（物）を」。sie（彼女）の変化形は？",
+    "exp": "sie → ihr（に）。",
+    "tip": "sie（彼女）: ihr（に）/ sie（を）。"
+  },
+  {
+    "id": "l6-06",
+    "lektion": 6,
+    "category": "前置詞（3・4格／方向）",
+    "ja": "私はその絵を壁に掛ける。（Wand＝女性）",
     "tiles": [
       "Ich",
       "hänge",
@@ -1167,15 +1727,15 @@ const QUESTIONS = [
       "Wand"
     ],
     "sentence": "Ich hänge das Bild an die Wand.",
-    "hint": "「掛ける（移動）」は方向→4格。女性4格＝die。",
-    "exp": "an die Wand（方向→4格）。",
-    "tip": "3・4格支配は 移動=4格 / 静止=3格。"
+    "hint": "an は移動か静止かで格が変わる。「掛ける」は動き。",
+    "exp": "an die Wand（女性）。",
+    "tip": "3・4格支配は 移動か静止かで決まる。"
   },
   {
-    "id": "l6-05",
+    "id": "l6-07",
     "lektion": 6,
-    "category": "前置詞の格支配（3・4格／位置）",
-    "ja": "その絵は壁に掛かっている。（an＝3・4格／静止＝位置・Wand＝女性）",
+    "category": "前置詞（3・4格／位置）",
+    "ja": "その絵は壁に掛かっている。（Wand＝女性）",
     "tiles": [
       "Das Bild",
       "hängt",
@@ -1190,15 +1750,15 @@ const QUESTIONS = [
       "Wand"
     ],
     "sentence": "Das Bild hängt an der Wand.",
-    "hint": "「掛かっている（位置）」は3格。女性3格＝der。",
-    "exp": "an der Wand（位置→3格）。",
-    "tip": "hängen(自)=位置→3格、hängen(他)=方向→4格。"
+    "hint": "「掛かっている」は静止状態。",
+    "exp": "an der Wand（女性）。",
+    "tip": "hängen(自)＝静止 / hängen(他)＝移動。"
   },
   {
-    "id": "l6-06",
+    "id": "l6-08",
     "lektion": 6,
-    "category": "前置詞の格支配（3・4格／位置）",
-    "ja": "私のおじは街に住んでいる。（in＝3・4格／位置・Stadt＝女性）",
+    "category": "前置詞（3・4格／位置）",
+    "ja": "私のおじは街に住んでいる。（Stadt＝女性）",
     "tiles": [
       "Mein Onkel",
       "wohnt",
@@ -1213,15 +1773,66 @@ const QUESTIONS = [
       "Stadt"
     ],
     "sentence": "Mein Onkel wohnt in der Stadt.",
-    "hint": "wohnen は位置→3格。",
-    "exp": "in der Stadt（位置→3格）。",
-    "tip": "wohnen/sein/bleiben は3格。"
+    "hint": "wohnen は静止状態。",
+    "exp": "in der Stadt（女性）。",
+    "tip": "wohnen/sein/bleiben は静止。"
   },
   {
-    "id": "l6-07",
+    "id": "l6-09",
     "lektion": 6,
-    "category": "前置詞と定冠詞の融合形",
-    "ja": "彼は劇場へ行く。（in＋das の融合形は？／移動・Theater＝中性）",
+    "category": "前置詞（3・4格／方向）",
+    "ja": "オットーはバッグを椅子の上に置く。（Stuhl＝男性）",
+    "tiles": [
+      "Otto",
+      "legt",
+      "seine Tasche",
+      "auf",
+      {
+        "forms": [
+          "der",
+          "des",
+          "dem",
+          "den"
+        ],
+        "answer": "den"
+      },
+      "Stuhl"
+    ],
+    "sentence": "Otto legt seine Tasche auf den Stuhl.",
+    "hint": "legen（置く）は動き。男性。",
+    "exp": "auf den Stuhl（男性）。",
+    "tip": "legen＝移動、liegen＝静止。"
+  },
+  {
+    "id": "l6-10",
+    "lektion": 6,
+    "category": "前置詞（3・4格／位置）",
+    "ja": "私のバッグは椅子の上に置いてある。（Stuhl＝男性）",
+    "tiles": [
+      "Meine Tasche",
+      "liegt",
+      "auf",
+      {
+        "forms": [
+          "der",
+          "des",
+          "dem",
+          "den"
+        ],
+        "answer": "dem"
+      },
+      "Stuhl"
+    ],
+    "sentence": "Meine Tasche liegt auf dem Stuhl.",
+    "hint": "liegen（置いてある）は静止。男性。",
+    "exp": "auf dem Stuhl（男性）。",
+    "tip": "liegen は静止状態。"
+  },
+  {
+    "id": "l6-11",
+    "lektion": 6,
+    "category": "融合形",
+    "ja": "彼は劇場へ行く。（Theater＝中性）",
     "tiles": [
       "Er",
       "geht",
@@ -1235,15 +1846,37 @@ const QUESTIONS = [
       "Theater"
     ],
     "sentence": "Er geht ins Theater.",
-    "hint": "移動→4格。in＋das＝ins。",
-    "exp": "ins ＝ in das（中性4格・方向）。",
-    "tip": "-s 終わりの融合形(ins/ans)は4格。"
+    "hint": "「劇場へ行く」は移動。in＋das の融合形は？",
+    "exp": "ins ＝ in das（中性・移動）。",
+    "tip": "-s 終わりの融合形(ins/ans)は移動。"
   },
   {
-    "id": "l6-08",
+    "id": "l6-12",
     "lektion": 6,
-    "category": "前置詞と定冠詞の融合形",
-    "ja": "中央駅へはどう行きますか？（zu＋dem の融合形は？／Hauptbahnhof＝男性）",
+    "category": "融合形",
+    "ja": "アンナは海へ行く。（Meer＝中性）",
+    "tiles": [
+      "Anna",
+      "fährt",
+      {
+        "forms": [
+          "am",
+          "ans"
+        ],
+        "answer": "ans"
+      },
+      "Meer"
+    ],
+    "sentence": "Anna fährt ans Meer.",
+    "hint": "「海へ行く」は移動。an＋das の融合形は？",
+    "exp": "ans ＝ an das（中性・移動）。",
+    "tip": "ans Meer（海へ）/ am Meer（海辺で）。"
+  },
+  {
+    "id": "l6-13",
+    "lektion": 6,
+    "category": "融合形",
+    "ja": "中央駅へはどう行きますか？（Hauptbahnhof＝男性）",
     "tiles": [
       "Wie",
       "kommen",
@@ -1258,15 +1891,15 @@ const QUESTIONS = [
       "Hauptbahnhof"
     ],
     "sentence": "Wie kommen wir zum Hauptbahnhof?",
-    "hint": "zu＋dem＝zum。",
-    "exp": "zum ＝ zu dem（男性3格）。",
-    "tip": "zu は常に3格支配。"
+    "hint": "zu＋dem の融合形は？",
+    "exp": "zum ＝ zu dem（男性）。",
+    "tip": "zu は常にこの格をとる。"
   },
   {
-    "id": "l6-09",
+    "id": "l6-14",
     "lektion": 6,
-    "category": "前置詞と定冠詞の融合形",
-    "ja": "妹はよく学校へ行く。（zu＋der の融合形は？／Schule＝女性）",
+    "category": "融合形",
+    "ja": "妹はよく学校へ行く。（Schule＝女性）",
     "tiles": [
       "Meine Schwester",
       "geht",
@@ -1281,26 +1914,26 @@ const QUESTIONS = [
       "Schule"
     ],
     "sentence": "Meine Schwester geht oft zur Schule.",
-    "hint": "zu＋der＝zur。",
-    "exp": "zur ＝ zu der（女性3格）。",
-    "tip": "zur Schule / zur Arbeit など定型。"
+    "hint": "zu＋der の融合形は？",
+    "exp": "zur ＝ zu der（女性）。",
+    "tip": "zur Schule / zur Arbeit。"
   },
   {
-    "id": "l6-10",
+    "id": "l6-15",
     "lektion": 6,
     "category": "語順（前置詞句）",
     "ja": "私の兄は映画館の前で私を待っています。（vor dem Kino＝映画館の前で, auf mich＝私を）",
     "chips": "Mein Bruder / wartet / vor dem Kino / auf mich",
     "sentence": "Mein Bruder wartet vor dem Kino auf mich.",
-    "hint": "warten auf＋4格「〜を待つ」。",
-    "exp": "vor dem Kino（位置3格）/ auf mich（4格）。",
+    "hint": "warten auf＋人「〜を待つ」。",
+    "exp": "vor dem Kino / auf mich。",
     "tip": "warten auf＋4格 は熟語。"
   },
   {
     "id": "l7-01",
     "lektion": 7,
     "category": "話法の助動詞（変化）",
-    "ja": "彼はいくら払わなければならない？（müssen＝ねばならない／3人称単数・本動詞 bezahlen は文末）",
+    "ja": "彼はいくら払わなければならない？",
     "tiles": [
       "Wie viel",
       {
@@ -1315,15 +1948,15 @@ const QUESTIONS = [
       "bezahlen"
     ],
     "sentence": "Wie viel muss er bezahlen?",
-    "hint": "müssen: er muss。本動詞は不定詞で文末。",
-    "exp": "muss …（…）… bezahlen。助動詞は2位・本動詞は文末。",
-    "tip": "話法の助動詞は ich/er で語尾なし（muss）。"
+    "hint": "müssen（ねばならない）。er→muss。本動詞は文末。",
+    "exp": "muss … bezahlen。",
+    "tip": "助動詞は ich/er で語尾なし（muss）。"
   },
   {
     "id": "l7-02",
     "lektion": 7,
     "category": "話法の助動詞（変化）",
-    "ja": "ここで写真を撮ってもいいですか？（dürfen＝してよい／ich・本動詞 fotografieren は文末）",
+    "ja": "ここで写真を撮ってもいいですか？",
     "tiles": [
       {
         "forms": [
@@ -1338,15 +1971,15 @@ const QUESTIONS = [
       "fotografieren"
     ],
     "sentence": "Darf ich hier fotografieren?",
-    "hint": "dürfen: ich darf。",
-    "exp": "Darf ich … fotografieren?（許可を尋ねる）。",
-    "tip": "dürfen は「許可」。否定で「禁止」。"
+    "hint": "dürfen（してよい）。ich→darf。",
+    "exp": "Darf ich … fotografieren?",
+    "tip": "dürfen は許可。否定で禁止。"
   },
   {
     "id": "l7-03",
     "lektion": 7,
     "category": "話法の助動詞（変化）",
-    "ja": "いいえ、ここでは写真を撮ってはいけません。（dürfen／Sie・nicht）",
+    "ja": "いいえ、ここでは写真を撮ってはいけません。",
     "tiles": [
       "Sie",
       {
@@ -1362,15 +1995,15 @@ const QUESTIONS = [
       "fotografieren"
     ],
     "sentence": "Sie dürfen hier nicht fotografieren.",
-    "hint": "Sie→dürfen。dürfen＋nicht＝禁止。",
+    "hint": "dürfen。Sie→dürfen。dürfen＋nicht＝禁止。",
     "exp": "dürfen nicht ＝「〜してはいけない」。",
-    "tip": "nicht dürfen は禁止を表す。"
+    "tip": "nicht dürfen は禁止。"
   },
   {
     "id": "l7-04",
     "lektion": 7,
     "category": "話法の助動詞（変化）",
-    "ja": "君は本当のことを言うべきだ。（sollen＝すべき／du・本動詞 sagen は文末）",
+    "ja": "君は本当のことを言うべきだ。",
     "tiles": [
       "Du",
       {
@@ -1385,37 +2018,62 @@ const QUESTIONS = [
       "sagen"
     ],
     "sentence": "Du sollst die Wahrheit sagen.",
-    "hint": "sollen: du sollst。",
+    "hint": "sollen（すべき）。du→sollst。",
     "exp": "sollst … sagen。",
-    "tip": "sollen＝他者の意志「すべき」。"
+    "tip": "sollen＝他者の意志。"
   },
   {
     "id": "l7-05",
     "lektion": 7,
-    "category": "助動詞構文の語順",
-    "ja": "私の兄はドイツ文学を専攻するつもりだ。（wollen／本動詞 studieren は文末）",
-    "chips": "Mein Bruder / will / Germanistik / studieren",
-    "sentence": "Mein Bruder will Germanistik studieren.",
-    "hint": "助動詞が2位、本動詞（不定詞）は文末。",
-    "exp": "will … Germanistik studieren。",
-    "tip": "助動詞構文は「枠構造」（助動詞…不定詞）。"
+    "category": "話法の助動詞（変化）",
+    "ja": "彼は流暢に日本語を話せます。",
+    "tiles": [
+      "Franz",
+      {
+        "forms": [
+          "kann",
+          "kannst",
+          "können"
+        ],
+        "answer": "kann"
+      },
+      "fließend",
+      "Japanisch",
+      "sprechen"
+    ],
+    "sentence": "Franz kann fließend Japanisch sprechen.",
+    "hint": "können（できる）。er→kann。本動詞は文末。",
+    "exp": "kann … sprechen。",
+    "tip": "können＝能力・可能。"
   },
   {
     "id": "l7-06",
     "lektion": 7,
-    "category": "助動詞構文の語順",
-    "ja": "私はピアノを弾きたい。（möchte＝したい／本動詞 spielen は文末）",
-    "chips": "Ich / möchte / Klavier / spielen",
-    "sentence": "Ich möchte Klavier spielen.",
-    "hint": "möchte＋不定詞（文末）。",
-    "exp": "möchte … spielen。",
-    "tip": "möchte は「〜したい」の丁寧な願望。"
+    "category": "話法の助動詞（変化）",
+    "ja": "エリカは政治学を専攻するつもりだ。",
+    "tiles": [
+      "Erika",
+      {
+        "forms": [
+          "will",
+          "willst",
+          "wollen"
+        ],
+        "answer": "will"
+      },
+      "Politik",
+      "studieren"
+    ],
+    "sentence": "Erika will Politik studieren.",
+    "hint": "wollen（つもり）。sie→will。",
+    "exp": "will … studieren。",
+    "tip": "wollen＝自分の意志。"
   },
   {
     "id": "l7-07",
     "lektion": 7,
-    "category": "助動詞構文の語順",
-    "ja": "君たちは今日歩いて大学へ行かなければならない。（müssen／ihr・本動詞 gehen は文末）",
+    "category": "話法の助動詞（変化）",
+    "ja": "君たちは今日歩いて大学へ行かなければならない。",
     "tiles": [
       "Ihr",
       {
@@ -1432,15 +2090,15 @@ const QUESTIONS = [
       "gehen"
     ],
     "sentence": "Ihr müsst heute zu Fuß zur Uni gehen.",
-    "hint": "müssen: ihr müsst。本動詞 gehen は文末。",
-    "exp": "müsst … zur Uni gehen。",
+    "hint": "müssen。ihr→müsst。本動詞 gehen は文末。",
+    "exp": "müsst … gehen。",
     "tip": "ihr の助動詞語尾は -t（müsst, könnt）。"
   },
   {
     "id": "l7-08",
     "lektion": 7,
-    "category": "助動詞構文の語順",
-    "ja": "君は毎日よく眠れる？（können＝できる／du・本動詞 schlafen は文末）",
+    "category": "話法の助動詞（変化）",
+    "ja": "君は毎日よく眠れる？",
     "tiles": [
       {
         "forms": [
@@ -1456,12 +2114,45 @@ const QUESTIONS = [
       "schlafen"
     ],
     "sentence": "Kannst du jeden Tag gut schlafen?",
-    "hint": "können: du kannst。",
+    "hint": "können。du→kannst。",
     "exp": "Kannst du … schlafen?",
-    "tip": "können＝能力・可能「できる」。"
+    "tip": "本動詞は不定詞で文末。"
   },
   {
     "id": "l7-09",
+    "lektion": 7,
+    "category": "助動詞構文の語順",
+    "ja": "私の兄はドイツ文学を専攻するつもりだ。",
+    "chips": "Mein Bruder / will / Germanistik / studieren",
+    "sentence": "Mein Bruder will Germanistik studieren.",
+    "hint": "助動詞が2位、本動詞（不定詞）は文末。",
+    "exp": "will … Germanistik studieren。",
+    "tip": "助動詞構文は「枠構造」。"
+  },
+  {
+    "id": "l7-10",
+    "lektion": 7,
+    "category": "助動詞構文の語順",
+    "ja": "私はピアノを弾きたい。",
+    "chips": "Ich / möchte / Klavier / spielen",
+    "sentence": "Ich möchte Klavier spielen.",
+    "hint": "möchte（したい）＋不定詞（文末）。",
+    "exp": "möchte … spielen。",
+    "tip": "möchte は丁寧な「〜したい」。"
+  },
+  {
+    "id": "l7-11",
+    "lektion": 7,
+    "category": "助動詞構文の語順",
+    "ja": "私は写真を撮りたい。",
+    "chips": "Ich / möchte / ein Foto / machen",
+    "sentence": "Ich möchte ein Foto machen.",
+    "hint": "möchte＋不定詞（文末）。",
+    "exp": "möchte … machen。",
+    "tip": "本動詞は原形で文末。"
+  },
+  {
+    "id": "l7-12",
     "lektion": 7,
     "category": "話法の助動詞（意味）",
     "ja": "話法の助動詞 müssen の意味は？",
@@ -1473,11 +2164,11 @@ const QUESTIONS = [
     ],
     "answer": 0,
     "hint": "義務・必要。",
-    "exp": "müssen＝〜しなければならない（必要・義務）。",
+    "exp": "müssen＝〜しなければならない。",
     "tip": "müssen↔dürfen（必要↔許可）。"
   },
   {
-    "id": "l7-10",
+    "id": "l7-13",
     "lektion": 7,
     "category": "話法の助動詞（意味）",
     "ja": "話法の助動詞 dürfen の意味は？",
@@ -1489,11 +2180,27 @@ const QUESTIONS = [
     ],
     "answer": 0,
     "hint": "許可。否定で禁止。",
-    "exp": "dürfen＝〜してよい（許可）。",
+    "exp": "dürfen＝〜してよい。",
     "tip": "können（能力）と区別。"
   },
   {
-    "id": "l7-11",
+    "id": "l7-14",
+    "lektion": 7,
+    "category": "話法の助動詞（意味）",
+    "ja": "話法の助動詞 können の意味は？",
+    "choices": [
+      "〜できる（能力・可能）",
+      "〜しなければならない",
+      "〜してもよい",
+      "〜すべきだ"
+    ],
+    "answer": 0,
+    "hint": "能力・可能。",
+    "exp": "können＝〜できる。",
+    "tip": "dürfen（許可）と区別。"
+  },
+  {
+    "id": "l7-15",
     "lektion": 7,
     "category": "話法の助動詞（意味）",
     "ja": "話法の助動詞 wollen の意味は？",
@@ -1505,11 +2212,27 @@ const QUESTIONS = [
     ],
     "answer": 0,
     "hint": "主語自身の強い意志。",
-    "exp": "wollen＝〜するつもりだ（自分の意志）。",
-    "tip": "wollen（自分の意志）↔sollen（他者の意志）。"
+    "exp": "wollen＝〜するつもりだ。",
+    "tip": "wollen↔sollen（自分↔他者の意志）。"
   },
   {
-    "id": "l7-12",
+    "id": "l7-16",
+    "lektion": 7,
+    "category": "話法の助動詞（意味）",
+    "ja": "話法の助動詞 sollen の意味は？",
+    "choices": [
+      "〜すべきだ（他者の意志）",
+      "〜したい",
+      "〜できる",
+      "〜してもよい"
+    ],
+    "answer": 0,
+    "hint": "他者の意志・指示。",
+    "exp": "sollen＝〜すべきだ。",
+    "tip": "wollen（自分の意志）と対比。"
+  },
+  {
+    "id": "l7-17",
     "lektion": 7,
     "category": "話法の助動詞（意味）",
     "ja": "「〜したい」という願望を表す助動詞は？",
@@ -1521,8 +2244,8 @@ const QUESTIONS = [
     ],
     "answer": 0,
     "hint": "mögen の接続法II式。",
-    "exp": "möchte＝〜したい（控えめな願望）。",
-    "tip": "Ich möchte … は丁寧な「〜したい」。"
+    "exp": "möchte＝〜したい。",
+    "tip": "Ich möchte … は丁寧な願望。"
   },
   {
     "id": "l8-01",
@@ -1655,8 +2378,40 @@ const QUESTIONS = [
   {
     "id": "l8-09",
     "lektion": 8,
+    "category": "格支配の総合",
+    "ja": "fragen（〜に質問する）が取る格は？",
+    "choices": [
+      "4格",
+      "3格",
+      "3格＋4格",
+      "2格"
+    ],
+    "answer": 0,
+    "hint": "日本語の「に」につられない。",
+    "exp": "fragen は4格。",
+    "tip": "fragen↔antworten（4格↔3格）。"
+  },
+  {
+    "id": "l8-10",
+    "lektion": 8,
+    "category": "格支配の総合",
+    "ja": "zeigen（〜に〜を見せる）が取る格は？",
+    "choices": [
+      "3格＋4格",
+      "4格のみ",
+      "3格のみ",
+      "2格"
+    ],
+    "answer": 0,
+    "hint": "「人に物を」。",
+    "exp": "zeigen は3格＋4格。",
+    "tip": "見せる相手＝3格、見せる物＝4格。"
+  },
+  {
+    "id": "l8-11",
+    "lektion": 8,
     "category": "冠詞の格変換",
-    "ja": "「Ich besuche einen Freund.」の einen を定冠詞にすると？（Freund＝男性4格）",
+    "ja": "「Ich besuche einen Freund.」の einen を定冠詞にすると？（Freund＝男性）",
     "choices": [
       "den",
       "der",
@@ -1669,7 +2424,7 @@ const QUESTIONS = [
     "tip": "男性4格は der→den / ein→einen。"
   },
   {
-    "id": "l8-10",
+    "id": "l8-12",
     "lektion": 8,
     "category": "格の判定",
     "ja": "「Ich danke dem Lehrer.」の dem Lehrer は何格？",
@@ -1685,7 +2440,7 @@ const QUESTIONS = [
     "tip": "男性3格の定冠詞は dem。"
   },
   {
-    "id": "l8-11",
+    "id": "l8-13",
     "lektion": 8,
     "category": "全格パラダイム",
     "ja": "不定冠詞 ein（男性名詞）の 1格→2格→3格→4格 は？",
@@ -1701,7 +2456,7 @@ const QUESTIONS = [
     "tip": "男性4格だけ語尾 -en（einen）。"
   },
   {
-    "id": "l8-12",
+    "id": "l8-14",
     "lektion": 8,
     "category": "格支配の総合",
     "ja": "loben（〜を褒める）が取る格は？",
