@@ -54,7 +54,7 @@ const VERBS_VOCAB_EXTRA = [
 const MODALS = [
   { de: 'dürfen', ja: '〜してもよい（許可）', er: 'darf' },
   { de: 'können', ja: '〜できる（能力・可能）', er: 'kann' },
-  { de: 'mögen', ja: '〜を好む', er: 'mag' },
+  { de: 'mögen', ja: '〜かもしれない（推量）／〜を好む', er: 'mag' },
   { de: 'müssen', ja: '〜しなければならない', er: 'muss' },
   { de: 'sollen', ja: '〜すべきだ', er: 'soll' },
   { de: 'wollen', ja: '〜するつもりだ（意志）', er: 'will' },
